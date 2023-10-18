@@ -1,6 +1,11 @@
 public class Hammer extends Weapon {
+
+    private  static final String name = "Hammer";
+    private  static final double damage = 10;
+    private  static final double price = 50;
+    
     public Hammer(int id) {
-        super(id, "Hammer", 10, 50);
+        super(id, name, damage, price);
     }
 
     public String ascii_art() {
