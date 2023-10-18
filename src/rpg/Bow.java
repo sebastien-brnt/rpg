@@ -1,3 +1,5 @@
+package rpg;
+
 public class Bow extends Weapon {
 
     private  static final String name = "Bow";

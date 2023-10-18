@@ -1,17 +1,37 @@
+package rpg;
+
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements ActionsPlayer {
     private String name;
+    private double pv;
     private double money;
     private ArrayList<Weapon> weaponList = new ArrayList<>();
 
-    public Player(String name, double money) {
+    public Player(String name, double pv, double money) {
         this.name = name;
+        this.pv = pv;
         this.money = money;
     }
 
     public String getName() {
         return this.name;
+    }
+
+    public double getPv() {
+        return this.pv;
+    }
+
+    public void removePv(double hit) {
+        this.pv = this.pv - hit;
+    }
+
+    public void attackMonster(Monster monster, Weapon weapon) {
+        monster.removePv(weapon.getDamage());
+    }
+
+    public void attackObstacle(Obstacle obstacle, Weapon weapon) {
+        obstacle.removePv(weapon.getDamage());
     }
 
     public ArrayList<Weapon> getWeaponList() {

@@ -1,3 +1,5 @@
+package rpg;
+
 public class Axe extends Weapon {
     private  static final String name = "Axe";
     private  static final double damage = 35;

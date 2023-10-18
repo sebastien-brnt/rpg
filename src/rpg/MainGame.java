@@ -1,9 +1,11 @@
-import java.util.ArrayList;
+package rpg;
 
 public class MainGame {
     public static void main(String[] args) {
 
-        Player player = new Player("Sébastien", 150);
+        Player player = new Player("Sébastien", 100, 150);
+        Monster monster1 = new Monster("Monster 1", 100, 15);
+        Monster monster2 = new Monster("Monster 2", 100, 15);
 
         WeaponStore store = new WeaponStore();
         System.out.println("\n================================");

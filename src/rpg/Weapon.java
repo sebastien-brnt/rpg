@@ -1,3 +1,5 @@
+package rpg;
+
 public abstract class Weapon {
     private int id;
     private String name;
