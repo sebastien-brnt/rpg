@@ -1,4 +1,7 @@
-package rpg;
+package rpg.weapons;
+
+import rpg.destructible.Monster;
+import rpg.destructible.Obstacle;
 
 public abstract class Weapon {
     private int id;
@@ -43,4 +46,9 @@ public abstract class Weapon {
     }
 
     public abstract String ascii_art();
+
+    public abstract void attackMonster(Monster m);
+
+    public abstract void attackObstacle(Obstacle o);
+
 }

@@ -1,4 +1,9 @@
-package rpg;
+package rpg.store;
+
+import rpg.weapons.Axe;
+import rpg.weapons.Bow;
+import rpg.weapons.Hammer;
+import rpg.weapons.Weapon;
 
 import java.util.ArrayList;
 

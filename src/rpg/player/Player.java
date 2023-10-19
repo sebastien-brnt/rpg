@@ -1,4 +1,9 @@
-package rpg;
+package rpg.player;
+
+import rpg.store.WeaponStore;
+import rpg.destructible.Monster;
+import rpg.destructible.Obstacle;
+import rpg.weapons.Weapon;
 
 import java.util.ArrayList;
 
@@ -27,11 +32,11 @@ public class Player implements ActionsPlayer {
     }
 
     public void attackMonster(Monster monster, Weapon weapon) {
-        monster.removePv(weapon.getDamage());
+        monster.hit_me(weapon.getDamage());
     }
 
     public void attackObstacle(Obstacle obstacle, Weapon weapon) {
-        obstacle.removePv(weapon.getDamage());
+        obstacle.hit_me(weapon.getDamage());
     }
 
     public ArrayList<Weapon> getWeaponList() {

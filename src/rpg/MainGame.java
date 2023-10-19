@@ -1,5 +1,9 @@
 package rpg;
 
+import rpg.destructible.Monster;
+import rpg.player.Player;
+import rpg.store.WeaponStore;
+
 public class MainGame {
     public static void main(String[] args) {
 

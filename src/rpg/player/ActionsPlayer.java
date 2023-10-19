@@ -1,4 +1,7 @@
-package rpg;
+package rpg.player;
+
+import rpg.store.WeaponStore;
+import rpg.weapons.Weapon;
 
 public interface ActionsPlayer {
 
