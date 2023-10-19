@@ -1,5 +1,6 @@
 package rpg.weapons;
 
+import rpg.destructible.Destructible;
 import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
 
@@ -24,11 +25,11 @@ public class Axe extends Weapon {
                 "  ||       \n";
     }
 
-    public void attackMonster(Monster m) {
-        m.hit_me(damage * MONSTER_DAMAGE_RATIO);
-    }
-
-    public void attackObstacle(Obstacle o) {
-        o. hit_me(damage * OBSTACLE_DAMAGE_RATIO) ;
+    public void attack(Destructible destructible) {
+        if (destructible instanceof Obstacle) {
+            destructible.hit_me(damage * OBSTACLE_DAMAGE_RATIO);
+        } else {
+            destructible.hit_me(damage * MONSTER_DAMAGE_RATIO);
+        }
     }
 }

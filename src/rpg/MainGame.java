@@ -25,6 +25,7 @@ public class MainGame {
         System.out.println("\n===================== ACTIONS ==========================");
         player.buyWeapon(store, store.getWeaponOfStore(3));
         player.buyWeapon(store, store.getWeaponOfStore(1));
+        System.out.println(monster1.getPv());
         System.out.println("==========================================================\n");
 
         System.out.println("================================");

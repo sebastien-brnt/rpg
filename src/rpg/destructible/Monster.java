@@ -3,10 +3,12 @@ package rpg.destructible;
 import rpg.player.Player;
 
 public class Monster extends Destructible {
+
+    public static double PV = 150;
     private double hit;
 
-    public Monster(String name, double pv, double hit) {
-        super(name, pv);
+    public Monster(String name, double hit) {
+        super(name, PV);
         this.hit = hit;
     }
 
