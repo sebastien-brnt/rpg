@@ -11,9 +11,9 @@ public class WeaponStore {
     private ArrayList<Weapon> weaponList = new ArrayList<>();
 
     public WeaponStore() {
-        Weapon hammer = new Hammer(1);
-        Weapon axe = new Axe(2);
-        Weapon bow = new Bow(3);
+        Weapon hammer = new Hammer("1");
+        Weapon axe = new Axe("2");
+        Weapon bow = new Bow("3");
 
         this.weaponList.add(hammer);
         this.weaponList.add(axe);
@@ -24,9 +24,9 @@ public class WeaponStore {
         return weaponList;
     }
 
-    public Weapon getWeaponOfStore(int id) {
+    public Weapon getWeaponOfStore(String id) {
         for(Weapon weapon : weaponList) {
-            if(weapon.getId() == id) {
+            if(weapon.getId().equals(id)) {
                 return weapon;
             }
         }
@@ -37,7 +37,7 @@ public class WeaponStore {
         ArrayList<Weapon> weaponsToRemove = new ArrayList<>();
 
         for (Weapon w : weaponList) {
-            if (w.getId() == weapon.getId()) {
+            if (w.getId().equals(weapon.getId())) {
                 weaponsToRemove.add(w);
             }
         }

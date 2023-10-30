@@ -5,19 +5,19 @@ import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
 
 public abstract class Weapon {
-    private int id;
+    private String id;
     private String name;
     private double damage;
     private double price;
 
-    public Weapon(int id, String name, double damage, double price) {
+    public Weapon(String id, String name, double damage, double price) {
         this.id = id;
         this.name = name;
         this.damage = damage;
         this.price = price;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

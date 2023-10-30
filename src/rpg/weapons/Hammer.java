@@ -13,7 +13,7 @@ public class Hammer extends Weapon {
     static final double OBSTACLE_DAMAGE_RATIO = 1;
 
 
-    public Hammer(int id) {
+    public Hammer(String id) {
         super(id, name, damage, price);
     }
 

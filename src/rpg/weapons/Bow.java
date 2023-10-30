@@ -12,7 +12,7 @@ public class Bow extends Weapon {
     static final double MONSTER_DAMAGE_RATIO = 1.2;
     static final double OBSTACLE_DAMAGE_RATIO = 1;
 
-    public Bow(int id) {
+    public Bow(String id) {
         super(id, name, damage, price);
     }
 

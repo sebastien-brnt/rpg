@@ -27,6 +27,14 @@ public class Player implements ActionsPlayer {
         return this.pv;
     }
 
+    public double getMoney() {
+        return this.money;
+    }
+
+    public void addMoney(int value) {
+         this.pv += value;
+    }
+
     public void removePv(double hit) {
         this.pv = this.pv - hit;
     }
@@ -49,12 +57,12 @@ public class Player implements ActionsPlayer {
                 this.money -= weapon.getPrice();
                 this.weaponList.add(weapon);
                 store.RemoveWeapon(weapon);
-                System.out.println(this.name + " has " + this.money + " after purchasing : " + weapon.getName() + " for " + weapon.getPrice() + "$");
+                System.out.println(this.name + ", il vous reste " + this.money + "$ après l'achat de : " + weapon.getName() + " pour " + weapon.getPrice() + "$");
             } else {
-                System.out.println(this.name + " do not have enough money to buy this ! (money : " + this.money + "$, price : " + weapon.getPrice() + "$)");
+                System.out.println(this.name + ", Tu n'a pas assez d'argent pour acheter cela (argent : " + this.money + "$, prix : " + weapon.getPrice() + "$)");
             }
         } else {
-            System.out.println(this.name + ", this weapon is not available in this store...");
+            System.out.println(this.name + ", cette arme n'est pas disponible dans la boutique...");
         }
     }
 

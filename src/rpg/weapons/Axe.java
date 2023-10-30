@@ -12,7 +12,7 @@ public class Axe extends Weapon {
     static final double MONSTER_DAMAGE_RATIO = 0.8;
     static final double OBSTACLE_DAMAGE_RATIO = 1.3;
 
-    public Axe(int id) {
+    public Axe(String id) {
         super(id, name, damage, price);
     }
 
