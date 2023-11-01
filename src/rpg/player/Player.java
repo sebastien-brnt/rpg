@@ -31,8 +31,8 @@ public class Player implements ActionsPlayer {
         return this.money;
     }
 
-    public void addMoney(int value) {
-         this.pv += value;
+    public void addMoney(double value) {
+         this.money += value;
     }
 
     public void removePv(double hit) {
@@ -62,7 +62,7 @@ public class Player implements ActionsPlayer {
                 System.out.println(this.name + ", Tu n'a pas assez d'argent pour acheter cela (argent : " + this.money + "$, prix : " + weapon.getPrice() + "$)");
             }
         } else {
-            System.out.println(this.name + ", cette arme n'est pas disponible dans la boutique...");
+            System.out.println("Désolé " + this.name + ", cette arme n'est pas disponible dans la boutique...");
         }
     }
 
