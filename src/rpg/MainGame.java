@@ -1,6 +1,8 @@
 package rpg;
 
+import rpg.destructible.Destructible;
 import rpg.destructible.Monster;
+import rpg.destructible.Obstacle;
 import rpg.player.Player;
 import rpg.store.WeaponStore;
 import rpg.weapons.Weapon;
@@ -34,7 +36,14 @@ public class MainGame {
         Scanner scanner = new Scanner(System.in);
 
         Monster monster1 = new Monster("Monster 1", 15);
-        Monster monster2 = new Monster("Monster 2", 15);
+        Monster monster2 = new Monster("Monster 2", 25);
+        Monster monster3 = new Monster("Monster 2", 20);
+        Monster monster4 = new Monster("Monster 4", 45);
+        Obstacle rock = new Obstacle("Rocher");
+        Obstacle rock2 = new Obstacle("Rocher");
+        Obstacle rock3 = new Obstacle("Rocher");
+        Obstacle tree = new Obstacle("Arbre");
+        Obstacle tree2 = new Obstacle("Arbre");
 
         for (int i = 0; i < 3; i++) {
             System.out.println();
@@ -46,7 +55,7 @@ public class MainGame {
         System.out.print("Comment vous appelez vous ? ");
         String name = scanner.nextLine();
 
-        Player player = new Player(name, 100, 150);
+        Player player = new Player(name, 100, 150, 0);
 
         Thread.sleep(300);
         System.out.println("\nEnchanté " + ANSI_BLUE + name +  ANSI_RESET + ", vous possédé désormais " + ANSI_BLUE + "100 PV" + ANSI_RESET + " ainsi que " + ANSI_BLUE + "150$" + ANSI_RESET + " !");
@@ -94,23 +103,23 @@ public class MainGame {
         int posY = 0;
 
         // Initialisation de la map
-        String[][] map = {
+        Object[][] map = {
                 {mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall},
-                { mapWall, mapMoney, mapWall, mapMoney, "[ ]", mapObstacle, "[ ]", "[ ]", mapMoney, mapWall},
-                {mapWall, "[ ]", mapWall, mapWall, "[ ]", mapMonster, "[ ]", "[ ]", "[ ]", mapWall},
-                {mapWall, "[ ]", "[ ]", mapWall, "[ ]", "[ ]", mapWall, mapWall, mapMonster, mapWall},
-                {mapWall, mapWall, mapObstacle, mapWall, "[ ]", "[ ]", mapWall, "[ ]", "[ ]", mapWall},
+                { mapWall, mapMoney, mapWall, mapMoney, "[ ]", rock3, "[ ]", "[ ]", mapMoney, mapWall},
+                {mapWall, "[ ]", mapWall, mapWall, "[ ]", monster2, "[ ]", "[ ]", "[ ]", mapWall},
+                {mapWall, "[ ]", "[ ]", mapWall, "[ ]", "[ ]", mapWall, mapWall, monster3, mapWall},
+                {mapWall, mapWall, rock, mapWall, "[ ]", "[ ]", mapWall, "[ ]", "[ ]", mapWall},
                 {mapWall, "[ ]", "[ ]", mapWall, "[ ]", mapWall, mapWall, "[ ]", "[ ]", mapWall},
-                {mapWall, mapObstacle, mapMonster, mapWall, "[ ]", mapWall, "[ ]", "[ ]", "[ ]", mapWall},
-                {mapWall, "[ ]", "[ ]", mapObstacle, mapObstacle, mapWall, "[ ]", mapWall, mapWall, mapWall},
-                {mapWall, mapMoney, mapWall, "[ ]", mapStore, mapWall, mapMoney, "[ ]", mapMonster, "[ ]"},
+                {mapWall, tree, monster1, mapWall, "[ ]", mapWall, "[ ]", "[ ]", "[ ]", mapWall},
+                {mapWall, "[ ]", "[ ]", tree2, rock2, mapWall, "[ ]", mapWall, mapWall, mapWall},
+                {mapWall, mapMoney, mapWall, "[ ]", mapStore, mapWall, mapMoney, "[ ]", monster4, "[ ]"},
                 {mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapFinish}
         };
 
 
         map[posX][posY] = mapPlayer;
 
-        String mapBuffer = "";
+        Object mapBuffer = "";
 
         while (!mapBuffer.equals(mapFinish)) {
             System.out.println();
@@ -124,26 +133,32 @@ public class MainGame {
             }
 
             System.out.println("\nCommandes disponibles :");
-            if (!(posX + 1 > MAP_SIZE - 1) && !(map[posX + 1][posY]).equals(mapWall) && !(map[posX + 1][posY]).equals(mapObstacle)) {
+            if (!(posX + 1 > MAP_SIZE - 1) && !(map[posX + 1][posY]).equals(mapWall) && !(map[posX + 1][posY] instanceof Destructible) ) {
                 System.out.println("S (bas)");
             }
-            if ((posY - 1) >= 0 && !(map[posX][posY - 1]).equals(mapWall) && !(map[posX][posY - 1]).equals(mapObstacle)) {
+            if ((posY - 1) >= 0 && !(map[posX][posY - 1]).equals(mapWall) && !(map[posX][posY - 1] instanceof Destructible) ) {
                 System.out.println("Q (gauche)");
             }
-            if (!(posY + 1 > MAP_SIZE - 1) && !(map[posX][posY + 1]).equals(mapWall) && !(map[posX][posY + 1]).equals(mapObstacle)) {
+            if (!(posY + 1 > MAP_SIZE - 1) && !(map[posX][posY + 1]).equals(mapWall) && !(map[posX][posY + 1] instanceof Destructible) ) {
                 System.out.println("D (droite)");
             }
-            if ((posX - 1) >= 0 && !(map[posX - 1][posY]).equals(mapWall) && !(map[posX - 1][posY]).equals(mapObstacle)) {
+            if ((posX - 1) >= 0 && !(map[posX - 1][posY]).equals(mapWall) && !(map[posX - 1][posY] instanceof Destructible) ) {
                 System.out.println("Z (haut)");
             }
             if (mapBuffer.equals(mapMoney)) {
                 System.out.println("R (Ramasser de l'argent)");
             }
-            if ( (!(posX + 1 > MAP_SIZE - 1) && map[posX + 1][posY].equals(mapObstacle)) ||
-                 ((posX - 1) >= 0 && map[posX - 1][posY].equals(mapObstacle)) ||
-                 (!(posY + 1 > MAP_SIZE - 1) && map[posX][posY + 1].equals(mapObstacle)) ||
-                 ((posY - 1) >= 0 && map[posX][posY - 1].equals(mapObstacle)) )  {
+            if ( (!(posX + 1 > MAP_SIZE - 1) && map[posX + 1][posY] instanceof Obstacle ) ||
+                 ((posX - 1) >= 0 && map[posX - 1][posY] instanceof Obstacle ) ||
+                 (!(posY + 1 > MAP_SIZE - 1) && map[posX][posY + 1]  instanceof Obstacle ) ||
+                 ((posY - 1) >= 0 && map[posX][posY - 1] instanceof Obstacle ) )  {
                 System.out.println("L (Attaquer l'obstacle)");
+            }
+            if ( (!(posX + 1 > MAP_SIZE - 1) && map[posX + 1][posY] instanceof Monster ) ||
+                    ((posX - 1) >= 0 && map[posX - 1][posY] instanceof Monster ) ||
+                    (!(posY + 1 > MAP_SIZE - 1) && map[posX][posY + 1]  instanceof Monster ) ||
+                    ((posY - 1) >= 0 && map[posX][posY - 1] instanceof Monster ) )  {
+                System.out.println("K (Attaquer le monstre)");
             }
             if (mapBuffer.equals(mapStore)) {
                 System.out.println("V (Visiter la boutique)");
@@ -157,14 +172,14 @@ public class MainGame {
 
             switch (move) {
                 case 'Z':
-                    if (posX >= 0 && (posX - 1) >= 0 && !(map[posX - 1][posY]).equals(mapWall)) {
+                    if (posX >= 0 && (posX - 1) >= 0 && !(map[posX - 1][posY]).equals(mapWall) && !(map[posX - 1][posY] instanceof Destructible)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
                         if (mapBuffer.equals(mapMoney)) {
                             map[posX][posY] = mapMoney;
                         } else if (mapBuffer.equals(mapStore)) {
                             map[posX][posY] = mapStore;
-                        } else if (mapBuffer.equals(mapObstacle)) {
-                            map[posX][posY] = mapObstacle;
+                        } else if (mapBuffer instanceof Destructible) {
+                            map[posX][posY] = mapBuffer;
                         } else if (mapBuffer.equals(mapMonster)) {
                             map[posX][posY] = mapMonster;
                         } else {
@@ -175,17 +190,20 @@ public class MainGame {
                         mapBuffer = map[posX][posY];
                         map[posX][posY] = mapPlayer;
                         System.out.println("\nVous vous êtes déplacé vers le " + ANSI_BLUE + "haut" + ANSI_RESET);
+                    } else {
+                        System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
                     }
                     break;
+
                 case 'Q':
-                    if (posY >= 0 && (posY - 1) >= 0 && !(map[posX][posY - 1]).equals(mapWall)) {
+                    if (posY >= 0 && (posY - 1) >= 0 && !(map[posX][posY - 1]).equals(mapWall) && !(map[posX][posY - 1] instanceof Destructible)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
                         if (mapBuffer.equals(mapMoney)) {
                             map[posX][posY] = mapMoney;
                         } else if (mapBuffer.equals(mapStore)) {
                             map[posX][posY] = mapStore;
-                        } else if (mapBuffer.equals(mapObstacle)) {
-                            map[posX][posY] = mapObstacle;
+                        } else if (mapBuffer instanceof Destructible) {
+                            map[posX][posY] = mapBuffer;
                         } else if (mapBuffer.equals(mapMonster)) {
                             map[posX][posY] = mapMonster;
                         } else {
@@ -196,17 +214,20 @@ public class MainGame {
                         mapBuffer = map[posX][posY];
                         map[posX][posY] = mapPlayer;
                         System.out.println("\nVous vous êtes déplacé vers la " + ANSI_BLUE + "gauche" + ANSI_RESET);
+                    } else {
+                        System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
                     }
                     break;
+
                 case 'S':
-                    if (posX < MAP_SIZE - 1 && !(map[posX + 1][posY]).equals(mapWall)) {
+                    if (posX < MAP_SIZE - 1 && !(map[posX + 1][posY]).equals(mapWall) && !(map[posX + 1][posY] instanceof Destructible)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
                         if (mapBuffer.equals(mapMoney)) {
                             map[posX][posY] = mapMoney;
                         } else if (mapBuffer.equals(mapStore)) {
                             map[posX][posY] = mapStore;
-                        } else if (mapBuffer.equals(mapObstacle)) {
-                            map[posX][posY] = mapObstacle;
+                        } else if (mapBuffer instanceof Destructible) {
+                            map[posX][posY] = mapBuffer;
                         } else if (mapBuffer.equals(mapMonster)) {
                             map[posX][posY] = mapMonster;
                         } else {
@@ -217,17 +238,20 @@ public class MainGame {
                         mapBuffer = map[posX][posY];
                         map[posX][posY] = mapPlayer;
                         System.out.println("\nVous vous êtes déplacé vers le " + ANSI_BLUE + "bas" + ANSI_RESET);
+                    } else {
+                        System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
                     }
                     break;
+
                 case 'D':
-                    if (posY < MAP_SIZE - 1 && !(map[posX][posY + 1]).equals(mapWall)) {
+                    if (posY < MAP_SIZE - 1 && !(map[posX][posY + 1]).equals(mapWall) && !(map[posX][posY + 1] instanceof Destructible)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
                         if (mapBuffer.equals(mapMoney)) {
                             map[posX][posY] = mapMoney;
                         } else if (mapBuffer.equals(mapStore)) {
                             map[posX][posY] = mapStore;
-                        } else if (mapBuffer.equals(mapObstacle)) {
-                            map[posX][posY] = mapObstacle;
+                        } else if (mapBuffer instanceof Destructible) {
+                            map[posX][posY] = mapBuffer;
                         } else if (mapBuffer.equals(mapMonster)) {
                             map[posX][posY] = mapMonster;
                         } else {
@@ -238,6 +262,8 @@ public class MainGame {
                         mapBuffer = map[posX][posY];
                         map[posX][posY] = mapPlayer;
                         System.out.println("\nVous vous êtes déplacé vers la " + ANSI_BLUE + "droite" + ANSI_RESET);
+                    } else {
+                        System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
                     }
                     break;
                 case 'R':
@@ -255,6 +281,8 @@ public class MainGame {
                         System.out.println("\nVous venez de ramasser " + ANSI_BLUE + winMoney + ANSI_RESET + " !");
                         System.out.println("Votre nouveau solde est de " + ANSI_BLUE + player.getMoney() + "$" + ANSI_RESET);
                         Thread.sleep(2000);
+                    } else {
+                        System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
                     }
                     break;
                 case 'V':
@@ -290,10 +318,95 @@ public class MainGame {
 
                     break;
                 case 'L':
-                    System.out.println("Obstacle attaqué");
+                    // Détermine l'emplacement de l'obstacle à attaquer
+                    Obstacle obstacle = null;
+                    int obstacleX = posX, obstacleY = posY; // Initialisation des coordonnées de l'obstacle
+
+                    if (!(posX + 1 > MAP_SIZE - 1) && map[posX + 1][posY] instanceof Obstacle) {
+                        obstacle = (Obstacle) map[posX + 1][posY];
+                        obstacleX = posX + 1;
+                    } else if ((posX - 1) >= 0 && map[posX - 1][posY] instanceof Obstacle) {
+                        obstacle = (Obstacle) map[posX - 1][posY];
+                        obstacleX = posX - 1;
+                    } else if (!(posY + 1 > MAP_SIZE - 1) && map[posX][posY + 1] instanceof Obstacle) {
+                        obstacle = (Obstacle) map[posX][posY + 1];
+                        obstacleY = posY + 1;
+                    } else if ((posY - 1) >= 0 && map[posX][posY - 1] instanceof Obstacle) {
+                        obstacle = (Obstacle) map[posX][posY - 1];
+                        obstacleY = posY - 1;
+                    }
+
+                    // Attaquez l'obstacle si trouvé
+                    if (obstacle != null) {
+                        double damage = 40;
+                        obstacle.hit_me(damage);
+                        if (obstacle.getPv() <= 0) {
+                            System.out.println(ANSI_BLUE + "\nL'obstacle est détruit !" + ANSI_RESET);
+                            player.addXp(20);
+                            System.out.println("Vous avez gagné " + ANSI_BLUE + "20 XP" + ANSI_RESET + "!");
+                            map[obstacleX][obstacleY] = "[ ]"; // Remplace l'obstacle par un espace vide
+                        } else {
+                            System.out.println("Vous venez d'infliger " + ANSI_BLUE + damage + " PV" + ANSI_RESET + " à " + ANSI_BLUE + obstacle.getName() + ANSI_RESET);
+                        }
+                    } else {
+                        System.out.println("Il n'y a pas d'obstacle à attaquer !");
+                    }
+
+                    break;
+                case 'K':
+                    // Détermine l'emplacement de l'obstacle à attaquer
+                    Monster monster = null;
+                    int monsterX = posX, monsterY = posY; // Initialisation des coordonnées de l'obstacle
+
+                    if (!(posX + 1 > MAP_SIZE - 1) && map[posX + 1][posY] instanceof Monster) {
+                        monster = (Monster) map[posX + 1][posY];
+                        monsterX = posX + 1;
+                    } else if ((posX - 1) >= 0 && map[posX - 1][posY] instanceof Monster) {
+                        monster = (Monster) map[posX - 1][posY];
+                        monsterX = posX - 1;
+                    } else if (!(posY + 1 > MAP_SIZE - 1) && map[posX][posY + 1] instanceof Monster) {
+                        monster = (Monster) map[posX][posY + 1];
+                        monsterY = posY + 1;
+                    } else if ((posY - 1) >= 0 && map[posX][posY - 1] instanceof Monster) {
+                        monster = (Monster) map[posX][posY - 1];
+                        monsterY = posY - 1;
+                    }
+
+                    // Attaquez l'obstacle si trouvé
+                    if (monster != null) {
+                        double damage = 60;
+                        monster.hit_me(damage);
+                        if (monster.getPv() <= 0) {
+                            System.out.println(ANSI_BLUE + "\nLe monstre est mort !" + ANSI_RESET);
+                            player.addXp(120);
+                            System.out.println("Vous avez gagné " + ANSI_BLUE + "120 XP" + ANSI_RESET + "!");
+                            map[monsterX][monsterY] = "[ ]"; // Remplace l'obstacle par un espace vide
+                        } else {
+                            System.out.println("Vous venez d'infliger " + ANSI_BLUE + damage + " PV" + ANSI_RESET + " à " + ANSI_BLUE + monster.getName() + ANSI_RESET);
+                        }
+                    } else {
+                        System.out.println("Il n'y a pas de monstre à attaquer !");
+                    }
+
                     break;
                 case 'I':
                     System.out.println(player);
+                    break;
+
+                case '*':
+                    System.out.println("\n================================");
+                    System.out.println("Légende de la map");
+                    System.out.println("================================");
+                    System.out.println(mapPlayer + ": Vous");
+                    System.out.println(mapMoney + ": Argent (Entre 0$ et 30$)");
+                    System.out.println(mapWall + ": Murs");
+                    System.out.println(mapObstacle + ": Obstacles (Rocher, Arbre ...)");
+                    System.out.println(mapMonster + ": Monstres");
+                    System.out.println(mapMonster + ": Monstre");
+                    break;
+
+                default:
+                    System.out.println("\n" + player.getName() + ", l'action demandée n'existe pas");
                     break;
             }
         }

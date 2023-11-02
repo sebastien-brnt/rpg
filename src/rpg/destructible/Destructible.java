@@ -17,4 +17,8 @@ public class Destructible {
     public double getPv() {
         return pv;
     }
+
+    public String getName() {
+        return name;
+    }
 }

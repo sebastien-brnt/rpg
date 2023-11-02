@@ -11,12 +11,14 @@ public class Player implements ActionsPlayer {
     private String name;
     private double pv;
     private double money;
+    private double xp;
     private ArrayList<Weapon> weaponList = new ArrayList<>();
 
-    public Player(String name, double pv, double money) {
+    public Player(String name, double pv, double money, double xp) {
         this.name = name;
         this.pv = pv;
         this.money = money;
+        this.xp = xp;
     }
 
     public String getName() {
@@ -26,21 +28,30 @@ public class Player implements ActionsPlayer {
     public double getPv() {
         return this.pv;
     }
+    public double getXp() {
+        return this.xp;
+    }
 
     public double getMoney() {
         return this.money;
     }
 
     public void addMoney(double value) {
-         this.money += value;
+        this.money += value;
+    }
+    public void addXp(double value) {
+        this.xp += value;
     }
 
     public void removePv(double hit) {
         this.pv = this.pv - hit;
     }
+    public void removeXp(double value) {
+        this.pv -= value;
+    }
 
-    public void attackMonster(Monster monster, Weapon weapon) {
-        monster.hit_me(weapon.getDamage());
+    public double attackMonster(Weapon weapon) {
+        return weapon.getDamage();
     }
 
     public void attackObstacle(Obstacle obstacle, Weapon weapon) {
