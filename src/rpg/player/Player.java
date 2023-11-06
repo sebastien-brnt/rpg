@@ -16,6 +16,8 @@ public class Player implements ActionsPlayer {
     private Weapon selectedWeapon;
     private ArrayList<Weapon> weaponList = new ArrayList<>();
 
+    public static String representation = "[\u001B[34mX\u001B[0m]";
+
     public Player(String name, double pv, double money, double xp) {
         this.name = name;
         this.pv = pv;
@@ -83,10 +85,14 @@ public class Player implements ActionsPlayer {
         }
     }
 
-    @Override
-    public String toString() {
+    public String getInformation() {
         return  "Name : " + this.name + "\n" +
                 "Money : " + this.money + "$\n" +
                 "Weapon list : " + this.weaponList;
+    }
+
+    @Override
+    public String toString() {
+        return this.representation;
     }
 }

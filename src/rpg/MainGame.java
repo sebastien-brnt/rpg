@@ -106,7 +106,7 @@ public class MainGame {
         // Initialisation de la map
         Object[][] map = {
                 {mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall},
-                { mapWall, mapMoney, mapWall, mapMoney, "[ ]", rock3, "[ ]", "[ ]", mapMoney, mapWall},
+                {mapWall, mapMoney, mapWall, mapMoney, "[ ]", rock3, "[ ]", "[ ]", mapMoney, mapWall},
                 {mapWall, "[ ]", mapWall, mapWall, "[ ]", monster2, "[ ]", "[ ]", "[ ]", mapWall},
                 {mapWall, "[ ]", "[ ]", mapWall, "[ ]", "[ ]", mapWall, mapWall, monster3, mapWall},
                 {mapWall, mapWall, rock, mapWall, "[ ]", "[ ]", mapWall, "[ ]", "[ ]", mapWall},
@@ -118,7 +118,7 @@ public class MainGame {
         };
 
 
-        map[posX][posY] = mapPlayer;
+        map[posX][posY] = player;
 
         Object mapBuffer = "";
 
@@ -387,7 +387,7 @@ public class MainGame {
 
                     break;
                 case 'I':
-                    System.out.println(player);
+                    System.out.println(player.getInformation());
                     break;
 
                 case '*':
@@ -412,7 +412,7 @@ public class MainGame {
             System.out.println("\n" + ANSI_CYAN + "Vous êtes mort ! Vous n'avez pas réussi votre mission !" + ANSI_RESET);
         }
         if (mapBuffer.equals(mapFinish)) {
-            System.out.println("\n" + ANSI_CYAN + "Félicitation vous avez terminer le jeux !" + ANSI_RESET);
+            System.out.println("\n" + ANSI_CYAN + "Félicitation vous avez terminé le jeu !" + ANSI_RESET);
         }
 
         scanner.close();
