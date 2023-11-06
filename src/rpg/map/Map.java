@@ -3,29 +3,20 @@ package rpg.map;
 import rpg.player.Player;
 import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
+import rpg.utility.AnsiColors;
+
 import java.util.Random;
 
 public class Map {
-
-    private final String ANSI_RESET = "\u001B[0m";
-    private final String ANSI_BLACK = "\u001B[30m";
-    private final String ANSI_RED = "\u001B[31m";
-    private final String ANSI_GREEN = "\u001B[32m";
-    private final String ANSI_YELLOW = "\u001B[33m";
-    private final String ANSI_BLUE = "\u001B[34m";
-    private final String ANSI_PURPLE = "\u001B[35m";
-    private final String ANSI_CYAN = "\u001B[36m";
-    private final String ANSI_WHITE = "\u001B[37m";
-
     private final int MAP_SIZE = 10;
     // Éléments de map
-    private final String mapPlayer = "[" + ANSI_BLUE + "X" + ANSI_RESET + "]";
-    private final String mapMoney = "[" + ANSI_GREEN + "$" + ANSI_RESET + "]";
-    private final String mapObstacle = "[" + ANSI_YELLOW + "O" + ANSI_RESET + "]";
-    private final String mapMonster = "[" + ANSI_RED + "M" + ANSI_RESET + "]";
-    private final String mapFinish = "[" + ANSI_CYAN + "#" + ANSI_RESET + "]";
-    private final String mapStore = "[" + ANSI_PURPLE + "B" + ANSI_RESET + "]";
-    private final String mapWall = "[" + ANSI_YELLOW + "=" + ANSI_RESET + "]";
+    private final String mapPlayer = "[" + AnsiColors.BLUE + "X" + AnsiColors.RESET + "]";
+    private final String mapMoney = "[" + AnsiColors.GREEN + "$" + AnsiColors.RESET + "]";
+    private final String mapObstacle = "[" + AnsiColors.YELLOW + "O" + AnsiColors.RESET + "]";
+    private final String mapMonster = "[" + AnsiColors.RED + "M" + AnsiColors.RESET + "]";
+    private final String mapFinish = "[" + AnsiColors.CYAN + "#" + AnsiColors.RESET + "]";
+    private final String mapStore = "[" + AnsiColors.PURPLE + "B" + AnsiColors.RESET + "]";
+    private final String mapWall = "[" + AnsiColors.YELLOW + "=" + AnsiColors.RESET + "]";
 
     private static final Random random = new Random();
 

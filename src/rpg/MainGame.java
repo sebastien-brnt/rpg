@@ -7,32 +7,23 @@ import rpg.map.Map;
 import rpg.player.Player;
 import rpg.store.WeaponStore;
 import rpg.weapons.Weapon;
+import rpg.utility.AnsiColors;
+
 
 import java.util.Scanner;
 
 public class MainGame {
     public static void main(String[] args) throws InterruptedException {
 
-        // Initialisation des codes d'échappement ANSI pour les couleurs
-        final String ANSI_RESET = "\u001B[0m";
-        final String ANSI_BLACK = "\u001B[30m";
-        final String ANSI_RED = "\u001B[31m";
-        final String ANSI_GREEN = "\u001B[32m";
-        final String ANSI_YELLOW = "\u001B[33m";
-        final String ANSI_BLUE = "\u001B[34m";
-        final String ANSI_PURPLE = "\u001B[35m";
-        final String ANSI_CYAN = "\u001B[36m";
-        final String ANSI_WHITE = "\u001B[37m";
-
         // Éléments de map
         final int MAP_SIZE = 10;
-        final String mapPlayer = "[" + ANSI_BLUE + "X" + ANSI_RESET + "]";
-        final String mapMoney = "[" + ANSI_GREEN + "$" + ANSI_RESET + "]";
-        final String mapObstacle = "[" + ANSI_YELLOW + "O" + ANSI_RESET + "]";
-        final String mapMonster = "[" + ANSI_RED + "M" + ANSI_RESET + "]";
-        final String mapFinish = "[" + ANSI_CYAN + "#" + ANSI_RESET + "]";
-        final String mapStore = "[" + ANSI_PURPLE + "B" + ANSI_RESET + "]";
-        final String mapWall = "[" + ANSI_YELLOW + "=" + ANSI_RESET + "]";
+        final String mapPlayer = "[" + AnsiColors.BLUE + "X" + AnsiColors.RESET + "]";
+        final String mapMoney = "[" + AnsiColors.GREEN + "$" + AnsiColors.RESET + "]";
+        final String mapObstacle = "[" + AnsiColors.YELLOW + "O" + AnsiColors.RESET + "]";
+        final String mapMonster = "[" + AnsiColors.RED + "M" + AnsiColors.RESET + "]";
+        final String mapFinish = "[" + AnsiColors.CYAN + "#" + AnsiColors.RESET + "]";
+        final String mapStore = "[" + AnsiColors.PURPLE + "B" + AnsiColors.RESET + "]";
+        final String mapWall = "[" + AnsiColors.YELLOW + "=" + AnsiColors.RESET + "]";
 
         Scanner scanner = new Scanner(System.in);
 
@@ -59,7 +50,7 @@ public class MainGame {
         Player player = new Player(name, 100, 150, 0);
 
         Thread.sleep(300);
-        System.out.println("\nEnchanté " + ANSI_BLUE + name +  ANSI_RESET + ", vous possédé désormais " + ANSI_BLUE + "100 PV" + ANSI_RESET + " ainsi que " + ANSI_BLUE + "150$" + ANSI_RESET + " !");
+        System.out.println("\nEnchanté " + AnsiColors.BLUE + name +  AnsiColors.RESET + ", vous possédé désormais " + AnsiColors.BLUE + "100 PV" + AnsiColors.RESET + " ainsi que " + AnsiColors.BLUE + "150$" + AnsiColors.RESET + " !");
         System.out.println("Votre mission est la suivante : Vous devez arriver au coin inférieur droit de la map représenté par " + mapFinish + " !");
 
 
@@ -175,7 +166,7 @@ public class MainGame {
                         posX--;
                         mapBuffer = map[posX][posY];
                         map[posX][posY] = mapPlayer;
-                        System.out.println("\nVous vous êtes déplacé vers le " + ANSI_BLUE + "haut" + ANSI_RESET);
+                        System.out.println("\nVous vous êtes déplacé vers le " + AnsiColors.BLUE + "haut" + AnsiColors.RESET);
                     } else {
                         System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
                     }
@@ -199,7 +190,7 @@ public class MainGame {
                         posY--;
                         mapBuffer = map[posX][posY];
                         map[posX][posY] = mapPlayer;
-                        System.out.println("\nVous vous êtes déplacé vers la " + ANSI_BLUE + "gauche" + ANSI_RESET);
+                        System.out.println("\nVous vous êtes déplacé vers la " + AnsiColors.BLUE + "gauche" + AnsiColors.RESET);
                     } else {
                         System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
                     }
@@ -223,7 +214,7 @@ public class MainGame {
                         posX++;
                         mapBuffer = map[posX][posY];
                         map[posX][posY] = mapPlayer;
-                        System.out.println("\nVous vous êtes déplacé vers le " + ANSI_BLUE + "bas" + ANSI_RESET);
+                        System.out.println("\nVous vous êtes déplacé vers le " + AnsiColors.BLUE + "bas" + AnsiColors.RESET);
                     } else {
                         System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
                     }
@@ -247,7 +238,7 @@ public class MainGame {
                         posY++;
                         mapBuffer = map[posX][posY];
                         map[posX][posY] = mapPlayer;
-                        System.out.println("\nVous vous êtes déplacé vers la " + ANSI_BLUE + "droite" + ANSI_RESET);
+                        System.out.println("\nVous vous êtes déplacé vers la " + AnsiColors.BLUE + "droite" + AnsiColors.RESET);
                     } else {
                         System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
                     }
@@ -264,8 +255,8 @@ public class MainGame {
                         player.addMoney(winMoney);
 
                         Thread.sleep(300);
-                        System.out.println("\nVous venez de ramasser " + ANSI_BLUE + winMoney + ANSI_RESET + " !");
-                        System.out.println("Votre nouveau solde est de " + ANSI_BLUE + player.getMoney() + "$" + ANSI_RESET);
+                        System.out.println("\nVous venez de ramasser " + AnsiColors.BLUE + winMoney + AnsiColors.RESET + " !");
+                        System.out.println("Votre nouveau solde est de " + AnsiColors.BLUE + player.getMoney() + "$" + AnsiColors.RESET);
                         Thread.sleep(1200);
                     } else {
                         System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
@@ -324,9 +315,9 @@ public class MainGame {
                         player.attackDestructible(obstacle);
                         if (obstacle.getPv() <= 0) {
                             Thread.sleep(300);
-                            System.out.println(ANSI_BLUE + "\nL'obstacle est détruit !" + ANSI_RESET);
+                            System.out.println(AnsiColors.BLUE + "\nL'obstacle est détruit !" + AnsiColors.RESET);
                             player.addXp(20);
-                            System.out.println("Vous avez gagné " + ANSI_BLUE + "20 XP" + ANSI_RESET + "!");
+                            System.out.println("Vous avez gagné " + AnsiColors.BLUE + "20 XP" + AnsiColors.RESET + "!");
                             Thread.sleep(1200);
                             map[obstacleX][obstacleY] = "[ ]"; // Remplace l'obstacle par un espace vide
                         }
@@ -361,12 +352,12 @@ public class MainGame {
                         monster.attackPlayer(player);
                         Thread.sleep(300);
                         if (monster.getPv() <= 0) {
-                            System.out.println(ANSI_BLUE + "\nLe monstre est mort !" + ANSI_RESET);
+                            System.out.println(AnsiColors.BLUE + "\nLe monstre est mort !" + AnsiColors.RESET);
                             player.addXp(120);
-                            System.out.println("Vous avez gagné " + ANSI_BLUE + "120 XP" + ANSI_RESET + "!");
+                            System.out.println("Vous avez gagné " + AnsiColors.BLUE + "120 XP" + AnsiColors.RESET + "!");
                             Thread.sleep(300);
                             player.addPv(20);
-                            System.out.println("Vous avez gagné " + ANSI_BLUE + "20 PV" + ANSI_RESET + "!");
+                            System.out.println("Vous avez gagné " + AnsiColors.BLUE + "20 PV" + AnsiColors.RESET + "!");
                             Thread.sleep(1200);
                             map[monsterX][monsterY] = "[ ]"; // Remplace l'obstacle par un espace vide
                         }
@@ -398,10 +389,10 @@ public class MainGame {
         }
 
         if (player.getPv() <= 0) {
-            System.out.println("\n" + ANSI_CYAN + "Vous êtes mort ! Vous n'avez pas réussi votre mission !" + ANSI_RESET);
+            System.out.println("\n" + AnsiColors.CYAN + "Vous êtes mort ! Vous n'avez pas réussi votre mission !" + AnsiColors.RESET);
         }
         if (mapBuffer.equals(mapFinish)) {
-            System.out.println("\n" + ANSI_CYAN + "Félicitation vous avez terminé le jeu !" + ANSI_RESET);
+            System.out.println("\n" + AnsiColors.CYAN + "Félicitation vous avez terminé le jeu !" + AnsiColors.RESET);
         }
 
         scanner.close();
