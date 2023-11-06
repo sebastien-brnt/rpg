@@ -24,6 +24,22 @@ public class WeaponStore {
         return weaponList;
     }
 
+    public void displayCatalogue() {
+        System.out.println("\n================================");
+        System.out.println("Catalogue de la boutique :");
+        System.out.println("================================");
+
+        for(Weapon weapon : weaponList) {
+            System.out.println("\n" + weapon.ascii_art());
+            System.out.println("ID : " + weapon.getId());
+            System.out.println("Nom : " + weapon.getName());
+            System.out.println("Dégâts : " + weapon.getDamage());
+            System.out.println("Prix : " + weapon.getPrice());
+            System.out.println("Durabilité : " + weapon.getDurability());
+            System.out.println("\n================================");
+        }
+    }
+
     public Weapon getWeaponOfStore(String id) {
         for(Weapon weapon : weaponList) {
             if(weapon.getId().equals(id)) {

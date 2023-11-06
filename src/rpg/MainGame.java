@@ -3,6 +3,7 @@ package rpg;
 import rpg.destructible.Destructible;
 import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
+import rpg.map.Map;
 import rpg.player.Player;
 import rpg.store.WeaponStore;
 import rpg.weapons.Weapon;
@@ -64,12 +65,9 @@ public class MainGame {
 
         Thread.sleep(2500);
 
+        // Affichage du catalogue de la boutique
         WeaponStore store = new WeaponStore();
-        System.out.println("\n================================");
-        System.out.println("Catalogue de la boutique :");
-        System.out.println("================================");
-        Thread.sleep(1000);
-        System.out.println(store.getWeaponList());
+        store.displayCatalogue();
 
         Thread.sleep(800);
         System.out.println("\n================================");
@@ -99,26 +97,12 @@ public class MainGame {
         System.out.println("               MAP              ");
         System.out.println("================================");
 
+        Map laMap = new Map(player);
         // Position initiale du joueur
         int posX = 1;
         int posY = 0;
 
-        // Initialisation de la map
-        Object[][] map = {
-                {mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall},
-                {mapWall, mapMoney, mapWall, mapMoney, "[ ]", rock3, "[ ]", "[ ]", mapMoney, mapWall},
-                {mapWall, "[ ]", mapWall, mapWall, "[ ]", monster2, "[ ]", "[ ]", "[ ]", mapWall},
-                {mapWall, "[ ]", "[ ]", mapWall, "[ ]", "[ ]", mapWall, mapWall, monster3, mapWall},
-                {mapWall, mapWall, rock, mapWall, "[ ]", "[ ]", mapWall, "[ ]", "[ ]", mapWall},
-                {mapWall, "[ ]", "[ ]", mapWall, "[ ]", mapWall, mapWall, "[ ]", "[ ]", mapWall},
-                {mapWall, tree, monster1, mapWall, "[ ]", mapWall, "[ ]", "[ ]", "[ ]", mapWall},
-                {mapWall, "[ ]", "[ ]", tree2, rock2, mapWall, "[ ]", mapWall, mapWall, mapWall},
-                {mapWall, mapMoney, mapWall, "[ ]", mapStore, mapWall, mapMoney, "[ ]", monster4, "[ ]"},
-                {mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapFinish}
-        };
-
-
-        map[posX][posY] = player;
+        Object[][] map = laMap.getMap();
 
         Object mapBuffer = "";
 
@@ -272,27 +256,24 @@ public class MainGame {
                     if ((mapBuffer).equals(mapMoney)) {
                         mapBuffer = "";
 
-                        // Le joueur gagne un montant aléatoire entre 0 et 30$
+                        // Le joueur gagne un montant aléatoire entre 1 et 30$
+                        int min = 1;
                         int max = 30;
-                        double randomDouble = Math.random() * max;
-                        double winMoney = (int) Math.round(randomDouble);
+                        int winMoney = (int) Math.round(Math.random() * (max - min)) + min;
 
                         player.addMoney(winMoney);
 
                         Thread.sleep(300);
                         System.out.println("\nVous venez de ramasser " + ANSI_BLUE + winMoney + ANSI_RESET + " !");
                         System.out.println("Votre nouveau solde est de " + ANSI_BLUE + player.getMoney() + "$" + ANSI_RESET);
-                        Thread.sleep(2000);
+                        Thread.sleep(1200);
                     } else {
                         System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
                     }
                     break;
                 case 'V':
-                    System.out.println("\n================================");
-                    System.out.println("Catalogue de la boutique :");
-                    System.out.println("================================");
-                    Thread.sleep(1000);
-                    System.out.println(store.getWeaponList());
+                    // Affichage du catalogue de la boutique
+                    store.displayCatalogue();
 
                     String playAction;
 
@@ -342,9 +323,11 @@ public class MainGame {
                     if (obstacle != null) {
                         player.attackDestructible(obstacle);
                         if (obstacle.getPv() <= 0) {
+                            Thread.sleep(300);
                             System.out.println(ANSI_BLUE + "\nL'obstacle est détruit !" + ANSI_RESET);
                             player.addXp(20);
                             System.out.println("Vous avez gagné " + ANSI_BLUE + "20 XP" + ANSI_RESET + "!");
+                            Thread.sleep(1200);
                             map[obstacleX][obstacleY] = "[ ]"; // Remplace l'obstacle par un espace vide
                         }
                     } else {
@@ -374,11 +357,17 @@ public class MainGame {
                     // Attaquez l'obstacle si trouvé
                     if (monster != null) {
                         player.attackDestructible(monster);
+                        Thread.sleep(300);
                         monster.attackPlayer(player);
+                        Thread.sleep(300);
                         if (monster.getPv() <= 0) {
                             System.out.println(ANSI_BLUE + "\nLe monstre est mort !" + ANSI_RESET);
                             player.addXp(120);
                             System.out.println("Vous avez gagné " + ANSI_BLUE + "120 XP" + ANSI_RESET + "!");
+                            Thread.sleep(300);
+                            player.addPv(20);
+                            System.out.println("Vous avez gagné " + ANSI_BLUE + "20 PV" + ANSI_RESET + "!");
+                            Thread.sleep(1200);
                             map[monsterX][monsterY] = "[ ]"; // Remplace l'obstacle par un espace vide
                         }
                     } else {

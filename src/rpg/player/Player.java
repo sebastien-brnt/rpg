@@ -57,6 +57,9 @@ public class Player implements ActionsPlayer {
     public void removePv(double hit) {
         this.pv = this.pv - hit;
     }
+    public void addPv(double value) {
+        this.pv += value;
+    }
     public void removeXp(double value) {
         this.pv -= value;
     }
@@ -93,6 +96,6 @@ public class Player implements ActionsPlayer {
 
     @Override
     public String toString() {
-        return this.representation;
+        return representation;
     }
 }
