@@ -19,6 +19,13 @@ public class Monster extends Destructible {
 
     public void attackPlayer(Player player) {
         player.removePv(this.hit);
+        double playerLife = player.getPv();
+
+        if (playerLife < 0) {
+            playerLife = 0;
+        }
+
+        System.out.println("Le monstre " + this.getName() + " vous à infligé " + this.hit + " PV, il vous reste désormais " + playerLife + " PV");
     }
 
     @Override

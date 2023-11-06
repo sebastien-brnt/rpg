@@ -9,11 +9,12 @@ public class Axe extends Weapon {
     private  static final String name = "Axe";
     private  static final double damage = 35;
     private  static final double price = 80;
+    private  static final double durability = 100;
     static final double MONSTER_DAMAGE_RATIO = 0.8;
     static final double OBSTACLE_DAMAGE_RATIO = 1.3;
 
     public Axe(String id) {
-        super(id, name, damage, price);
+        super(id, name, damage, price, durability);
     }
 
     public String ascii_art() {
@@ -31,5 +32,7 @@ public class Axe extends Weapon {
         } else {
             destructible.hit_me(damage * MONSTER_DAMAGE_RATIO);
         }
+
+        System.out.println("\nVous venez d'infliger " + damage + " PV à " + destructible.getName() );
     }
 }

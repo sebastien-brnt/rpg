@@ -1,5 +1,6 @@
 package rpg.player;
 
+import rpg.destructible.Destructible;
 import rpg.store.WeaponStore;
 import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
@@ -12,6 +13,7 @@ public class Player implements ActionsPlayer {
     private double pv;
     private double money;
     private double xp;
+    private Weapon selectedWeapon;
     private ArrayList<Weapon> weaponList = new ArrayList<>();
 
     public Player(String name, double pv, double money, double xp) {
@@ -31,9 +33,16 @@ public class Player implements ActionsPlayer {
     public double getXp() {
         return this.xp;
     }
+    public Weapon getSelectedWeapon() {
+        return this.selectedWeapon;
+    }
 
     public double getMoney() {
         return this.money;
+    }
+
+    public void selectWeapon(Weapon weapon) {
+        this.selectedWeapon = weapon;
     }
 
     public void addMoney(double value) {
@@ -50,18 +59,15 @@ public class Player implements ActionsPlayer {
         this.pv -= value;
     }
 
-    public double attackMonster(Weapon weapon) {
-        return weapon.getDamage();
-    }
-
-    public void attackObstacle(Obstacle obstacle, Weapon weapon) {
-        obstacle.hit_me(weapon.getDamage());
+    public void attackDestructible(Destructible target) {
+        this.selectedWeapon.attack(target);
     }
 
     public ArrayList<Weapon> getWeaponList() {
         return weaponList;
     }
 
+    @Override
     public void buyWeapon(WeaponStore store, Weapon weapon) {
         if (weapon != null) {
             if (this.money >= weapon.getPrice()) {
@@ -77,10 +83,10 @@ public class Player implements ActionsPlayer {
         }
     }
 
+    @Override
     public String toString() {
         return  "Name : " + this.name + "\n" +
                 "Money : " + this.money + "$\n" +
                 "Weapon list : " + this.weaponList;
-
     }
 }

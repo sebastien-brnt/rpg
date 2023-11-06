@@ -91,6 +91,7 @@ public class MainGame {
             player.buyWeapon(store, choosenWeapon);
         }
 
+        player.selectWeapon(choosenWeapon);
 
         Thread.sleep(2000);
 
@@ -121,7 +122,7 @@ public class MainGame {
 
         Object mapBuffer = "";
 
-        while (!mapBuffer.equals(mapFinish)) {
+        while (!mapBuffer.equals(mapFinish) && player.getPv() > 0) {
             System.out.println();
 
             // Affichage de la map
@@ -165,7 +166,8 @@ public class MainGame {
             }
 
             System.out.println("I (Voir mes information et mon inventaire)");
-            System.out.println(": (quitter le jeu)");
+            System.out.println(": (Quitter le jeu)");
+            System.out.println("* (Légende de la map)");
 
             char move = scanner.nextLine().toUpperCase().charAt(0);
             if (move == ':') break;
@@ -338,15 +340,12 @@ public class MainGame {
 
                     // Attaquez l'obstacle si trouvé
                     if (obstacle != null) {
-                        double damage = 40;
-                        obstacle.hit_me(damage);
+                        player.attackDestructible(obstacle);
                         if (obstacle.getPv() <= 0) {
                             System.out.println(ANSI_BLUE + "\nL'obstacle est détruit !" + ANSI_RESET);
                             player.addXp(20);
                             System.out.println("Vous avez gagné " + ANSI_BLUE + "20 XP" + ANSI_RESET + "!");
                             map[obstacleX][obstacleY] = "[ ]"; // Remplace l'obstacle par un espace vide
-                        } else {
-                            System.out.println("Vous venez d'infliger " + ANSI_BLUE + damage + " PV" + ANSI_RESET + " à " + ANSI_BLUE + obstacle.getName() + ANSI_RESET);
                         }
                     } else {
                         System.out.println("Il n'y a pas d'obstacle à attaquer !");
@@ -374,15 +373,13 @@ public class MainGame {
 
                     // Attaquez l'obstacle si trouvé
                     if (monster != null) {
-                        double damage = 60;
-                        monster.hit_me(damage);
+                        player.attackDestructible(monster);
+                        monster.attackPlayer(player);
                         if (monster.getPv() <= 0) {
                             System.out.println(ANSI_BLUE + "\nLe monstre est mort !" + ANSI_RESET);
                             player.addXp(120);
                             System.out.println("Vous avez gagné " + ANSI_BLUE + "120 XP" + ANSI_RESET + "!");
                             map[monsterX][monsterY] = "[ ]"; // Remplace l'obstacle par un espace vide
-                        } else {
-                            System.out.println("Vous venez d'infliger " + ANSI_BLUE + damage + " PV" + ANSI_RESET + " à " + ANSI_BLUE + monster.getName() + ANSI_RESET);
                         }
                     } else {
                         System.out.println("Il n'y a pas de monstre à attaquer !");
@@ -402,7 +399,7 @@ public class MainGame {
                     System.out.println(mapWall + ": Murs");
                     System.out.println(mapObstacle + ": Obstacles (Rocher, Arbre ...)");
                     System.out.println(mapMonster + ": Monstres");
-                    System.out.println(mapMonster + ": Monstre");
+                    System.out.println(mapFinish + ": Objectif");
                     break;
 
                 default:
@@ -411,7 +408,12 @@ public class MainGame {
             }
         }
 
-        System.out.println("\n" + ANSI_CYAN + "Félicitation vous avez terminer le jeux !" + ANSI_RESET);
+        if (player.getPv() <= 0) {
+            System.out.println("\n" + ANSI_CYAN + "Vous êtes mort ! Vous n'avez pas réussi votre mission !" + ANSI_RESET);
+        }
+        if (mapBuffer.equals(mapFinish)) {
+            System.out.println("\n" + ANSI_CYAN + "Félicitation vous avez terminer le jeux !" + ANSI_RESET);
+        }
 
         scanner.close();
     }
