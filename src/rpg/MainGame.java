@@ -17,7 +17,6 @@ public class MainGame {
 
         // Éléments de map
         final int MAP_SIZE = 10;
-        final String mapPlayer = "[" + AnsiColors.BLUE + "X" + AnsiColors.RESET + "]";
         final String mapMoney = "[" + AnsiColors.GREEN + "$" + AnsiColors.RESET + "]";
         final String mapObstacle = "[" + AnsiColors.YELLOW + "O" + AnsiColors.RESET + "]";
         final String mapMonster = "[" + AnsiColors.RED + "M" + AnsiColors.RESET + "]";
@@ -89,15 +88,9 @@ public class MainGame {
         Object mapBuffer = "";
 
         while (!mapBuffer.equals(mapFinish) && player.getPv() > 0) {
-            System.out.println();
 
             // Affichage de la map
-            for (int i = 0; i < MAP_SIZE; i++) {
-                for (int j = 0; j < MAP_SIZE; j++) {
-                    System.out.print(map[i][j]);
-                }
-                System.out.println();
-            }
+            laMap.displayMap();
 
             System.out.println("\nCommandes disponibles :");
             if (!(posX + 1 > MAP_SIZE - 1) && !(map[posX + 1][posY]).equals(mapWall) && !(map[posX + 1][posY] instanceof Destructible) ) {
@@ -156,7 +149,7 @@ public class MainGame {
 
                         posX--;
                         mapBuffer = map[posX][posY];
-                        map[posX][posY] = mapPlayer;
+                        map[posX][posY] = player;
                         System.out.println("\nVous vous êtes déplacé vers le " + AnsiColors.BLUE + "haut" + AnsiColors.RESET);
                     } else {
                         System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
@@ -180,7 +173,7 @@ public class MainGame {
 
                         posY--;
                         mapBuffer = map[posX][posY];
-                        map[posX][posY] = mapPlayer;
+                        map[posX][posY] = player;
                         System.out.println("\nVous vous êtes déplacé vers la " + AnsiColors.BLUE + "gauche" + AnsiColors.RESET);
                     } else {
                         System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
@@ -204,7 +197,7 @@ public class MainGame {
 
                         posX++;
                         mapBuffer = map[posX][posY];
-                        map[posX][posY] = mapPlayer;
+                        map[posX][posY] = player;
                         System.out.println("\nVous vous êtes déplacé vers le " + AnsiColors.BLUE + "bas" + AnsiColors.RESET);
                     } else {
                         System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
@@ -228,7 +221,7 @@ public class MainGame {
 
                         posY++;
                         mapBuffer = map[posX][posY];
-                        map[posX][posY] = mapPlayer;
+                        map[posX][posY] = player;
                         System.out.println("\nVous vous êtes déplacé vers la " + AnsiColors.BLUE + "droite" + AnsiColors.RESET);
                     } else {
                         System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
@@ -365,8 +358,8 @@ public class MainGame {
                     System.out.println("\n================================");
                     System.out.println("Légende de la map");
                     System.out.println("================================");
-                    System.out.println(mapPlayer + ": Vous");
-                    System.out.println(mapMoney + ": Argent (Entre 0$ et 30$)");
+                    System.out.println(player + ": Vous");
+                    System.out.println(mapMoney + ": Argent (Entre 1$ et 30$)");
                     System.out.println(mapWall + ": Murs");
                     System.out.println(mapObstacle + ": Obstacles (Rocher, Arbre ...)");
                     System.out.println(mapMonster + ": Monstres");

@@ -60,7 +60,7 @@ public class Map {
             return new Obstacle("Obstacle");
         } else if (randomNum < 10) { // 20% de chance d'obtenir un Monstre
             return new Monster("Monstre", 15);
-        } else if (randomNum < 12) { // 10% de chance d'obtenir un Monstre
+        } else if (randomNum < 12) { // 10% de chance d'obtenir de l'argent
             return mapMoney;
         } else {
             return "[ ]"; // 45% de chance de laisser la case vide
@@ -82,5 +82,6 @@ public class Map {
                 System.out.print(map[i][j]);
             }
         }
+        System.out.println();
     }
 }

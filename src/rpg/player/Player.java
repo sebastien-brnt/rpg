@@ -2,8 +2,6 @@ package rpg.player;
 
 import rpg.destructible.Destructible;
 import rpg.store.WeaponStore;
-import rpg.destructible.Monster;
-import rpg.destructible.Obstacle;
 import rpg.utility.AnsiColors;
 import rpg.weapons.Weapon;
 
@@ -80,9 +78,9 @@ public class Player implements ActionsPlayer {
                 this.money -= weapon.getPrice();
                 this.weaponList.add(weapon);
                 store.RemoveWeapon(weapon);
-                System.out.println(this.name + ", il vous reste " + this.money + "$ après l'achat de : " + weapon.getName() + " pour " + weapon.getPrice() + "$");
+                System.out.println(this.name + ", il vous reste " + AnsiColors.BLUE + this.money + "$" + AnsiColors.RESET + " après l'achat de : " + AnsiColors.BLUE + weapon.getName() + AnsiColors.RESET + " pour " + AnsiColors.BLUE + weapon.getPrice() + "$" + AnsiColors.RESET);
             } else {
-                System.out.println(this.name + ", Tu n'a pas assez d'argent pour acheter cela (argent : " + this.money + "$, prix : " + weapon.getPrice() + "$)");
+                System.out.println(this.name + ", Tu n'a pas assez d'argent pour acheter cela (argent : " + AnsiColors.BLUE + this.money + "$" + AnsiColors.RESET + ", prix : " + AnsiColors.BLUE + weapon.getPrice() + "$" + AnsiColors.RESET + ")");
             }
         } else {
             System.out.println("Désolé " + this.name + ", cette arme n'est pas disponible dans la boutique...");
