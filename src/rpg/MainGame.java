@@ -15,112 +15,121 @@ import java.util.Scanner;
 public class MainGame {
     public static void main(String[] args) throws InterruptedException {
 
-        // Éléments de map
-        final int MAP_SIZE = 10;
-        final String mapMoney = "[" + AnsiColors.GREEN + "$" + AnsiColors.RESET + "]";
-        final String mapObstacle = "[" + AnsiColors.YELLOW + "O" + AnsiColors.RESET + "]";
-        final String mapMonster = "[" + AnsiColors.RED + "M" + AnsiColors.RESET + "]";
-        final String mapFinish = "[" + AnsiColors.CYAN + "#" + AnsiColors.RESET + "]";
-        final String mapStore = "[" + AnsiColors.PURPLE + "B" + AnsiColors.RESET + "]";
-        final String mapWall = "[" + AnsiColors.YELLOW + "=" + AnsiColors.RESET + "]";
+        // Position initiale du joueur
+        int posX = 1;
+        int posY = 0;
 
+        // Initialisation du scanner
         Scanner scanner = new Scanner(System.in);
 
-        for (int i = 0; i < 3; i++) {
-            System.out.println();
+        // Affichage du titre du jeu
+        for (int i = 0; i < 6; i++) {
+            if (i == 3) {
+                System.out.println("=====================================");
+                System.out.println("             " + AnsiColors.PURPLE + "RPG JAVA" + AnsiColors.RESET);
+                System.out.println("          " + AnsiColors.YELLOW + "By Sébastien B." + AnsiColors.RESET);
+                System.out.println("=====================================");
+            } else {
+                System.out.println();
+            }
         }
 
+        // Récupération du nom du joueur
         System.out.println("=====================================");
         System.out.println("Bienvenue dans votre nouveau monde !");
         System.out.println("=====================================");
         System.out.print("Comment vous appelez vous ? ");
         String name = scanner.nextLine();
 
+        // Initialisation du joueur et de la map
         Player player = new Player(name, 100, 150, 0);
+        Map laMap = new Map(player, posX, posY);
 
         Thread.sleep(300);
-        System.out.println("\nEnchanté " + AnsiColors.BLUE + name +  AnsiColors.RESET + ", vous possédé désormais " + AnsiColors.BLUE + "100 PV" + AnsiColors.RESET + " ainsi que " + AnsiColors.BLUE + "150$" + AnsiColors.RESET + " !");
-        System.out.println("Votre mission est la suivante : Vous devez arriver au coin inférieur droit de la map représenté par " + mapFinish + " !");
 
+        // Affichage des informations du joueur
+        System.out.println("\nEnchanté " + AnsiColors.BLUE + player.getName() +  AnsiColors.RESET + ", vous possédé désormais " + AnsiColors.BLUE + player.getPv() + " PV" + AnsiColors.RESET + " ainsi que " + AnsiColors.BLUE + + player.getMoney() + "$" + AnsiColors.RESET + " !");
+        System.out.println("Votre mission est la suivante : Vous devez arriver au coin inférieur droit de la map représenté par " + laMap.getMapFinish() + " !");
 
-        Thread.sleep(2500);
+        Thread.sleep(1500);
 
         // Affichage du catalogue de la boutique
         WeaponStore store = new WeaponStore();
         store.displayCatalogue();
 
         Thread.sleep(800);
+
+        // Choix de la première arme
         System.out.println("\n================================");
         System.out.println("Choissisez votre première arme :");
         System.out.println("================================");
 
-        System.out.print("Veuillez entrer l'ID de l'arme que vous souhaitez acheter : ");
-        String firstWeapon = scanner.nextLine();
+        Weapon chosenWeapon;
 
-        Weapon choosenWeapon = store.getWeaponOfStore(firstWeapon);
-        player.buyWeapon(store, choosenWeapon);
-
-        Thread.sleep(300);
-        while (choosenWeapon == null) {
+        do {
             System.out.print("\nVeuillez entrer l'ID de l'arme que vous souhaitez acheter : ");
-            firstWeapon = scanner.nextLine();
+            String firstWeapon = scanner.nextLine();
 
-            choosenWeapon = store.getWeaponOfStore(firstWeapon);
-            player.buyWeapon(store, choosenWeapon);
-        }
+            // Récupération de l'arme dans le store
+            chosenWeapon = store.getWeaponOfStore(firstWeapon);
 
-        player.selectWeapon(choosenWeapon);
+            if (chosenWeapon != null) {
+                // Achat de l'arme
+                player.buyWeapon(store, chosenWeapon);
+            } else {
+                System.out.println("Arme non disponible dans la boutique. Veuillez choisir une arme du catalogue.");
+            }
+
+        } while (chosenWeapon == null);
+
+        // Sélection de l'arme choisie
+        player.selectWeapon(chosenWeapon);
 
         Thread.sleep(2000);
 
+        // Début du jeu
         System.out.println("\n================================");
-        System.out.println("               MAP              ");
+        System.out.println("             MAP                ");
         System.out.println("================================");
-
-        // Position initiale du joueur
-        int posX = 1;
-        int posY = 0;
-
-        Map laMap = new Map(player, posX, posY);
 
         Object[][] map = laMap.getMap();
 
         Object mapBuffer = "";
 
-        while (!mapBuffer.equals(mapFinish) && player.getPv() > 0) {
+        while (!mapBuffer.equals(laMap.getMapFinish()) && player.getPv() > 0) {
 
             // Affichage de la map
             laMap.displayMap();
 
             System.out.println("\nCommandes disponibles :");
-            if (!(posX + 1 > MAP_SIZE - 1) && !(map[posX + 1][posY]).equals(mapWall) && !(map[posX + 1][posY] instanceof Destructible) ) {
+            if (!(posX + 1 > laMap.getMapSize() - 1) && !(map[posX + 1][posY]).equals(laMap.getMapWall()) && !(map[posX + 1][posY] instanceof Destructible) ) {
                 System.out.println("S (bas)");
             }
-            if ((posY - 1) >= 0 && !(map[posX][posY - 1]).equals(mapWall) && !(map[posX][posY - 1] instanceof Destructible) ) {
+            if ((posY - 1) >= 0 && !(map[posX][posY - 1]).equals(laMap.getMapWall()) && !(map[posX][posY - 1] instanceof Destructible) ) {
                 System.out.println("Q (gauche)");
             }
-            if (!(posY + 1 > MAP_SIZE - 1) && !(map[posX][posY + 1]).equals(mapWall) && !(map[posX][posY + 1] instanceof Destructible) ) {
+            if (!(posY + 1 > laMap.getMapSize() - 1) && !(map[posX][posY + 1]).equals(laMap.getMapWall()) && !(map[posX][posY + 1] instanceof Destructible) ) {
                 System.out.println("D (droite)");
             }
-            if ((posX - 1) >= 0 && !(map[posX - 1][posY]).equals(mapWall) && !(map[posX - 1][posY] instanceof Destructible) ) {
+            if ((posX - 1) >= 0 && !(map[posX - 1][posY]).equals(laMap.getMapWall()) && !(map[posX - 1][posY] instanceof Destructible) ) {
                 System.out.println("Z (haut)");
             }
-            if (mapBuffer.equals(mapMoney)) {
+            if (mapBuffer.equals(laMap.getMapMoney())) {
                 System.out.println("R (Ramasser de l'argent)");
             }
-            if ( (!(posX + 1 > MAP_SIZE - 1) && map[posX + 1][posY] instanceof Obstacle ) ||
+            if ( (!(posX + 1 > laMap.getMapSize() - 1) && map[posX + 1][posY] instanceof Obstacle ) ||
                  ((posX - 1) >= 0 && map[posX - 1][posY] instanceof Obstacle ) ||
-                 (!(posY + 1 > MAP_SIZE - 1) && map[posX][posY + 1]  instanceof Obstacle ) ||
+                 (!(posY + 1 > laMap.getMapSize() - 1) && map[posX][posY + 1]  instanceof Obstacle ) ||
                  ((posY - 1) >= 0 && map[posX][posY - 1] instanceof Obstacle ) )  {
                 System.out.println("L (Attaquer l'obstacle)");
             }
-            if ( (!(posX + 1 > MAP_SIZE - 1) && map[posX + 1][posY] instanceof Monster ) ||
+            if ( (!(posX + 1 > laMap.getMapSize() - 1) && map[posX + 1][posY] instanceof Monster ) ||
                     ((posX - 1) >= 0 && map[posX - 1][posY] instanceof Monster ) ||
-                    (!(posY + 1 > MAP_SIZE - 1) && map[posX][posY + 1]  instanceof Monster ) ||
+                    (!(posY + 1 > laMap.getMapSize() - 1) && map[posX][posY + 1]  instanceof Monster ) ||
                     ((posY - 1) >= 0 && map[posX][posY - 1] instanceof Monster ) )  {
                 System.out.println("K (Attaquer le monstre)");
             }
-            if (mapBuffer.equals(mapStore)) {
+            if (mapBuffer.equals(laMap.getMapStore())) {
                 System.out.println("V (Visiter la boutique)");
             }
 
@@ -133,16 +142,16 @@ public class MainGame {
 
             switch (move) {
                 case 'Z':
-                    if (posX >= 0 && (posX - 1) >= 0 && !(map[posX - 1][posY]).equals(mapWall) && !(map[posX - 1][posY] instanceof Destructible)) {
+                    if (posX >= 0 && (posX - 1) >= 0 && !(map[posX - 1][posY]).equals(laMap.getMapWall()) && !(map[posX - 1][posY] instanceof Destructible)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
-                        if (mapBuffer.equals(mapMoney)) {
-                            map[posX][posY] = mapMoney;
-                        } else if (mapBuffer.equals(mapStore)) {
-                            map[posX][posY] = mapStore;
+                        if (mapBuffer.equals(laMap.getMapMoney())) {
+                            map[posX][posY] = laMap.getMapMoney();
+                        } else if (mapBuffer.equals(laMap.getMapStore())) {
+                            map[posX][posY] = laMap.getMapStore();
                         } else if (mapBuffer instanceof Destructible) {
                             map[posX][posY] = mapBuffer;
-                        } else if (mapBuffer.equals(mapMonster)) {
-                            map[posX][posY] = mapMonster;
+                        } else if (mapBuffer.equals(laMap.getMapMonster())) {
+                            map[posX][posY] = laMap.getMapMonster();
                         } else {
                             map[posX][posY] = "[ ]";
                         }
@@ -157,16 +166,16 @@ public class MainGame {
                     break;
 
                 case 'Q':
-                    if (posY >= 0 && (posY - 1) >= 0 && !(map[posX][posY - 1]).equals(mapWall) && !(map[posX][posY - 1] instanceof Destructible)) {
+                    if (posY >= 0 && (posY - 1) >= 0 && !(map[posX][posY - 1]).equals(laMap.getMapWall()) && !(map[posX][posY - 1] instanceof Destructible)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
-                        if (mapBuffer.equals(mapMoney)) {
-                            map[posX][posY] = mapMoney;
-                        } else if (mapBuffer.equals(mapStore)) {
-                            map[posX][posY] = mapStore;
+                        if (mapBuffer.equals(laMap.getMapMoney())) {
+                            map[posX][posY] = laMap.getMapMoney();
+                        } else if (mapBuffer.equals(laMap.getMapStore())) {
+                            map[posX][posY] = laMap.getMapStore();
                         } else if (mapBuffer instanceof Destructible) {
                             map[posX][posY] = mapBuffer;
-                        } else if (mapBuffer.equals(mapMonster)) {
-                            map[posX][posY] = mapMonster;
+                        } else if (mapBuffer.equals(laMap.getMapMonster())) {
+                            map[posX][posY] = laMap.getMapMonster();
                         } else {
                             map[posX][posY] = "[ ]";
                         }
@@ -181,16 +190,16 @@ public class MainGame {
                     break;
 
                 case 'S':
-                    if (posX < MAP_SIZE - 1 && !(map[posX + 1][posY]).equals(mapWall) && !(map[posX + 1][posY] instanceof Destructible)) {
+                    if (posX < laMap.getMapSize() - 1 && !(map[posX + 1][posY]).equals(laMap.getMapWall()) && !(map[posX + 1][posY] instanceof Destructible)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
-                        if (mapBuffer.equals(mapMoney)) {
-                            map[posX][posY] = mapMoney;
-                        } else if (mapBuffer.equals(mapStore)) {
-                            map[posX][posY] = mapStore;
+                        if (mapBuffer.equals(laMap.getMapMoney())) {
+                            map[posX][posY] = laMap.getMapMoney();
+                        } else if (mapBuffer.equals(laMap.getMapStore())) {
+                            map[posX][posY] = laMap.getMapStore();
                         } else if (mapBuffer instanceof Destructible) {
                             map[posX][posY] = mapBuffer;
-                        } else if (mapBuffer.equals(mapMonster)) {
-                            map[posX][posY] = mapMonster;
+                        } else if (mapBuffer.equals(laMap.getMapMonster())) {
+                            map[posX][posY] = laMap.getMapMonster();
                         } else {
                             map[posX][posY] = "[ ]";
                         }
@@ -205,16 +214,16 @@ public class MainGame {
                     break;
 
                 case 'D':
-                    if (posY < MAP_SIZE - 1 && !(map[posX][posY + 1]).equals(mapWall) && !(map[posX][posY + 1] instanceof Destructible)) {
+                    if (posY < laMap.getMapSize() - 1 && !(map[posX][posY + 1]).equals(laMap.getMapWall()) && !(map[posX][posY + 1] instanceof Destructible)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
-                        if (mapBuffer.equals(mapMoney)) {
-                            map[posX][posY] = mapMoney;
-                        } else if (mapBuffer.equals(mapStore)) {
-                            map[posX][posY] = mapStore;
+                        if (mapBuffer.equals(laMap.getMapMoney())) {
+                            map[posX][posY] = laMap.getMapMoney();
+                        } else if (mapBuffer.equals(laMap.getMapStore())) {
+                            map[posX][posY] = laMap.getMapStore();
                         } else if (mapBuffer instanceof Destructible) {
                             map[posX][posY] = mapBuffer;
-                        } else if (mapBuffer.equals(mapMonster)) {
-                            map[posX][posY] = mapMonster;
+                        } else if (mapBuffer.equals(laMap.getMapMonster())) {
+                            map[posX][posY] = laMap.getMapMonster();
                         } else {
                             map[posX][posY] = "[ ]";
                         }
@@ -228,7 +237,7 @@ public class MainGame {
                     }
                     break;
                 case 'R':
-                    if ((mapBuffer).equals(mapMoney)) {
+                    if ((mapBuffer).equals(laMap.getMapMoney())) {
                         mapBuffer = "";
 
                         // Le joueur gagne un montant aléatoire entre 1 et 30$
@@ -280,13 +289,13 @@ public class MainGame {
                     Obstacle obstacle = null;
                     int obstacleX = posX, obstacleY = posY; // Initialisation des coordonnées de l'obstacle
 
-                    if (!(posX + 1 > MAP_SIZE - 1) && map[posX + 1][posY] instanceof Obstacle) {
+                    if (!(posX + 1 > laMap.getMapSize() - 1) && map[posX + 1][posY] instanceof Obstacle) {
                         obstacle = (Obstacle) map[posX + 1][posY];
                         obstacleX = posX + 1;
                     } else if ((posX - 1) >= 0 && map[posX - 1][posY] instanceof Obstacle) {
                         obstacle = (Obstacle) map[posX - 1][posY];
                         obstacleX = posX - 1;
-                    } else if (!(posY + 1 > MAP_SIZE - 1) && map[posX][posY + 1] instanceof Obstacle) {
+                    } else if (!(posY + 1 > laMap.getMapSize() - 1) && map[posX][posY + 1] instanceof Obstacle) {
                         obstacle = (Obstacle) map[posX][posY + 1];
                         obstacleY = posY + 1;
                     } else if ((posY - 1) >= 0 && map[posX][posY - 1] instanceof Obstacle) {
@@ -315,13 +324,13 @@ public class MainGame {
                     Monster monster = null;
                     int monsterX = posX, monsterY = posY; // Initialisation des coordonnées de l'obstacle
 
-                    if (!(posX + 1 > MAP_SIZE - 1) && map[posX + 1][posY] instanceof Monster) {
+                    if (!(posX + 1 > laMap.getMapSize() - 1) && map[posX + 1][posY] instanceof Monster) {
                         monster = (Monster) map[posX + 1][posY];
                         monsterX = posX + 1;
                     } else if ((posX - 1) >= 0 && map[posX - 1][posY] instanceof Monster) {
                         monster = (Monster) map[posX - 1][posY];
                         monsterX = posX - 1;
-                    } else if (!(posY + 1 > MAP_SIZE - 1) && map[posX][posY + 1] instanceof Monster) {
+                    } else if (!(posY + 1 > laMap.getMapSize() - 1) && map[posX][posY + 1] instanceof Monster) {
                         monster = (Monster) map[posX][posY + 1];
                         monsterY = posY + 1;
                     } else if ((posY - 1) >= 0 && map[posX][posY - 1] instanceof Monster) {
@@ -359,11 +368,11 @@ public class MainGame {
                     System.out.println("Légende de la map");
                     System.out.println("================================");
                     System.out.println(player + ": Vous");
-                    System.out.println(mapMoney + ": Argent (Entre 1$ et 30$)");
-                    System.out.println(mapWall + ": Murs");
-                    System.out.println(mapObstacle + ": Obstacles (Rocher, Arbre ...)");
-                    System.out.println(mapMonster + ": Monstres");
-                    System.out.println(mapFinish + ": Objectif");
+                    System.out.println(laMap.getMapMoney() + ": Argent (Entre 1$ et 30$)");
+                    System.out.println(laMap.getMapWall() + ": Murs");
+                    System.out.println(laMap.getMapObstacle() + ": Obstacles (Rocher, Arbre ...)");
+                    System.out.println(laMap.getMapMonster() + ": Monstres");
+                    System.out.println(laMap.getMapFinish() + ": Objectif");
                     break;
 
                 default:
@@ -375,7 +384,7 @@ public class MainGame {
         if (player.getPv() <= 0) {
             System.out.println("\n" + AnsiColors.RED + "Vous êtes mort ! Vous n'avez pas réussi votre mission !" + AnsiColors.RESET);
         }
-        if (mapBuffer.equals(mapFinish)) {
+        if (mapBuffer.equals(laMap.getMapFinish())) {
             System.out.println("\n" + AnsiColors.CYAN + "Félicitation vous avez terminé le jeu !" + AnsiColors.RESET);
         }
 

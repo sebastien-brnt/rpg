@@ -18,7 +18,12 @@ public class Player implements ActionsPlayer {
     public static String representation = "[" + AnsiColors.BLUE + "X" + AnsiColors.RESET + "]";
 
     public Player(String name, double pv, double money, double xp) {
-        this.name = name;
+        if (name.isEmpty()) {
+            this.name = "Joueur";
+        } else {
+            this.name = name;
+        }
+
         this.pv = pv;
         this.money = money;
         this.xp = xp;

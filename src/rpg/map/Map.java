@@ -33,11 +33,13 @@ public class Map {
             {mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapFinish}
     };
 
+    // Constructor without position of player
     public Map(Player player) {
         map[1][0] = player;
         this.populateMap();
     }
 
+    // Constructor with position of player
     public Map(Player player, int positionX, int positionY) {
         map[positionX][positionY] = player;
         this.populateMap();
@@ -75,6 +77,7 @@ public class Map {
         return map;
     }
 
+
     public void displayMap() {
         for (int i = 0; i < MAP_SIZE; i++) {
             System.out.println();
@@ -83,5 +86,33 @@ public class Map {
             }
         }
         System.out.println();
+    }
+
+    public String getMapPlayer() {
+        return mapPlayer;
+    }
+
+    public String getMapMoney() {
+        return mapMoney;
+    }
+
+    public String getMapObstacle() {
+        return mapObstacle;
+    }
+
+    public String getMapMonster() {
+        return mapMonster;
+    }
+
+    public String getMapFinish() {
+        return mapFinish;
+    }
+
+    public String getMapStore() {
+        return mapStore;
+    }
+
+    public String getMapWall() {
+        return mapWall;
     }
 }
