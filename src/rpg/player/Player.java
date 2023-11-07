@@ -4,6 +4,7 @@ import rpg.destructible.Destructible;
 import rpg.store.WeaponStore;
 import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
+import rpg.utility.AnsiColors;
 import rpg.weapons.Weapon;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class Player implements ActionsPlayer {
     private Weapon selectedWeapon;
     private ArrayList<Weapon> weaponList = new ArrayList<>();
 
-    public static String representation = "[\u001B[34mX\u001B[0m]";
+    public static String representation = "[" + AnsiColors.BLUE + "X" + AnsiColors.RESET + "]";
 
     public Player(String name, double pv, double money, double xp) {
         this.name = name;

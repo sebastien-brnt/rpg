@@ -22,14 +22,14 @@ public class Map {
 
     private Object[][] map = {
             {mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall},
-            {mapWall, mapMoney, mapWall, mapMoney, "[ ]", "[ ]", "[ ]", "[ ]", mapMoney, mapWall},
+            {mapWall, "[ ]", mapWall, "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", mapWall},
             {mapWall, "[ ]", mapWall, mapWall, "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", mapWall},
             {mapWall, "[ ]", "[ ]", mapWall, "[ ]", "[ ]", mapWall, mapWall, "[ ]", mapWall},
             {mapWall, mapWall, "[ ]", mapWall, "[ ]", "[ ]", mapWall, "[ ]", "[ ]", mapWall},
             {mapWall, "[ ]", "[ ]", mapWall, "[ ]", mapWall, mapWall, "[ ]", "[ ]", mapWall},
             {mapWall, "[ ]", "[ ]", mapWall, "[ ]", mapWall, "[ ]", "[ ]", "[ ]", mapWall},
             {mapWall, "[ ]", "[ ]", "[ ]", "[ ]", mapWall, "[ ]", mapWall, mapWall, mapWall},
-            {mapWall, mapMoney, mapWall, "[ ]", mapStore, mapWall, mapMoney, "[ ]", "[ ]", "[ ]"},
+            {mapWall, "[ ]", mapWall, "[ ]", mapStore, mapWall, "[ ]", "[ ]", "[ ]", "[ ]"},
             {mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapFinish}
     };
 
@@ -49,14 +49,16 @@ public class Map {
     }
 
     private Object getRandomElement() {
-        int randomNum = random.nextInt(10);
+        int randomNum = random.nextInt(20);
 
-        if (randomNum < 3) { // 30% de chance d'obtenir un Obstacle
+        if (randomNum < 6) { // 30% de chance d'obtenir un Obstacle
             return new Obstacle("Obstacle");
-        } else if (randomNum < 5) { // 20% de chance d'obtenir un Monstre
+        } else if (randomNum < 10) { // 20% de chance d'obtenir un Monstre
             return new Monster("Monstre", 15);
+        } else if (randomNum < 11) { // 5% de chance d'obtenir un Monstre
+            return mapMoney;
         } else {
-            return "[ ]"; // 50% de chance de laisser la case vide
+            return "[ ]"; // 45% de chance de laisser la case vide
         }
     }
 

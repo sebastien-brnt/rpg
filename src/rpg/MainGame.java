@@ -27,16 +27,6 @@ public class MainGame {
 
         Scanner scanner = new Scanner(System.in);
 
-        Monster monster1 = new Monster("Monster 1", 15);
-        Monster monster2 = new Monster("Monster 2", 25);
-        Monster monster3 = new Monster("Monster 2", 20);
-        Monster monster4 = new Monster("Monster 4", 45);
-        Obstacle rock = new Obstacle("Rocher");
-        Obstacle rock2 = new Obstacle("Rocher");
-        Obstacle rock3 = new Obstacle("Rocher");
-        Obstacle tree = new Obstacle("Arbre");
-        Obstacle tree2 = new Obstacle("Arbre");
-
         for (int i = 0; i < 3; i++) {
             System.out.println();
         }
@@ -255,7 +245,7 @@ public class MainGame {
                         player.addMoney(winMoney);
 
                         Thread.sleep(300);
-                        System.out.println("\nVous venez de ramasser " + AnsiColors.BLUE + winMoney + AnsiColors.RESET + " !");
+                        System.out.println("\nVous venez de ramasser " + AnsiColors.BLUE + winMoney + "$" + AnsiColors.RESET + " !");
                         System.out.println("Votre nouveau solde est de " + AnsiColors.BLUE + player.getMoney() + "$" + AnsiColors.RESET);
                         Thread.sleep(1200);
                     } else {
@@ -389,7 +379,7 @@ public class MainGame {
         }
 
         if (player.getPv() <= 0) {
-            System.out.println("\n" + AnsiColors.CYAN + "Vous êtes mort ! Vous n'avez pas réussi votre mission !" + AnsiColors.RESET);
+            System.out.println("\n" + AnsiColors.RED + "Vous êtes mort ! Vous n'avez pas réussi votre mission !" + AnsiColors.RESET);
         }
         if (mapBuffer.equals(mapFinish)) {
             System.out.println("\n" + AnsiColors.CYAN + "Félicitation vous avez terminé le jeu !" + AnsiColors.RESET);

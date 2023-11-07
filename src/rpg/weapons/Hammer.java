@@ -3,6 +3,7 @@ package rpg.weapons;
 import rpg.destructible.Destructible;
 import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
+import rpg.utility.AnsiColors;
 
 public class Hammer extends Weapon {
 
@@ -31,6 +32,6 @@ public class Hammer extends Weapon {
             destructible.hit_me(damage * MONSTER_DAMAGE_RATIO);
         }
 
-        System.out.println("\nVous venez d'infliger " + damage + " PV à " + destructible.getName() );
+        System.out.println("\nVous venez d'infliger " + AnsiColors.BLUE + damage + " PV" + AnsiColors.RESET + " à " + AnsiColors.BLUE + destructible.getName() + AnsiColors.RESET );
     }
 }
