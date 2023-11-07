@@ -78,10 +78,11 @@ public class MainGame {
         System.out.println("               MAP              ");
         System.out.println("================================");
 
-        Map laMap = new Map(player);
         // Position initiale du joueur
         int posX = 1;
         int posY = 0;
+
+        Map laMap = new Map(player, posX, posY);
 
         Object[][] map = laMap.getMap();
 
@@ -352,7 +353,7 @@ public class MainGame {
                             map[monsterX][monsterY] = "[ ]"; // Remplace l'obstacle par un espace vide
                         }
                     } else {
-                        System.out.println("Il n'y a pas de monstre à attaquer !");
+                        System.out.println("\nIl n'y a pas de monstre à attaquer !");
                     }
 
                     break;

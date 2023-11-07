@@ -18,6 +18,7 @@ public class Axe extends Weapon {
         super(id, name, damage, price, durability);
     }
 
+    @Override
     public String ascii_art() {
         return  "     __    \n" +
                 "  /\\ ) \\  \n" +
@@ -27,13 +28,17 @@ public class Axe extends Weapon {
                 "  ||       \n";
     }
 
+    @Override
     public void attack(Destructible destructible) {
+        double finalDamage;
         if (destructible instanceof Obstacle) {
-            destructible.hit_me(damage * OBSTACLE_DAMAGE_RATIO);
+            finalDamage = damage * OBSTACLE_DAMAGE_RATIO;
+            destructible.hit_me(finalDamage);
         } else {
-            destructible.hit_me(damage * MONSTER_DAMAGE_RATIO);
+            finalDamage = damage * MONSTER_DAMAGE_RATIO;
+            destructible.hit_me(finalDamage);
         }
 
-        System.out.println("\nVous venez d'infliger " + AnsiColors.BLUE + damage + " PV" + AnsiColors.RESET + " à " + AnsiColors.BLUE + destructible.getName() + AnsiColors.RESET );
+        System.out.println("\nVous venez d'infliger " + AnsiColors.BLUE + finalDamage + " PV" + AnsiColors.RESET + " à " + AnsiColors.BLUE + destructible.getName() + AnsiColors.RESET );
     }
 }

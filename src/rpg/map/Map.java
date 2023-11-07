@@ -38,6 +38,11 @@ public class Map {
         this.populateMap();
     }
 
+    public Map(Player player, int positionX, int positionY) {
+        map[positionX][positionY] = player;
+        this.populateMap();
+    }
+
     public void populateMap() {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
@@ -55,7 +60,7 @@ public class Map {
             return new Obstacle("Obstacle");
         } else if (randomNum < 10) { // 20% de chance d'obtenir un Monstre
             return new Monster("Monstre", 15);
-        } else if (randomNum < 11) { // 5% de chance d'obtenir un Monstre
+        } else if (randomNum < 12) { // 10% de chance d'obtenir un Monstre
             return mapMoney;
         } else {
             return "[ ]"; // 45% de chance de laisser la case vide

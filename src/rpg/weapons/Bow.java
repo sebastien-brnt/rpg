@@ -18,6 +18,7 @@ public class Bow extends Weapon {
         super(id, name, damage, price, durability);
     }
 
+    @Override
     public String ascii_art() {
         return  " (           \n" +
                 "   )         \n" +
@@ -28,13 +29,17 @@ public class Bow extends Weapon {
                 " (           \n";
     }
 
+    @Override
     public void attack(Destructible destructible) {
+        double finalDamage;
         if (destructible instanceof Obstacle) {
+            finalDamage = damage * OBSTACLE_DAMAGE_RATIO;
             destructible.hit_me(damage * OBSTACLE_DAMAGE_RATIO);
         } else {
+            finalDamage = damage * MONSTER_DAMAGE_RATIO;
             destructible.hit_me(damage * MONSTER_DAMAGE_RATIO);
         }
 
-        System.out.println("\nVous venez d'infliger " + AnsiColors.BLUE + damage + " PV" + AnsiColors.RESET + " à " + AnsiColors.BLUE + destructible.getName() + AnsiColors.RESET );
+        System.out.println("\nVous venez d'infliger " + AnsiColors.BLUE + finalDamage + " PV" + AnsiColors.RESET + " à " + AnsiColors.BLUE + destructible.getName() + AnsiColors.RESET );
     }
 }
