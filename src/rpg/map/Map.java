@@ -87,6 +87,18 @@ public class Map {
         }
         System.out.println();
     }
+    
+    public void displayMapLegend() {
+        System.out.println("\n================================");
+        System.out.println("Légende de la map");
+        System.out.println("================================");
+        System.out.println(this.getMapPlayer() + ": Vous");
+        System.out.println(this.getMapMoney() + ": Argent (Entre 1$ et 30$)");
+        System.out.println(this.getMapWall() + ": Murs");
+        System.out.println(this.getMapObstacle() + ": Obstacles");
+        System.out.println(this.getMapMonster() + ": Monstres");
+        System.out.println(this.getMapFinish() + ": Objectif");
+    }
 
     public String getMapPlayer() {
         return mapPlayer;

@@ -48,7 +48,7 @@ public class MainGame {
         Thread.sleep(300);
 
         // Affichage des informations du joueur
-        System.out.println("\nEnchanté " + AnsiColors.BLUE + player.getName() +  AnsiColors.RESET + ", vous possédé désormais " + AnsiColors.BLUE + player.getPv() + " PV" + AnsiColors.RESET + " ainsi que " + AnsiColors.BLUE + + player.getMoney() + "$" + AnsiColors.RESET + " !");
+        System.out.println("\nEnchanté " + AnsiColors.BLUE + player.getName() +  AnsiColors.RESET + ", vous possédé désormais " + AnsiColors.CYAN + player.getPv() + " PV" + AnsiColors.RESET + " ainsi que " + AnsiColors.GREEN + + player.getMoney() + "$" + AnsiColors.RESET + " !");
         System.out.println("Votre mission est la suivante : Vous devez arriver au coin inférieur droit de la map représenté par " + laMap.getMapFinish() + " !");
 
         Thread.sleep(1500);
@@ -67,7 +67,7 @@ public class MainGame {
         Weapon chosenWeapon;
 
         do {
-            System.out.print("\nVeuillez entrer l'ID de l'arme que vous souhaitez acheter : ");
+            System.out.print("Veuillez entrer l'ID de l'arme que vous souhaitez acheter : ");
             String firstWeapon = scanner.nextLine();
 
             // Récupération de l'arme dans le store
@@ -134,11 +134,16 @@ public class MainGame {
             }
 
             System.out.println("I (Voir mes information et mon inventaire)");
-            System.out.println(": (Quitter le jeu)");
             System.out.println("* (Légende de la map)");
+            System.out.println(": (Quitter le jeu)");
 
             char move = scanner.nextLine().toUpperCase().charAt(0);
-            if (move == ':') break;
+
+            // Le joueur quitte le jeu
+            if (move == ':') {
+                System.out.println("\n" + AnsiColors.RED + "Vous avez quitté le jeu !" + AnsiColors.RESET);
+                break;
+            }
 
             switch (move) {
                 case 'Z':
@@ -248,8 +253,8 @@ public class MainGame {
                         player.addMoney(winMoney);
 
                         Thread.sleep(300);
-                        System.out.println("\nVous venez de ramasser " + AnsiColors.BLUE + winMoney + "$" + AnsiColors.RESET + " !");
-                        System.out.println("Votre nouveau solde est de " + AnsiColors.BLUE + player.getMoney() + "$" + AnsiColors.RESET);
+                        System.out.println("\nVous venez de ramasser " + AnsiColors.GREEN + winMoney + "$" + AnsiColors.RESET + " !");
+                        System.out.println("Votre nouveau solde est de " + AnsiColors.GREEN + player.getMoney() + "$" + AnsiColors.RESET);
                         Thread.sleep(1200);
                     } else {
                         System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
@@ -309,10 +314,16 @@ public class MainGame {
                         if (obstacle.getPv() <= 0) {
                             Thread.sleep(300);
                             System.out.println(AnsiColors.BLUE + "\nL'obstacle est détruit !" + AnsiColors.RESET);
-                            player.addXp(20);
-                            System.out.println("Vous avez gagné " + AnsiColors.BLUE + "20 XP" + AnsiColors.RESET + "!");
+
+                            // Ajout de l'XP au joueur
+                            double winXp = 20;
+                            player.addXp(winXp);
+                            System.out.println("Vous avez gagné " + AnsiColors.YELLOW + winXp +" XP" + AnsiColors.RESET + "!");
+
                             Thread.sleep(1200);
-                            map[obstacleX][obstacleY] = "[ ]"; // Remplace l'obstacle par un espace vide
+
+                            // Remplace l'obstacle par un espace vide
+                            map[obstacleX][obstacleY] = "[ ]";
                         }
                     } else {
                         System.out.println("Il n'y a pas d'obstacle à attaquer !");
@@ -346,13 +357,21 @@ public class MainGame {
                         Thread.sleep(300);
                         if (monster.getPv() <= 0) {
                             System.out.println(AnsiColors.BLUE + "\nLe monstre est mort !" + AnsiColors.RESET);
-                            player.addXp(120);
-                            System.out.println("Vous avez gagné " + AnsiColors.BLUE + "120 XP" + AnsiColors.RESET + "!");
-                            Thread.sleep(300);
-                            player.addPv(20);
-                            System.out.println("Vous avez gagné " + AnsiColors.BLUE + "20 PV" + AnsiColors.RESET + "!");
+
+                            // Ajout de l'XP au joueur
+                            double winXp = 120;
+                            player.addXp(winXp);
+                            System.out.println("Vous avez gagné " + AnsiColors.YELLOW + winXp + " XP" + AnsiColors.RESET + "!");
+
+                            // Ajout des PV au joueur
+                            double winPv = 20;
+                            player.addPv(winPv);
+                            System.out.println("Vous avez gagné " + AnsiColors.CYAN + winPv + " PV" + AnsiColors.RESET + "!");
+
                             Thread.sleep(1200);
-                            map[monsterX][monsterY] = "[ ]"; // Remplace l'obstacle par un espace vide
+
+                            // Remplace l'obstacle par un espace vide
+                            map[monsterX][monsterY] = "[ ]";
                         }
                     } else {
                         System.out.println("\nIl n'y a pas de monstre à attaquer !");
@@ -360,19 +379,11 @@ public class MainGame {
 
                     break;
                 case 'I':
-                    System.out.println(player.getInformation());
+                    player.displayInformation();
                     break;
 
                 case '*':
-                    System.out.println("\n================================");
-                    System.out.println("Légende de la map");
-                    System.out.println("================================");
-                    System.out.println(player + ": Vous");
-                    System.out.println(laMap.getMapMoney() + ": Argent (Entre 1$ et 30$)");
-                    System.out.println(laMap.getMapWall() + ": Murs");
-                    System.out.println(laMap.getMapObstacle() + ": Obstacles (Rocher, Arbre ...)");
-                    System.out.println(laMap.getMapMonster() + ": Monstres");
-                    System.out.println(laMap.getMapFinish() + ": Objectif");
+                    laMap.displayMapLegend();
                     break;
 
                 default:

@@ -29,7 +29,7 @@ public class WeaponStore {
         System.out.println("Catalogue de la boutique :");
         System.out.println("================================");
 
-        for(Weapon weapon : weaponList) {
+        for(Weapon weapon : getWeaponList()) {
             System.out.println("\n" + weapon.ascii_art());
             System.out.println("ID : " + weapon.getId());
             System.out.println("Nom : " + weapon.getName());

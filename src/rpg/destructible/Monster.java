@@ -26,7 +26,7 @@ public class Monster extends Destructible {
             playerLife = 0;
         }
 
-        System.out.println("Le monstre " + this.getName() + " vous à infligé " + AnsiColors.RED + this.hit + " PV" + AnsiColors.RESET+ ", il vous reste désormais " + AnsiColors.BLUE + playerLife + " PV" + AnsiColors.RESET);
+        System.out.println("Le monstre " + this.getName() + " vous à infligé " + AnsiColors.RED + this.hit + " PV" + AnsiColors.RESET+ ", il vous reste désormais " + AnsiColors.CYAN + playerLife + " PV" + AnsiColors.RESET);
     }
 
     @Override

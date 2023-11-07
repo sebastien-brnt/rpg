@@ -40,6 +40,6 @@ public class Bow extends Weapon {
             destructible.hit_me(damage * MONSTER_DAMAGE_RATIO);
         }
 
-        System.out.println("\nVous venez d'infliger " + AnsiColors.BLUE + finalDamage + " PV" + AnsiColors.RESET + " à " + AnsiColors.BLUE + destructible.getName() + AnsiColors.RESET );
+        System.out.println("\nVous venez d'infliger " + AnsiColors.CYAN + finalDamage + " PV" + AnsiColors.RESET + " à " + AnsiColors.BLUE + destructible.getName() + AnsiColors.RESET );
     }
 }

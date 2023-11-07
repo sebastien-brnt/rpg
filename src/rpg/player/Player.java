@@ -76,6 +76,10 @@ public class Player implements ActionsPlayer {
         return weaponList;
     }
 
+    public void changeWeapon(Weapon weapon) {
+        this.selectedWeapon = weapon;
+    }
+
     @Override
     public void buyWeapon(WeaponStore store, Weapon weapon) {
         if (weapon != null) {
@@ -83,19 +87,25 @@ public class Player implements ActionsPlayer {
                 this.money -= weapon.getPrice();
                 this.weaponList.add(weapon);
                 store.RemoveWeapon(weapon);
-                System.out.println(this.name + ", il vous reste " + AnsiColors.BLUE + this.money + "$" + AnsiColors.RESET + " après l'achat de : " + AnsiColors.BLUE + weapon.getName() + AnsiColors.RESET + " pour " + AnsiColors.BLUE + weapon.getPrice() + "$" + AnsiColors.RESET);
+                System.out.println(this.name + ", il vous reste " + AnsiColors.GREEN + this.money + "$" + AnsiColors.RESET + " après l'achat de : " + AnsiColors.BLUE + weapon.getName() + AnsiColors.RESET + " pour " + AnsiColors.GREEN + weapon.getPrice() + "$" + AnsiColors.RESET);
             } else {
-                System.out.println(this.name + ", Tu n'a pas assez d'argent pour acheter cela (argent : " + AnsiColors.BLUE + this.money + "$" + AnsiColors.RESET + ", prix : " + AnsiColors.BLUE + weapon.getPrice() + "$" + AnsiColors.RESET + ")");
+                System.out.println(this.name + ", Tu n'a pas assez d'argent pour acheter cela (argent : " + AnsiColors.GREEN + this.money + "$" + AnsiColors.RESET + ", prix : " + AnsiColors.GREEN + weapon.getPrice() + "$" + AnsiColors.RESET + ")");
             }
         } else {
             System.out.println("Désolé " + this.name + ", cette arme n'est pas disponible dans la boutique...");
         }
     }
 
-    public String getInformation() {
-        return  "Name : " + this.name + "\n" +
-                "Money : " + this.money + "$\n" +
-                "Weapon list : " + this.weaponList;
+    public void displayInformation() {
+        System.out.println("\n================================");
+        System.out.println("       Vos informations :");
+        System.out.println("================================");
+        System.out.println("Nom : " + AnsiColors.BLUE + this.name + AnsiColors.RESET);
+        System.out.println("PV : " + AnsiColors.CYAN + this.pv + " PV" + AnsiColors.RESET);
+        System.out.println("Argent : " + AnsiColors.GREEN + this.money + "$" + AnsiColors.RESET);
+        System.out.println("XP : " + AnsiColors.YELLOW + this.xp + AnsiColors.RESET);
+        System.out.println("\nArme sélectionnée : " + this.selectedWeapon);
+        System.out.println("\nListe des armes : " + this.weaponList);
     }
 
     @Override
