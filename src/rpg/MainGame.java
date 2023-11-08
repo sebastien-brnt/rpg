@@ -103,33 +103,33 @@ public class MainGame {
 
             System.out.println("\nCommandes disponibles :");
             if (laMap.getMove(posX - 1, posY)) {
-                System.out.println("Z (haut)");
+                System.out.println("[Z] : Haut");
             }
             if (laMap.getMove(posX, posY - 1)) {
-                System.out.println("Q (gauche)");
+                System.out.println("[Q] : Gauche");
             }
             if (laMap.getMove(posX + 1, posY)) {
-                System.out.println("S (bas)");
+                System.out.println("[S] : Bas");
             }
             if (laMap.getMove(posX, posY + 1)) {
-                System.out.println("D (droite)");
+                System.out.println("[D] : Droite");
             }
             if (mapBuffer.equals(laMap.getMapMoney())) {
-                System.out.println("R (Ramasser de l'argent)");
+                System.out.println("[R] : Ramasser l'argent");
             }
             if (laMap.getPresenceAround(posX, posY, Obstacle.class))  {
-                System.out.println("L (Attaquer l'obstacle)");
+                System.out.println("[L] : Attaquer l'obstacle");
             }
             if (laMap.getPresenceAround(posX, posY, Monster.class))  {
-                System.out.println("K (Attaquer le monstre)");
+                System.out.println("[K] : Attaquer le monstre");
             }
             if (mapBuffer.equals(laMap.getMapStore())) {
-                System.out.println("V (Visiter la boutique)");
+                System.out.println("[V] : Visiter la boutique");
             }
 
-            System.out.println("I (Voir mes information et mon inventaire)");
-            System.out.println("* (Légende de la map)");
-            System.out.println(": (Quitter le jeu)");
+            System.out.println("[I] : Voir mes information et mon inventaire");
+            System.out.println("[*] : Légende de la map");
+            System.out.println("[:] : Quitter le jeu");
 
             char move = scanner.nextLine().toUpperCase().charAt(0);
 
@@ -205,8 +205,8 @@ public class MainGame {
                         int winMoney = (int) Math.round(Math.random() * (max - min)) + min;
 
                         player.addMoney(winMoney);
-
                         Thread.sleep(300);
+                        
                         System.out.println("\nVous venez de ramasser " + AnsiColors.GREEN + winMoney + "$" + AnsiColors.RESET + " !");
                         System.out.println("Votre nouveau solde est de " + AnsiColors.GREEN + player.getMoney() + "$" + AnsiColors.RESET);
                         Thread.sleep(1200);
@@ -222,8 +222,8 @@ public class MainGame {
 
                     do {
                         System.out.println("Que souhaitez-vous faire ?");
-                        System.out.println("A : Acheter une nouvelle arme");
-                        System.out.println("S : Sortir de la boutique");
+                        System.out.println("[A] : Acheter une nouvelle arme");
+                        System.out.println("[S] : Sortir de la boutique");
                         playerAction = scanner.nextLine();
 
                         if (playerAction.equals("A")) {
@@ -270,9 +270,7 @@ public class MainGame {
                             System.out.println(AnsiColors.BLUE + "\nL'obstacle est détruit !" + AnsiColors.RESET);
 
                             // Ajout de l'XP au joueur
-                            double winXp = 20;
-                            player.addXp(winXp);
-                            System.out.println("Vous avez gagné " + AnsiColors.YELLOW + winXp +" XP" + AnsiColors.RESET + "!");
+                            player.addXp(20, true);
 
                             Thread.sleep(1200);
 
@@ -307,20 +305,18 @@ public class MainGame {
                     if (monster != null) {
                         player.attackDestructible(monster);
                         Thread.sleep(300);
+
                         monster.attackPlayer(player);
                         Thread.sleep(300);
+
                         if (monster.getPv() <= 0) {
                             System.out.println(AnsiColors.BLUE + "\nLe monstre est mort !" + AnsiColors.RESET);
 
                             // Ajout de l'XP au joueur
-                            double winXp = 120;
-                            player.addXp(winXp);
-                            System.out.println("Vous avez gagné " + AnsiColors.YELLOW + winXp + " XP" + AnsiColors.RESET + "!");
+                            player.addXp(120, true);
 
                             // Ajout des PV au joueur
-                            double winPv = 20;
-                            player.addPv(winPv);
-                            System.out.println("Vous avez gagné " + AnsiColors.CYAN + winPv + " PV" + AnsiColors.RESET + "!");
+                            player.addPv(20, true);
 
                             Thread.sleep(1200);
 

@@ -54,16 +54,34 @@ public class Player implements ActionsPlayer {
     public void addMoney(double value) {
         this.money += value;
     }
-    public void addXp(double value) {
+    public void addXp(double value, boolean showMessage) {
         this.xp += value;
+
+        if (showMessage) {
+            System.out.println("Vous avez gagné " + AnsiColors.YELLOW + value + " XP" + AnsiColors.RESET + "!");
+        }
+    }
+
+    public void addXp(double value) {
+        this.addXp(value, false);
     }
 
     public void removePv(double hit) {
         this.pv = this.pv - hit;
     }
-    public void addPv(double value) {
+
+    public void addPv(double value, boolean showMessage) {
         this.pv += value;
+
+        if (showMessage) {
+            System.out.println("Vous avez gagné " + AnsiColors.CYAN + value + " PV" + AnsiColors.RESET + "!");
+        }
     }
+
+    public void addPv(double value) {
+        this.addPv(value, false);
+    }
+
     public void removeXp(double value) {
         this.pv -= value;
     }
