@@ -9,6 +9,7 @@ import rpg.utility.AnsiColors;
 import rpg.weapons.Weapon;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Player implements ActionsPlayer {
     private String name;
@@ -99,6 +100,8 @@ public class Player implements ActionsPlayer {
 
     public void changeWeapon(Weapon weapon) {
         this.selectedWeapon = weapon;
+
+        System.out.println("Vous avez changé d'arme, vous avez désormais : " + AnsiColors.BLUE + weapon.getName() + AnsiColors.RESET + " comme arme sélectionnée");
     }
 
     @Override
@@ -117,7 +120,7 @@ public class Player implements ActionsPlayer {
         }
     }
 
-    public void displayInformation() {
+    public void displayInformation(Scanner scanner) {
         System.out.println("\n================================");
         System.out.println("       Vos informations :");
         System.out.println("================================");
@@ -127,6 +130,41 @@ public class Player implements ActionsPlayer {
         System.out.println("XP : " + AnsiColors.YELLOW + this.xp + AnsiColors.RESET);
         System.out.println("\nArme sélectionnée : " + this.selectedWeapon);
         System.out.println("\nListe des armes : " + this.weaponList);
+
+        String playerAction;
+
+        do {
+            // Affichage des commandes disponibles pour le joueur
+            System.out.println("\nQue souhaitez-vous faire ?");
+
+            if (this.weaponList.size() > 1) {
+                System.out.println("[C] : Changer l'arme sélectionnée");
+            }
+            System.out.println("[S] : Sortir du menu d'information");
+            playerAction = scanner.nextLine();
+
+            if (playerAction.equals("C")) {
+                System.out.print("\nVeuillez entrer l'ID de l'arme que vous souhaitez selectionnée : ");
+                String idWeapon = scanner.nextLine();
+
+                Weapon playchosenWeapon = null;
+
+                for(Weapon weapon : this.weaponList) {
+                    if(weapon.getId().equals(idWeapon)) {
+                        playchosenWeapon = weapon;
+                    }
+                }
+
+                if (playchosenWeapon != null) {
+                    this.changeWeapon(playchosenWeapon);
+                } else {
+                    System.out.println("Vous ne possédé aucune arme avec l'ID : " + idWeapon + " ...");
+                }
+
+            } else if (!playerAction.equals("S")) {
+                this.commandNotAvailable();
+            }
+        } while (!playerAction.equals("S"));
     }
 
     public void displayAvailableCommand(Map map, int posX, int posY) {
@@ -162,6 +200,10 @@ public class Player implements ActionsPlayer {
         System.out.println("[I] : Voir mes information et mon inventaire");
         System.out.println("[*] : Légende de la map");
         System.out.println("[:] : Quitter le jeu");
+    }
+
+    public void commandNotAvailable() {
+        System.out.println("\n" + this.getName() + ", l'action demandée n'est pas ou n'existe pas");
     }
 
     @Override

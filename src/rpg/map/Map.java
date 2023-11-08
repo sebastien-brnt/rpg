@@ -41,13 +41,13 @@ public class Map {
 
     // Constructor without position of player
     public Map(Player player) {
-        map[1][0] = player;
+        this.definePlayerPosition(player, 1, 0);
         this.populateMap();
     }
 
     // Constructor with position of player
     public Map(Player player, int positionX, int positionY) {
-        map[positionX][positionY] = player;
+        this.definePlayerPosition(player, positionX, positionY);
         this.populateMap();
     }
 
@@ -180,5 +180,9 @@ public class Map {
 
     public boolean inTheMap(int x, int y) {
         return x >= 0 && x < getMapSize() && y >= 0 && y < getMapSize();
+    }
+
+    public void definePlayerPosition(Player player, int posX, int posY) {
+        this.map[posX][posY] = player;
     }
 }

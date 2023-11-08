@@ -1,6 +1,5 @@
 package rpg;
 
-import rpg.destructible.Destructible;
 import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
 import rpg.map.Map;
@@ -77,7 +76,7 @@ public class MainGame {
                 // Achat de l'arme
                 player.buyWeapon(store, chosenWeapon);
             } else {
-                System.out.println("Arme non disponible dans la boutique. Veuillez choisir une arme du catalogue.");
+                System.out.println("Arme non disponible dans la boutique. Veuillez choisir une arme du catalogue.\n");
             }
 
         } while (chosenWeapon == null);
@@ -89,11 +88,13 @@ public class MainGame {
 
         // Début du jeu
         System.out.println("\n================================");
-        System.out.println("             MAP                ");
+        System.out.println("          Début du jeu          ");
         System.out.println("================================");
 
+        // Récupération de la map
         Object[][] map = laMap.getMap();
 
+        // Boucle de jeu
         while (!laMap.getMapBuffer().equals(laMap.getMapFinish()) && player.getPv() > 0) {
 
             // Affichage de la map
@@ -104,7 +105,7 @@ public class MainGame {
 
             char move = scanner.nextLine().toUpperCase().charAt(0);
 
-            // Le joueur quitte le jeu
+            // Le joueur quitte, le jeu on met fin à la boucle
             if (move == ':') {
                 System.out.println("\n" + AnsiColors.RED + "Vous avez quitté le jeu !" + AnsiColors.RESET);
                 break;
@@ -113,26 +114,27 @@ public class MainGame {
             switch (move) {
                 case 'Z':
                     if (laMap.getMove(posX - 1, posY)) {
-                        // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
+                        // Si le joueur était sur un item qu'il n'a pas récupéré on remet l'item sur la map
                         laMap.replaceItemInMap(posX, posY);
 
                         posX--;
                         laMap.setMapBuffer(map[posX][posY]);
-                        map[posX][posY] = player;
+                        laMap.definePlayerPosition(player, posX, posY);
                         System.out.println("\nVous vous êtes déplacé vers le " + AnsiColors.BLUE + "haut" + AnsiColors.RESET);
                     } else {
-                        System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
+                        // L'action demandée n'est pas disponible
+                        player.commandNotAvailable();
                     }
                     break;
 
                 case 'Q':
                     if (laMap.getMove(posX, posY - 1)) {
-                        // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
+                        // Si le joueur était sur un item qu'il n'a pas récupéré on remet l'item sur la map
                         laMap.replaceItemInMap(posX, posY);
 
                         posY--;
                         laMap.setMapBuffer(map[posX][posY]);
-                        map[posX][posY] = player;
+                        laMap.definePlayerPosition(player, posX, posY);
                         System.out.println("\nVous vous êtes déplacé vers la " + AnsiColors.BLUE + "gauche" + AnsiColors.RESET);
                     } else {
                         System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
@@ -141,29 +143,31 @@ public class MainGame {
 
                 case 'S':
                     if (laMap.getMove(posX + 1, posY)) {
-                        // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
+                        // Si le joueur était sur un item qu'il n'a pas récupéré on remet l'item sur la map
                         laMap.replaceItemInMap(posX, posY);
 
                         posX++;
                         laMap.setMapBuffer(map[posX][posY]);
-                        map[posX][posY] = player;
+                        laMap.definePlayerPosition(player, posX, posY);
                         System.out.println("\nVous vous êtes déplacé vers le " + AnsiColors.BLUE + "bas" + AnsiColors.RESET);
                     } else {
-                        System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
+                        // L'action demandée n'est pas disponible
+                        player.commandNotAvailable();
                     }
                     break;
 
                 case 'D':
                     if (laMap.getMove(posX, posY + 1)) {
-                        // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
+                        // Si le joueur était sur un item qu'il n'a pas récupéré on remet l'item sur la map
                         laMap.replaceItemInMap(posX, posY);
 
                         posY++;
                         laMap.setMapBuffer(map[posX][posY]);
-                        map[posX][posY] = player;
+                        laMap.definePlayerPosition(player, posX, posY);
                         System.out.println("\nVous vous êtes déplacé vers la " + AnsiColors.BLUE + "droite" + AnsiColors.RESET);
                     } else {
-                        System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
+                        // L'action demandée n'est pas disponible
+                        player.commandNotAvailable();
                     }
                     break;
                 case 'R':
@@ -178,11 +182,13 @@ public class MainGame {
                         player.addMoney(winMoney);
                         Thread.sleep(300);
 
+                        // Affichage du gain d'argent et du nouveau solde
                         System.out.println("\nVous venez de ramasser " + AnsiColors.GREEN + winMoney + "$" + AnsiColors.RESET + " !");
                         System.out.println("Votre nouveau solde est de " + AnsiColors.GREEN + player.getMoney() + "$" + AnsiColors.RESET);
                         Thread.sleep(1200);
                     } else {
-                        System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
+                        // L'action demandée n'est pas disponible
+                        player.commandNotAvailable();
                     }
                     break;
                 case 'V':
@@ -192,6 +198,7 @@ public class MainGame {
                     String playerAction;
 
                     do {
+                        // Affichage des commandes disponibles pour le joueur
                         System.out.println("Que souhaitez-vous faire ?");
                         System.out.println("[A] : Acheter une nouvelle arme");
                         System.out.println("[S] : Sortir de la boutique");
@@ -300,7 +307,7 @@ public class MainGame {
 
                     break;
                 case 'I':
-                    player.displayInformation();
+                    player.displayInformation(scanner);
                     break;
 
                 case '*':
@@ -308,7 +315,8 @@ public class MainGame {
                     break;
 
                 default:
-                    System.out.println("\n" + player.getName() + ", l'action demandée n'existe pas");
+                    // L'action demandée n'est pas disponible
+                    player.commandNotAvailable();
                     break;
             }
         }
