@@ -103,7 +103,12 @@ public class MainGame {
             // Affichage des commandes disponibles pour le joueur
             player.displayAvailableCommand(laMap, posX, posY);
 
-            char move = scanner.nextLine().toUpperCase().charAt(0);
+            String playerCmd = scanner.nextLine();
+            char move = ' ';
+
+            if (!playerCmd.isEmpty()) {
+                move = playerCmd.toUpperCase().charAt(0);
+            }
 
             // Le joueur quitte, le jeu on met fin à la boucle
             if (move == ':') {
