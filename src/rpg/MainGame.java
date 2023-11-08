@@ -158,7 +158,7 @@ public class MainGame {
                         } else if (mapBuffer.equals(laMap.getMapMonster())) {
                             map[posX][posY] = laMap.getMapMonster();
                         } else {
-                            map[posX][posY] = "[ ]";
+                            laMap.resetLocation(posX, posY);
                         }
 
                         posX--;
@@ -182,7 +182,7 @@ public class MainGame {
                         } else if (mapBuffer.equals(laMap.getMapMonster())) {
                             map[posX][posY] = laMap.getMapMonster();
                         } else {
-                            map[posX][posY] = "[ ]";
+                            laMap.resetLocation(posX, posY);
                         }
 
                         posY--;
@@ -206,7 +206,7 @@ public class MainGame {
                         } else if (mapBuffer.equals(laMap.getMapMonster())) {
                             map[posX][posY] = laMap.getMapMonster();
                         } else {
-                            map[posX][posY] = "[ ]";
+                            laMap.resetLocation(posX, posY);
                         }
 
                         posX++;
@@ -230,7 +230,7 @@ public class MainGame {
                         } else if (mapBuffer.equals(laMap.getMapMonster())) {
                             map[posX][posY] = laMap.getMapMonster();
                         } else {
-                            map[posX][posY] = "[ ]";
+                            laMap.resetLocation(posX, posY);
                         }
 
                         posY++;
@@ -323,7 +323,7 @@ public class MainGame {
                             Thread.sleep(1200);
 
                             // Remplace l'obstacle par un espace vide
-                            map[obstacleX][obstacleY] = "[ ]";
+                            laMap.resetLocation(obstacleX, obstacleY);
                         }
                     } else {
                         System.out.println("Il n'y a pas d'obstacle à attaquer !");
@@ -371,7 +371,7 @@ public class MainGame {
                             Thread.sleep(1200);
 
                             // Remplace l'obstacle par un espace vide
-                            map[monsterX][monsterY] = "[ ]";
+                            laMap.resetLocation(monsterX, monsterY);
                         }
                     } else {
                         System.out.println("\nIl n'y a pas de monstre à attaquer !");

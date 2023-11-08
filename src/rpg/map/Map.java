@@ -8,7 +8,9 @@ import rpg.utility.AnsiColors;
 import java.util.Random;
 
 public class Map {
+    // Taille de la map
     private final int MAP_SIZE = 10;
+
     // Éléments de map
     private final String mapPlayer = "[" + AnsiColors.BLUE + "X" + AnsiColors.RESET + "]";
     private final String mapMoney = "[" + AnsiColors.GREEN + "$" + AnsiColors.RESET + "]";
@@ -77,7 +79,6 @@ public class Map {
         return map;
     }
 
-
     public void displayMap() {
         for (int i = 0; i < MAP_SIZE; i++) {
             System.out.println();
@@ -126,5 +127,9 @@ public class Map {
 
     public String getMapWall() {
         return mapWall;
+    }
+
+    public Object resetLocation(int posX, int posY) {
+        return this.map[posX][posY] = "[ ]";
     }
 }
