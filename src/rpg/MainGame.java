@@ -149,17 +149,7 @@ public class MainGame {
                 case 'Z':
                     if (posX >= 0 && (posX - 1) >= 0 && !(map[posX - 1][posY]).equals(laMap.getMapWall()) && !(map[posX - 1][posY] instanceof Destructible)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
-                        if (mapBuffer.equals(laMap.getMapMoney())) {
-                            map[posX][posY] = laMap.getMapMoney();
-                        } else if (mapBuffer.equals(laMap.getMapStore())) {
-                            map[posX][posY] = laMap.getMapStore();
-                        } else if (mapBuffer instanceof Destructible) {
-                            map[posX][posY] = mapBuffer;
-                        } else if (mapBuffer.equals(laMap.getMapMonster())) {
-                            map[posX][posY] = laMap.getMapMonster();
-                        } else {
-                            laMap.resetLocation(posX, posY);
-                        }
+                        laMap.replaceItemInMap(mapBuffer, posX, posY);
 
                         posX--;
                         mapBuffer = map[posX][posY];
@@ -173,17 +163,7 @@ public class MainGame {
                 case 'Q':
                     if (posY >= 0 && (posY - 1) >= 0 && !(map[posX][posY - 1]).equals(laMap.getMapWall()) && !(map[posX][posY - 1] instanceof Destructible)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
-                        if (mapBuffer.equals(laMap.getMapMoney())) {
-                            map[posX][posY] = laMap.getMapMoney();
-                        } else if (mapBuffer.equals(laMap.getMapStore())) {
-                            map[posX][posY] = laMap.getMapStore();
-                        } else if (mapBuffer instanceof Destructible) {
-                            map[posX][posY] = mapBuffer;
-                        } else if (mapBuffer.equals(laMap.getMapMonster())) {
-                            map[posX][posY] = laMap.getMapMonster();
-                        } else {
-                            laMap.resetLocation(posX, posY);
-                        }
+                        laMap.replaceItemInMap(mapBuffer, posX, posY);
 
                         posY--;
                         mapBuffer = map[posX][posY];
@@ -197,17 +177,7 @@ public class MainGame {
                 case 'S':
                     if (posX < laMap.getMapSize() - 1 && !(map[posX + 1][posY]).equals(laMap.getMapWall()) && !(map[posX + 1][posY] instanceof Destructible)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
-                        if (mapBuffer.equals(laMap.getMapMoney())) {
-                            map[posX][posY] = laMap.getMapMoney();
-                        } else if (mapBuffer.equals(laMap.getMapStore())) {
-                            map[posX][posY] = laMap.getMapStore();
-                        } else if (mapBuffer instanceof Destructible) {
-                            map[posX][posY] = mapBuffer;
-                        } else if (mapBuffer.equals(laMap.getMapMonster())) {
-                            map[posX][posY] = laMap.getMapMonster();
-                        } else {
-                            laMap.resetLocation(posX, posY);
-                        }
+                        laMap.replaceItemInMap(mapBuffer, posX, posY);
 
                         posX++;
                         mapBuffer = map[posX][posY];
@@ -221,17 +191,7 @@ public class MainGame {
                 case 'D':
                     if (posY < laMap.getMapSize() - 1 && !(map[posX][posY + 1]).equals(laMap.getMapWall()) && !(map[posX][posY + 1] instanceof Destructible)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
-                        if (mapBuffer.equals(laMap.getMapMoney())) {
-                            map[posX][posY] = laMap.getMapMoney();
-                        } else if (mapBuffer.equals(laMap.getMapStore())) {
-                            map[posX][posY] = laMap.getMapStore();
-                        } else if (mapBuffer instanceof Destructible) {
-                            map[posX][posY] = mapBuffer;
-                        } else if (mapBuffer.equals(laMap.getMapMonster())) {
-                            map[posX][posY] = laMap.getMapMonster();
-                        } else {
-                            laMap.resetLocation(posX, posY);
-                        }
+                        laMap.replaceItemInMap(mapBuffer, posX, posY);
 
                         posY++;
                         mapBuffer = map[posX][posY];
@@ -264,15 +224,15 @@ public class MainGame {
                     // Affichage du catalogue de la boutique
                     store.displayCatalogue();
 
-                    String playAction;
+                    String playerAction;
 
                     do {
                         System.out.println("Que souhaitez-vous faire ?");
                         System.out.println("A : Acheter une nouvelle arme");
                         System.out.println("S : Sortir de la boutique");
-                        playAction = scanner.nextLine();
+                        playerAction = scanner.nextLine();
 
-                        if (playAction.equals("A")) {
+                        if (playerAction.equals("A")) {
                             System.out.print("Veuillez entrer l'ID de l'arme que vous souhaitez acheter : ");
                             String idWeapon = scanner.nextLine();
 
@@ -283,10 +243,10 @@ public class MainGame {
                                 System.out.println("L'ID entré ne correspond à aucune arme.");
                             }
 
-                        } else if (!playAction.equals("S")) {
+                        } else if (!playerAction.equals("S")) {
                             System.out.println(player.getName() + ", l'action demandée n'existe pas");
                         }
-                    } while (!playAction.equals("S"));
+                    } while (!playerAction.equals("S"));
 
                     break;
                 case 'L':

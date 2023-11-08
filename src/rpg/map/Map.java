@@ -1,5 +1,6 @@
 package rpg.map;
 
+import rpg.destructible.Destructible;
 import rpg.player.Player;
 import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
@@ -129,7 +130,21 @@ public class Map {
         return mapWall;
     }
 
-    public Object resetLocation(int posX, int posY) {
-        return this.map[posX][posY] = "[ ]";
+    public void resetLocation(int posX, int posY) {
+        this.map[posX][posY] = "[ ]";
+    }
+
+    public void replaceItemInMap(Object buffer, int posX, int posY) {
+        if (buffer.equals(this.getMapMoney())) {
+            map[posX][posY] = this.getMapMoney();
+        } else if (buffer.equals(this.getMapStore())) {
+            map[posX][posY] = this.getMapStore();
+        } else if (buffer instanceof Destructible) {
+            map[posX][posY] = buffer;
+        } else if (buffer.equals(this.getMapMonster())) {
+            map[posX][posY] = this.getMapMonster();
+        } else {
+            this.resetLocation(posX, posY);
+        }
     }
 }
