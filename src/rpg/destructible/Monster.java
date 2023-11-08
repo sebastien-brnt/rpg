@@ -19,7 +19,7 @@ public class Monster extends Destructible {
     }
 
     public void attackPlayer(Player player) {
-        player.removePv(this.hit);
+        player.removePv(this.getHit());
         double playerLife = player.getPv();
 
         if (playerLife < 0) {

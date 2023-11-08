@@ -48,7 +48,7 @@ public class MainGame {
 
         // Affichage des informations du joueur
         System.out.println("\nEnchanté " + AnsiColors.BLUE + player.getName() +  AnsiColors.RESET + ", vous possédé désormais " + AnsiColors.CYAN + player.getPv() + " PV" + AnsiColors.RESET + " ainsi que " + AnsiColors.GREEN + + player.getMoney() + "$" + AnsiColors.RESET + " !");
-        System.out.println("Votre mission est la suivante : Vous devez arriver au coin inférieur droit de la map représenté par " + laMap.getMapFinish() + " !");
+        laMap.getMission();
 
         Thread.sleep(1500);
 
@@ -199,7 +199,7 @@ public class MainGame {
 
                     do {
                         // Affichage des commandes disponibles pour le joueur
-                        System.out.println("Que souhaitez-vous faire ?");
+                        System.out.println("\nQue souhaitez-vous faire ?");
                         System.out.println("[A] : Acheter une nouvelle arme");
                         System.out.println("[S] : Sortir de la boutique");
                         playerAction = scanner.nextLine();
@@ -311,7 +311,7 @@ public class MainGame {
                     break;
 
                 case '*':
-                    laMap.displayMapLegend();
+                    laMap.displayMapLegend(scanner);
                     break;
 
                 default:

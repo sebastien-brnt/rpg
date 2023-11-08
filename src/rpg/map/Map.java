@@ -4,9 +4,12 @@ import rpg.destructible.Destructible;
 import rpg.player.Player;
 import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
+import rpg.store.WeaponStore;
 import rpg.utility.AnsiColors;
+import rpg.weapons.Weapon;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Map {
     // Taille de la map
@@ -24,8 +27,12 @@ public class Map {
     // Buffer de la map
     private Object mapBuffer = "";
 
+    //Store
+    private WeaponStore weaponStore = new WeaponStore();
+
     private static final Random random = new Random();
 
+    // Map
     private Object[][] map = {
             {mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall},
             {mapWall, "[ ]", mapWall, "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", "[ ]", mapWall},
@@ -35,7 +42,7 @@ public class Map {
             {mapWall, "[ ]", "[ ]", mapWall, "[ ]", mapWall, mapWall, "[ ]", "[ ]", mapWall},
             {mapWall, "[ ]", "[ ]", mapWall, "[ ]", mapWall, "[ ]", "[ ]", "[ ]", mapWall},
             {mapWall, "[ ]", "[ ]", "[ ]", "[ ]", mapWall, "[ ]", mapWall, mapWall, mapWall},
-            {mapWall, "[ ]", mapWall, "[ ]", mapStore, mapWall, "[ ]", "[ ]", "[ ]", "[ ]"},
+            {mapWall, "[ ]", mapWall, "[ ]", weaponStore, mapWall, "[ ]", "[ ]", "[ ]", "[ ]"},
             {mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapFinish}
     };
 
@@ -101,7 +108,7 @@ public class Map {
         System.out.println();
     }
     
-    public void displayMapLegend() {
+    public void displayMapLegend(Scanner scanner) {
         System.out.println("\n================================");
         System.out.println("Légende de la map");
         System.out.println("================================");
@@ -111,6 +118,22 @@ public class Map {
         System.out.println(this.getMapObstacle() + ": Obstacles");
         System.out.println(this.getMapMonster() + ": Monstres");
         System.out.println(this.getMapFinish() + ": Objectif");
+
+        System.out.println();
+        this.getMission();
+
+        String playerAction;
+
+        do {
+            // Affichage des commandes disponibles pour le joueur
+            System.out.println("\nQue souhaitez-vous faire ?");
+            System.out.println("[S] : Quitter la légende");
+            playerAction = scanner.nextLine();
+
+            if (!playerAction.equals("S")) {
+                System.out.println("\nCommande non disponible");
+            }
+        } while (!playerAction.equals("S"));
     }
 
     public String getMapPlayer() {
@@ -147,14 +170,9 @@ public class Map {
 
     // Place l'item où il était si le joueur ne le ramasse pas
     public void replaceItemInMap(int posX, int posY) {
-        if (this.mapBuffer.equals(this.getMapMoney())) {
-            map[posX][posY] = this.getMapMoney();
-        } else if (this.mapBuffer.equals(this.getMapStore())) {
-            map[posX][posY] = this.getMapStore();
-        } else if (this.mapBuffer instanceof Destructible) {
+        System.out.println(this.mapBuffer);
+        if (this.mapBuffer.equals(this.getMapMoney()) || this.mapBuffer instanceof WeaponStore || this.mapBuffer instanceof Destructible) {
             map[posX][posY] = this.mapBuffer;
-        } else if (this.mapBuffer.equals(this.getMapMonster())) {
-            map[posX][posY] = this.getMapMonster();
         } else {
             this.resetLocation(posX, posY);
         }
@@ -184,5 +202,9 @@ public class Map {
 
     public void definePlayerPosition(Player player, int posX, int posY) {
         this.map[posX][posY] = player;
+    }
+
+    public void getMission() {
+        System.out.println("Votre mission est la suivante : Vous devez arriver au coin inférieur droit de la map représenté par " + this.getMapFinish() + " !");
     }
 }

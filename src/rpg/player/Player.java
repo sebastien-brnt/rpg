@@ -192,7 +192,7 @@ public class Player implements ActionsPlayer {
         if (map.getPresenceAround(posX, posY, Monster.class))  {
             System.out.println("[K] : Attaquer le monstre");
         }
-        if (map.getMapBuffer().equals(map.getMapStore())) {
+        if (map.getMapBuffer() instanceof WeaponStore) {
             System.out.println("[V] : Visiter la boutique");
         }
 
