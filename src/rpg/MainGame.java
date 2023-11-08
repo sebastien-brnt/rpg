@@ -102,31 +102,25 @@ public class MainGame {
             laMap.displayMap();
 
             System.out.println("\nCommandes disponibles :");
-            if (!(posX + 1 > laMap.getMapSize() - 1) && !(map[posX + 1][posY]).equals(laMap.getMapWall()) && !(map[posX + 1][posY] instanceof Destructible) ) {
-                System.out.println("S (bas)");
+            if (laMap.getMove(posX - 1, posY)) {
+                System.out.println("Z (haut)");
             }
-            if ((posY - 1) >= 0 && !(map[posX][posY - 1]).equals(laMap.getMapWall()) && !(map[posX][posY - 1] instanceof Destructible) ) {
+            if (laMap.getMove(posX, posY - 1)) {
                 System.out.println("Q (gauche)");
             }
-            if (!(posY + 1 > laMap.getMapSize() - 1) && !(map[posX][posY + 1]).equals(laMap.getMapWall()) && !(map[posX][posY + 1] instanceof Destructible) ) {
-                System.out.println("D (droite)");
+            if (laMap.getMove(posX + 1, posY)) {
+                System.out.println("S (bas)");
             }
-            if ((posX - 1) >= 0 && !(map[posX - 1][posY]).equals(laMap.getMapWall()) && !(map[posX - 1][posY] instanceof Destructible) ) {
-                System.out.println("Z (haut)");
+            if (laMap.getMove(posX, posY + 1)) {
+                System.out.println("D (droite)");
             }
             if (mapBuffer.equals(laMap.getMapMoney())) {
                 System.out.println("R (Ramasser de l'argent)");
             }
-            if ( (!(posX + 1 > laMap.getMapSize() - 1) && map[posX + 1][posY] instanceof Obstacle ) ||
-                 ((posX - 1) >= 0 && map[posX - 1][posY] instanceof Obstacle ) ||
-                 (!(posY + 1 > laMap.getMapSize() - 1) && map[posX][posY + 1]  instanceof Obstacle ) ||
-                 ((posY - 1) >= 0 && map[posX][posY - 1] instanceof Obstacle ) )  {
+            if (laMap.getPresenceAround(posX, posY, Obstacle.class))  {
                 System.out.println("L (Attaquer l'obstacle)");
             }
-            if ( (!(posX + 1 > laMap.getMapSize() - 1) && map[posX + 1][posY] instanceof Monster ) ||
-                    ((posX - 1) >= 0 && map[posX - 1][posY] instanceof Monster ) ||
-                    (!(posY + 1 > laMap.getMapSize() - 1) && map[posX][posY + 1]  instanceof Monster ) ||
-                    ((posY - 1) >= 0 && map[posX][posY - 1] instanceof Monster ) )  {
+            if (laMap.getPresenceAround(posX, posY, Monster.class))  {
                 System.out.println("K (Attaquer le monstre)");
             }
             if (mapBuffer.equals(laMap.getMapStore())) {
@@ -147,7 +141,7 @@ public class MainGame {
 
             switch (move) {
                 case 'Z':
-                    if (posX >= 0 && (posX - 1) >= 0 && !(map[posX - 1][posY]).equals(laMap.getMapWall()) && !(map[posX - 1][posY] instanceof Destructible)) {
+                    if (laMap.getMove(posX - 1, posY)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
                         laMap.replaceItemInMap(mapBuffer, posX, posY);
 
@@ -161,7 +155,7 @@ public class MainGame {
                     break;
 
                 case 'Q':
-                    if (posY >= 0 && (posY - 1) >= 0 && !(map[posX][posY - 1]).equals(laMap.getMapWall()) && !(map[posX][posY - 1] instanceof Destructible)) {
+                    if (laMap.getMove(posX, posY - 1)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
                         laMap.replaceItemInMap(mapBuffer, posX, posY);
 
@@ -175,7 +169,7 @@ public class MainGame {
                     break;
 
                 case 'S':
-                    if (posX < laMap.getMapSize() - 1 && !(map[posX + 1][posY]).equals(laMap.getMapWall()) && !(map[posX + 1][posY] instanceof Destructible)) {
+                    if (laMap.getMove(posX + 1, posY)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
                         laMap.replaceItemInMap(mapBuffer, posX, posY);
 
@@ -189,7 +183,7 @@ public class MainGame {
                     break;
 
                 case 'D':
-                    if (posY < laMap.getMapSize() - 1 && !(map[posX][posY + 1]).equals(laMap.getMapWall()) && !(map[posX][posY + 1] instanceof Destructible)) {
+                    if (laMap.getMove(posX, posY + 1)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
                         laMap.replaceItemInMap(mapBuffer, posX, posY);
 

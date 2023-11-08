@@ -134,6 +134,7 @@ public class Map {
         this.map[posX][posY] = "[ ]";
     }
 
+    // Place l'item où il était si le joueur ne le ramasse pas
     public void replaceItemInMap(Object buffer, int posX, int posY) {
         if (buffer.equals(this.getMapMoney())) {
             map[posX][posY] = this.getMapMoney();
@@ -146,5 +147,27 @@ public class Map {
         } else {
             this.resetLocation(posX, posY);
         }
+    }
+
+    // Vérifie si un déplacement spécifique est diponible
+    public boolean getMove(int x, int y) {
+        // Vérifier si les coordonnées sont dans les limites de la map
+        if (!inTheMap(x, y)) {
+            return false;
+        }
+
+        // Vérifier si la case n'est pas un mur ou un objet destructible
+        return !(this.map[x][y].equals(getMapWall()) || this.map[x][y] instanceof Destructible);
+    }
+
+    public boolean getPresenceAround(int x, int y, Class<?> type) {
+        return (inTheMap(x + 1, y) && type.isInstance(this.map[x + 1][y])) ||
+                (inTheMap(x - 1, y) && type.isInstance(this.map[x - 1][y])) ||
+                (inTheMap(x, y + 1) && type.isInstance(this.map[x][y + 1])) ||
+                (inTheMap(x, y - 1) && type.isInstance(this.map[x][y - 1]));
+    }
+
+    public boolean inTheMap(int x, int y) {
+        return x >= 0 && x < getMapSize() && y >= 0 && y < getMapSize();
     }
 }
