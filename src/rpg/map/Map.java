@@ -21,6 +21,9 @@ public class Map {
     private final String mapStore = "[" + AnsiColors.PURPLE + "B" + AnsiColors.RESET + "]";
     private final String mapWall = "[" + AnsiColors.YELLOW + "=" + AnsiColors.RESET + "]";
 
+    // Buffer de la map
+    private Object mapBuffer = "";
+
     private static final Random random = new Random();
 
     private Object[][] map = {
@@ -70,6 +73,14 @@ public class Map {
         } else {
             return "[ ]"; // 45% de chance de laisser la case vide
         }
+    }
+
+    public Object getMapBuffer() {
+        return mapBuffer;
+    }
+
+    public void setMapBuffer(Object value) {
+        this.mapBuffer = value;
     }
 
     public int getMapSize() {
@@ -135,14 +146,14 @@ public class Map {
     }
 
     // Place l'item où il était si le joueur ne le ramasse pas
-    public void replaceItemInMap(Object buffer, int posX, int posY) {
-        if (buffer.equals(this.getMapMoney())) {
+    public void replaceItemInMap(int posX, int posY) {
+        if (this.mapBuffer.equals(this.getMapMoney())) {
             map[posX][posY] = this.getMapMoney();
-        } else if (buffer.equals(this.getMapStore())) {
+        } else if (this.mapBuffer.equals(this.getMapStore())) {
             map[posX][posY] = this.getMapStore();
-        } else if (buffer instanceof Destructible) {
-            map[posX][posY] = buffer;
-        } else if (buffer.equals(this.getMapMonster())) {
+        } else if (this.mapBuffer instanceof Destructible) {
+            map[posX][posY] = this.mapBuffer;
+        } else if (this.mapBuffer.equals(this.getMapMonster())) {
             map[posX][posY] = this.getMapMonster();
         } else {
             this.resetLocation(posX, posY);

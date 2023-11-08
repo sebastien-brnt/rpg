@@ -94,42 +94,13 @@ public class MainGame {
 
         Object[][] map = laMap.getMap();
 
-        Object mapBuffer = "";
-
-        while (!mapBuffer.equals(laMap.getMapFinish()) && player.getPv() > 0) {
+        while (!laMap.getMapBuffer().equals(laMap.getMapFinish()) && player.getPv() > 0) {
 
             // Affichage de la map
             laMap.displayMap();
 
-            System.out.println("\nCommandes disponibles :");
-            if (laMap.getMove(posX - 1, posY)) {
-                System.out.println("[Z] : Haut");
-            }
-            if (laMap.getMove(posX, posY - 1)) {
-                System.out.println("[Q] : Gauche");
-            }
-            if (laMap.getMove(posX + 1, posY)) {
-                System.out.println("[S] : Bas");
-            }
-            if (laMap.getMove(posX, posY + 1)) {
-                System.out.println("[D] : Droite");
-            }
-            if (mapBuffer.equals(laMap.getMapMoney())) {
-                System.out.println("[R] : Ramasser l'argent");
-            }
-            if (laMap.getPresenceAround(posX, posY, Obstacle.class))  {
-                System.out.println("[L] : Attaquer l'obstacle");
-            }
-            if (laMap.getPresenceAround(posX, posY, Monster.class))  {
-                System.out.println("[K] : Attaquer le monstre");
-            }
-            if (mapBuffer.equals(laMap.getMapStore())) {
-                System.out.println("[V] : Visiter la boutique");
-            }
-
-            System.out.println("[I] : Voir mes information et mon inventaire");
-            System.out.println("[*] : Légende de la map");
-            System.out.println("[:] : Quitter le jeu");
+            // Affichage des commandes disponibles pour le joueur
+            player.displayAvailableCommand(laMap, posX, posY);
 
             char move = scanner.nextLine().toUpperCase().charAt(0);
 
@@ -143,10 +114,10 @@ public class MainGame {
                 case 'Z':
                     if (laMap.getMove(posX - 1, posY)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
-                        laMap.replaceItemInMap(mapBuffer, posX, posY);
+                        laMap.replaceItemInMap(posX, posY);
 
                         posX--;
-                        mapBuffer = map[posX][posY];
+                        laMap.setMapBuffer(map[posX][posY]);
                         map[posX][posY] = player;
                         System.out.println("\nVous vous êtes déplacé vers le " + AnsiColors.BLUE + "haut" + AnsiColors.RESET);
                     } else {
@@ -157,10 +128,10 @@ public class MainGame {
                 case 'Q':
                     if (laMap.getMove(posX, posY - 1)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
-                        laMap.replaceItemInMap(mapBuffer, posX, posY);
+                        laMap.replaceItemInMap(posX, posY);
 
                         posY--;
-                        mapBuffer = map[posX][posY];
+                        laMap.setMapBuffer(map[posX][posY]);
                         map[posX][posY] = player;
                         System.out.println("\nVous vous êtes déplacé vers la " + AnsiColors.BLUE + "gauche" + AnsiColors.RESET);
                     } else {
@@ -171,10 +142,10 @@ public class MainGame {
                 case 'S':
                     if (laMap.getMove(posX + 1, posY)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
-                        laMap.replaceItemInMap(mapBuffer, posX, posY);
+                        laMap.replaceItemInMap(posX, posY);
 
                         posX++;
-                        mapBuffer = map[posX][posY];
+                        laMap.setMapBuffer(map[posX][posY]);
                         map[posX][posY] = player;
                         System.out.println("\nVous vous êtes déplacé vers le " + AnsiColors.BLUE + "bas" + AnsiColors.RESET);
                     } else {
@@ -185,10 +156,10 @@ public class MainGame {
                 case 'D':
                     if (laMap.getMove(posX, posY + 1)) {
                         // Si le joueur ne ramasse pas l'argent on remet l'argent sur la map
-                        laMap.replaceItemInMap(mapBuffer, posX, posY);
+                        laMap.replaceItemInMap(posX, posY);
 
                         posY++;
-                        mapBuffer = map[posX][posY];
+                        laMap.setMapBuffer(map[posX][posY]);
                         map[posX][posY] = player;
                         System.out.println("\nVous vous êtes déplacé vers la " + AnsiColors.BLUE + "droite" + AnsiColors.RESET);
                     } else {
@@ -196,8 +167,8 @@ public class MainGame {
                     }
                     break;
                 case 'R':
-                    if ((mapBuffer).equals(laMap.getMapMoney())) {
-                        mapBuffer = "";
+                    if (laMap.getMapBuffer().equals(laMap.getMapMoney())) {
+                        laMap.setMapBuffer("");
 
                         // Le joueur gagne un montant aléatoire entre 1 et 30$
                         int min = 1;
@@ -206,7 +177,7 @@ public class MainGame {
 
                         player.addMoney(winMoney);
                         Thread.sleep(300);
-                        
+
                         System.out.println("\nVous venez de ramasser " + AnsiColors.GREEN + winMoney + "$" + AnsiColors.RESET + " !");
                         System.out.println("Votre nouveau solde est de " + AnsiColors.GREEN + player.getMoney() + "$" + AnsiColors.RESET);
                         Thread.sleep(1200);
@@ -345,7 +316,7 @@ public class MainGame {
         if (player.getPv() <= 0) {
             System.out.println("\n" + AnsiColors.RED + "Vous êtes mort ! Vous n'avez pas réussi votre mission !" + AnsiColors.RESET);
         }
-        if (mapBuffer.equals(laMap.getMapFinish())) {
+        if (laMap.getMapBuffer().equals(laMap.getMapFinish())) {
             System.out.println("\n" + AnsiColors.CYAN + "Félicitation vous avez terminé le jeu !" + AnsiColors.RESET);
         }
 

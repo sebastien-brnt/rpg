@@ -1,6 +1,9 @@
 package rpg.player;
 
 import rpg.destructible.Destructible;
+import rpg.destructible.Monster;
+import rpg.destructible.Obstacle;
+import rpg.map.Map;
 import rpg.store.WeaponStore;
 import rpg.utility.AnsiColors;
 import rpg.weapons.Weapon;
@@ -124,6 +127,41 @@ public class Player implements ActionsPlayer {
         System.out.println("XP : " + AnsiColors.YELLOW + this.xp + AnsiColors.RESET);
         System.out.println("\nArme sélectionnée : " + this.selectedWeapon);
         System.out.println("\nListe des armes : " + this.weaponList);
+    }
+
+    public void displayAvailableCommand(Map map, int posX, int posY) {
+        System.out.println("\nListe des commandes disponibles :");
+
+        // Commandes situationelles
+        if (map.getMove(posX - 1, posY)) {
+            System.out.println("[Z] : Haut");
+        }
+        if (map.getMove(posX, posY - 1)) {
+            System.out.println("[Q] : Gauche");
+        }
+        if (map.getMove(posX + 1, posY)) {
+            System.out.println("[S] : Bas");
+        }
+        if (map.getMove(posX, posY + 1)) {
+            System.out.println("[D] : Droite");
+        }
+        if (map.getMapBuffer().equals(map.getMapMoney())) {
+            System.out.println("[R] : Ramasser l'argent");
+        }
+        if (map.getPresenceAround(posX, posY, Obstacle.class))  {
+            System.out.println("[L] : Attaquer l'obstacle");
+        }
+        if (map.getPresenceAround(posX, posY, Monster.class))  {
+            System.out.println("[K] : Attaquer le monstre");
+        }
+        if (map.getMapBuffer().equals(map.getMapStore())) {
+            System.out.println("[V] : Visiter la boutique");
+        }
+
+        // Commandes toujours disponibles
+        System.out.println("[I] : Voir mes information et mon inventaire");
+        System.out.println("[*] : Légende de la map");
+        System.out.println("[:] : Quitter le jeu");
     }
 
     @Override
