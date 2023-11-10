@@ -4,7 +4,10 @@ import rpg.destructible.Destructible;
 import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
 import rpg.map.Map;
+import rpg.player.Archer;
+import rpg.player.Mage;
 import rpg.player.Player;
+import rpg.player.Chevalier;
 import rpg.store.WeaponStore;
 import rpg.utility.AnsiColors;
 import rpg.weapons.Weapon;
@@ -96,12 +99,15 @@ public class Game {
 
             switch (roleId) {
                 case "1" :
+                    this.player = new Chevalier(name);
                     role = "Chevalier";
                     break;
                 case "2" :
+                    this.player = new Archer(name);
                     role = "Archer";
                     break;
                 case "3" :
+                    this.player = new Mage(name);
                     role = "Mage";
                     break;
                 default:
@@ -112,7 +118,6 @@ public class Game {
 
 
         // Initialisation du joueur et de la map
-        this.player = new Player(name, role, 100, 100, 0);
         this.theMap = new Map(player, posX, posY);
         this.store = new WeaponStore();
 

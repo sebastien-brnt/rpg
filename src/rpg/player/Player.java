@@ -11,7 +11,7 @@ import rpg.weapons.Weapon;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Player implements ActionsPlayer {
+public abstract class Player implements ActionsPlayer {
     private String name;
     private String role;
     private double pv;
@@ -23,7 +23,7 @@ public class Player implements ActionsPlayer {
 
     public static String representation = "[" + AnsiColors.BLUE + "X" + AnsiColors.RESET + "]";
 
-    public Player(String name, String role, double pv, double money, double xp) {
+    public Player(String name, String role, double pv, double money) {
         if (name.isEmpty()) {
             this.name = "Joueur";
         } else {
@@ -38,7 +38,7 @@ public class Player implements ActionsPlayer {
 
         this.pv = pv;
         this.money = money;
-        this.xp = xp;
+        this.xp = 0;
         this.level = 0;
     }
 
@@ -294,4 +294,6 @@ public class Player implements ActionsPlayer {
     public String toString() {
         return representation;
     }
+
+    public abstract String ascii_art();
 }
