@@ -11,7 +11,11 @@ public class Destructible {
     }
 
     public void hit_me(double damage) {
-        pv -= damage;
+        if (damage > pv) {
+            pv = 0;
+        } else {
+            pv -= damage;
+        }
     }
 
     public double getPv() {

@@ -24,27 +24,11 @@ public class WeaponStore {
     }
 
     public ArrayList<Weapon> getWeaponList() {
-        return weaponList;
-    }
-
-    public void displayCatalogue() {
-        System.out.println("\n================================");
-        System.out.println("Catalogue de la boutique :");
-        System.out.println("================================");
-
-        for(Weapon weapon : getWeaponList()) {
-            System.out.println("\n" + weapon.ascii_art());
-            System.out.println("ID : " + weapon.getId());
-            System.out.println("Nom : " + weapon.getName());
-            System.out.println("Dégâts : " + weapon.getDamage());
-            System.out.println("Prix : " + weapon.getPrice());
-            System.out.println("Durabilité : " + weapon.getDurability());
-            System.out.println("\n================================");
-        }
+        return this.weaponList;
     }
 
     public Weapon getWeaponOfStore(String id) {
-        for(Weapon weapon : weaponList) {
+        for(Weapon weapon : this.weaponList) {
             if(weapon.getId().equals(id)) {
                 return weapon;
             }
@@ -55,13 +39,30 @@ public class WeaponStore {
     public void RemoveWeapon(Weapon weapon) {
         ArrayList<Weapon> weaponsToRemove = new ArrayList<>();
 
-        for (Weapon w : weaponList) {
+        for (Weapon w : this.weaponList) {
             if (w.getId().equals(weapon.getId())) {
                 weaponsToRemove.add(w);
             }
         }
 
-        weaponList.removeAll(weaponsToRemove);
+        this.weaponList.removeAll(weaponsToRemove);
+    }
+
+    public void displayCatalogue() {
+        System.out.println("\n================================");
+        System.out.println("Catalogue de la boutique :");
+        System.out.println("================================");
+
+        for(Weapon weapon : this.weaponList) {
+            System.out.println("\n" + weapon.ascii_art());
+            System.out.println("ID : " + weapon.getId());
+            System.out.println("Nom : " + weapon.getName());
+            System.out.println("Dégâts aux obstacles : " + weapon.getDamageObstacle());
+            System.out.println("Dégâts aux monstres : " + weapon.getDamageMonster());
+            System.out.println("Prix : " + weapon.getPrice());
+            System.out.println("Durabilité : " + weapon.getDurability());
+            System.out.println("\n================================");
+        }
     }
 
     @Override

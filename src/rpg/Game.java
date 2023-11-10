@@ -24,7 +24,7 @@ public class Game {
     Map theMap;
 
     // Store
-    WeaponStore store;
+    WeaponStore store = new WeaponStore();
 
     // Méthodes
     // Constructeur
@@ -114,6 +114,7 @@ public class Game {
         // Initialisation du joueur et de la map
         this.player = new Player(name, role, 100, 100, 0);
         this.theMap = new Map(player, posX, posY);
+        this.store = new WeaponStore();
 
         Thread.sleep(300);
 
@@ -167,45 +168,69 @@ public class Game {
         String playerAction = "";
         int actionCount = 0;
 
-        while (!playerAction.equals("S") && entity.getPv() >= 0) {
-            if (actionCount == 0) {
-                if (entity instanceof Monster monster) {
-                    System.out.println("\n=========================================");
-                    System.out.println("Vous entrez en combat avec " + monster.getName() + " !");
-                    System.out.println("=========================================");
-                }
+        while (!playerAction.equals("S") && entity.getPv() > 0) {
+            double durabilityToRemove = 10;
 
-                player.attackDestructible(entity);
+            if (player.getPv() > 0) {
+                if (player.getSelectedWeapon().getDurability() > 0) {
+                    if (actionCount == 0) {
+                        if (entity instanceof Monster monster) {
+                            System.out.println("\n=========================================");
+                            System.out.println("Vous entrez en combat avec " + monster.getName() + " !");
+                            System.out.println("=========================================");
+                        }
 
-                if (entity instanceof Monster monster) {
-                    monster.attackPlayer(player);
-                }
+                        player.attackDestructible(entity);
 
-                Thread.sleep(300);
-                actionCount++;
-            } else {
-                // Affichage des commandes disponibles pour le joueur
-                System.out.println("\nQue souhaitez-vous faire ?");
-                System.out.println("[A] : Attaquer");
-                System.out.println("[S] : Sortir du combat");
-                playerAction = scanner.nextLine();
+                        if (entity instanceof Monster monster) {
+                            durabilityToRemove += 5;
+                            monster.attackPlayer(player);
+                        }
 
-                if (playerAction.equals("A")) {
+                        player.getSelectedWeapon().removeDurability(durabilityToRemove);
 
-                    if (entity instanceof Monster monster) {
-                        player.attackDestructible(monster);
-                        monster.attackPlayer(player);
-                        Thread.sleep(300);
+                        if (player.getSelectedWeapon().getDurability() <= 0) {
+                            System.out.println("\n" + AnsiColors.RED + "Votre arme s'est cassée !" + AnsiColors.RESET);
+                            Thread.sleep(1200);
+                            break;
+                        }
 
-                        actionCount++;
-                    } else if (entity instanceof Obstacle obstacle) {
-                        player.attackDestructible(obstacle);
                         Thread.sleep(300);
                         actionCount++;
+                    } else {
+                        // Affichage des commandes disponibles pour le joueur
+                        System.out.println("\nQue souhaitez-vous faire ?");
+                        System.out.println("[A] : Attaquer");
+                        System.out.println("[S] : Sortir du combat");
+                        playerAction = scanner.nextLine();
+
+                        if (playerAction.equals("A")) {
+
+                            if (entity instanceof Monster monster) {
+                                player.attackDestructible(monster);
+                                monster.attackPlayer(player);
+                                Thread.sleep(300);
+
+                                actionCount++;
+                            } else if (entity instanceof Obstacle obstacle) {
+                                player.attackDestructible(obstacle);
+                                Thread.sleep(300);
+                                actionCount++;
+                            }
+
+                            player.getSelectedWeapon().removeDurability(durabilityToRemove);
+
+                        } else if (!playerAction.equals("S")) {
+                            player.commandNotAvailable();
+                        }
                     }
-                } else if (!playerAction.equals("S")) {
-                    player.commandNotAvailable();
+                } else {
+                    System.out.println("Vous ne pouvez combattre avec l'arme sélectionnée car elle est cassée !");
+                    Thread.sleep(1200);
+                    break;
                 }
+            } else {
+                break;
             }
         }
     }
@@ -340,9 +365,9 @@ public class Game {
                                 System.out.print("Veuillez entrer l'ID de l'arme que vous souhaitez acheter : ");
                                 String idWeapon = scanner.nextLine();
 
-                                Weapon playchoosenWeapon = store.getWeaponOfStore(idWeapon);
+                                Weapon playchoosenWeapon = currentStore.getWeaponOfStore(idWeapon);
                                 if (playchoosenWeapon != null) {
-                                    player.buyWeapon(store, playchoosenWeapon);
+                                    player.buyWeapon(currentStore, playchoosenWeapon);
                                 } else {
                                     System.out.println("L'ID entré ne correspond à aucune arme.");
                                 }
@@ -420,8 +445,8 @@ public class Game {
 
                                 player.addPv(winPv, true);
 
-                                // Ajout de 15$ au joueur
-                                player.addMoney(15, true);
+                                // Ajout de 20$ au joueur
+                                player.addMoney(20, true);
                             }
 
                             Thread.sleep(1200);

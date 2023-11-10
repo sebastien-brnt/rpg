@@ -5,7 +5,7 @@ import rpg.utility.AnsiColors;
 
 public class Monster extends Destructible {
 
-    public static double PV = 150;
+    public static double PV = 125;
     public static String representation = "[" + AnsiColors.RED + "M" + AnsiColors.RESET + "]";
     private double hit;
 
