@@ -170,7 +170,6 @@ public class Map {
 
     // Place l'item où il était si le joueur ne le ramasse pas
     public void replaceItemInMap(int posX, int posY) {
-        System.out.println(this.mapBuffer);
         if (this.mapBuffer.equals(this.getMapMoney()) || this.mapBuffer instanceof WeaponStore || this.mapBuffer instanceof Destructible) {
             map[posX][posY] = this.mapBuffer;
         } else {

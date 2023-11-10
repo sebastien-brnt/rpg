@@ -326,7 +326,15 @@ public class Game {
 
                                 // Pour chaque niveau du joueur il gagne 5 PV en plus
                                 for ( int i = 0; i < player.getLevel(); i++ ) {
-                                    winPv += 5;
+                                    if (i <= 1) {
+                                        winPv += 5;
+                                    } else if (i <= 3) {
+                                        winPv += 2.5;
+                                    } else if (i <= 5) {
+                                        winPv += 1.75;
+                                    } else {
+                                        winPv += 1;
+                                    }
                                 }
 
                                 player.addPv(winPv, true);
