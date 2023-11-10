@@ -56,8 +56,17 @@ public class Player implements ActionsPlayer {
         this.selectedWeapon = weapon;
     }
 
-    public void addMoney(double value) {
+    public void addMoney(double value, boolean showMessage) {
         this.money += value;
+
+        if (showMessage) {
+            System.out.println("Vous avez gagné " + AnsiColors.GREEN + value + "$" + AnsiColors.RESET + "!");
+            System.out.println("Votre nouveau solde est de " + AnsiColors.GREEN + this.getMoney() + "$" + AnsiColors.RESET + "!");
+        }
+    }
+
+    public void addMoney(double value) {
+        addMoney(value, false);
     }
     public void addXp(double value, boolean showMessage) {
         this.xp += value;
@@ -139,18 +148,21 @@ public class Player implements ActionsPlayer {
     }
 
     @Override
-    public void buyWeapon(WeaponStore store, Weapon weapon) {
+    public boolean buyWeapon(WeaponStore store, Weapon weapon) {
         if (weapon != null) {
             if (this.money >= weapon.getPrice()) {
                 this.money -= weapon.getPrice();
                 this.weaponList.add(weapon);
                 store.RemoveWeapon(weapon);
                 System.out.println(this.name + ", il vous reste " + AnsiColors.GREEN + this.money + "$" + AnsiColors.RESET + " après l'achat de : " + AnsiColors.BLUE + weapon.getName() + AnsiColors.RESET + " pour " + AnsiColors.GREEN + weapon.getPrice() + "$" + AnsiColors.RESET);
+                return true;
             } else {
                 System.out.println(this.name + ", Tu n'a pas assez d'argent pour acheter cela (argent : " + AnsiColors.GREEN + this.money + "$" + AnsiColors.RESET + ", prix : " + AnsiColors.GREEN + weapon.getPrice() + "$" + AnsiColors.RESET + ")");
+                return false;
             }
         } else {
             System.out.println("Désolé " + this.name + ", cette arme n'est pas disponible dans la boutique...");
+            return false;
         }
     }
 

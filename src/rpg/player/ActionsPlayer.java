@@ -10,6 +10,8 @@ public interface ActionsPlayer {
      *
      * @param store Boutique dans laquelle le joueur achète l'arme
      * @param weapon Arme que le joueur souhaite acheter
+     *
+     * @return boolean
      **/
-    public void buyWeapon(WeaponStore store, Weapon weapon);
+    public boolean buyWeapon(WeaponStore store, Weapon weapon);
 }

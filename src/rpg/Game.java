@@ -1,5 +1,6 @@
 package rpg;
 
+import rpg.destructible.Destructible;
 import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
 import rpg.map.Map;
@@ -83,7 +84,7 @@ public class Game {
         String name = scanner.nextLine();
 
         // Initialisation du joueur et de la map
-        this.player = new Player(name, 100, 150, 0);
+        this.player = new Player(name, 100, 100, 0);
         this.theMap = new Map(player, posX, posY);
 
         Thread.sleep(300);
@@ -109,27 +110,76 @@ public class Game {
         System.out.println("================================");
 
         Weapon chosenWeapon;
+        boolean buy = false;
 
         do {
             System.out.print("Veuillez entrer l'ID de l'arme que vous souhaitez acheter : ");
             String firstWeapon = scanner.nextLine();
+
 
             // Récupération de l'arme dans le store
             chosenWeapon = store.getWeaponOfStore(firstWeapon);
 
             if (chosenWeapon != null) {
                 // Achat de l'arme
-                player.buyWeapon(store, chosenWeapon);
+                buy = player.buyWeapon(store, chosenWeapon);
             } else {
                 System.out.println("Arme non disponible dans la boutique. Veuillez choisir une arme du catalogue.\n");
             }
 
-        } while (chosenWeapon == null);
+        } while (chosenWeapon == null || !buy);
 
         // Sélection de l'arme choisie
         player.selectWeapon(chosenWeapon);
 
         Thread.sleep(2000);
+    }
+
+    public void fightLoop(Scanner scanner, Destructible entity) throws InterruptedException {
+        String playerAction = "";
+        int actionCount = 0;
+
+        while (!playerAction.equals("S") && entity.getPv() >= 0) {
+            if (actionCount == 0) {
+                if (entity instanceof Monster monster) {
+                    System.out.println("\n=========================================");
+                    System.out.println("Vous entrez en combat avec " + monster.getName() + " !");
+                    System.out.println("=========================================");
+                }
+
+                player.attackDestructible(entity);
+
+                if (entity instanceof Monster monster) {
+                    monster.attackPlayer(player);
+                }
+
+                Thread.sleep(300);
+                actionCount++;
+            } else {
+                // Affichage des commandes disponibles pour le joueur
+                System.out.println("\nQue souhaitez-vous faire ?");
+                System.out.println("[A] : Attaquer");
+                System.out.println("[S] : Sortir du combat");
+                playerAction = scanner.nextLine();
+
+                if (playerAction.equals("A")) {
+
+                    if (entity instanceof Monster monster) {
+                        player.attackDestructible(monster);
+                        monster.attackPlayer(player);
+                        Thread.sleep(300);
+
+                        actionCount++;
+                    } else if (entity instanceof Obstacle obstacle) {
+                        player.attackDestructible(obstacle);
+                        Thread.sleep(300);
+                        actionCount++;
+                    }
+                } else if (!playerAction.equals("S")) {
+                    player.commandNotAvailable();
+                }
+            }
+        }
     }
 
     // Logique du jeu
@@ -283,8 +333,10 @@ public class Game {
 
                     if (obstaclePosition != null) {
                         Obstacle obstacle = (Obstacle) map[obstaclePosition[0]][obstaclePosition[1]];
-                        player.attackDestructible(obstacle);
                         Thread.sleep(300);
+
+                        // Boucle de combat
+                        this.fightLoop(scanner, obstacle);
 
                         if (obstacle.getPv() <= 0) {
                             Thread.sleep(300);
@@ -292,6 +344,9 @@ public class Game {
 
                             // Ajout de l'XP au joueur
                             player.addXp(30, true);
+
+                            // Ajout de 10$ au joueur
+                            player.addMoney(10, true);
 
                             Thread.sleep(1200);
 
@@ -308,11 +363,9 @@ public class Game {
 
                     if (monsterPosition != null) {
                         Monster monster = (Monster) map[monsterPosition[0]][monsterPosition[1]];
-                        player.attackDestructible(monster);
-                        Thread.sleep(300);
 
-                        monster.attackPlayer(player);
-                        Thread.sleep(300);
+                        // Boucle de combat
+                        this.fightLoop(scanner, monster);
 
                         if (monster.getPv() <= 0) {
                             System.out.println(AnsiColors.BLUE + "\nLe monstre est mort !" + AnsiColors.RESET);
@@ -321,7 +374,7 @@ public class Game {
                             player.addXp(120, true);
 
                             if (player.getPv() > 0) {
-                                // Ajout des PV au joueur
+                                // Ajout des PV au joueur en fonction de son niveau
                                 double winPv = 20;
 
                                 // Pour chaque niveau du joueur il gagne 5 PV en plus
@@ -338,6 +391,9 @@ public class Game {
                                 }
 
                                 player.addPv(winPv, true);
+
+                                // Ajout de 15$ au joueur
+                                player.addMoney(15, true);
                             }
 
                             Thread.sleep(1200);
