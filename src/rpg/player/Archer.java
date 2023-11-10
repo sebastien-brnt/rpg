@@ -8,8 +8,12 @@ public class Archer extends Player {
 
     @Override
     public String ascii_art() {
-        return "  /\\_/\\\n" +
-                " ( o.o )\n" +
-                "  > ^ <\n";
+        return "         /|   \\\n" +
+                "        /_|_{)/\n" +
+                "---<<   | |  )\n" +
+                "        \\ |  (\n" +
+                "         \\|__)\n" +
+                "           \\ |__\n" +
+                "           ~    ~\n";
     }
 }
