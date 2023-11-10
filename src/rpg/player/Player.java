@@ -16,6 +16,7 @@ public class Player implements ActionsPlayer {
     private double pv;
     private double money;
     private double xp;
+    private int level;
     private Weapon selectedWeapon;
     private ArrayList<Weapon> weaponList = new ArrayList<>();
 
@@ -63,22 +64,55 @@ public class Player implements ActionsPlayer {
 
         if (showMessage) {
             System.out.println("Vous avez gagné " + AnsiColors.YELLOW + value + " XP" + AnsiColors.RESET + "!");
+
+            int levelCount = 0;
+
+            while ((this.getXp() - (this.getLevel() * 140)) > this.getNextLevel() - this.getLevel() * 100) {
+                levelCount++;
+                this.addlevel(1);
+            }
+
+            if (levelCount > 0) {
+                System.out.println("Vous avez gagné " + levelCount + " niveau ! Vous êtes désormais niveau " + AnsiColors.YELLOW + this.getLevel() + AnsiColors.RESET + " !");
+            }
         }
+
     }
 
     public void addXp(double value) {
         this.addXp(value, false);
     }
 
+
+    public int getLevel() {
+        return this.level;
+    }
+
+    public double getNextLevel() {
+        return ((this.level + 1) * 140);
+    }
+
+    public void addlevel(int value) {
+        this.level += value;
+    }
+
+
     public void removePv(double hit) {
         this.pv = this.pv - hit;
     }
 
     public void addPv(double value, boolean showMessage) {
-        this.pv += value;
+        // On limite à 100 les PV maximum
+        if (this.pv + value > 100) {
+            this.pv = 100;
+        } else {
+            this.pv += value;
+        }
 
+        // Affichage des messages
         if (showMessage) {
             System.out.println("Vous avez gagné " + AnsiColors.CYAN + value + " PV" + AnsiColors.RESET + "!");
+            System.out.println("Vous avez désormais " + AnsiColors.CYAN + this.getPv() + " PV" + AnsiColors.RESET + "!");
         }
     }
 
@@ -127,6 +161,7 @@ public class Player implements ActionsPlayer {
         System.out.println("Nom : " + AnsiColors.BLUE + this.name + AnsiColors.RESET);
         System.out.println("PV : " + AnsiColors.CYAN + this.pv + " PV" + AnsiColors.RESET);
         System.out.println("Argent : " + AnsiColors.GREEN + this.money + "$" + AnsiColors.RESET);
+        System.out.println("Niveau : " + AnsiColors.YELLOW + this.getLevel() + AnsiColors.RESET);
         System.out.println("XP : " + AnsiColors.YELLOW + this.xp + AnsiColors.RESET);
         System.out.println("\nArme sélectionnée : " + this.selectedWeapon);
         System.out.println("\nListe des armes : " + this.weaponList);

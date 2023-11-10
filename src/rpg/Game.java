@@ -11,20 +11,56 @@ import rpg.weapons.Weapon;
 import java.util.Scanner;
 
 public class Game {
+    // Attributs
 
     // Position initiale du joueur
-    private int posX = 1;
-    private int posY = 0;
+    private int posX, posY;
 
-    public Game() {
-        System.out.println("Game");
+    // Joueur
+    Player player;
+
+    // Map
+    Map theMap;
+
+    // Store
+    WeaponStore store;
+
+    // Méthodes
+    // Constructeur
+    public Game(int posX, int posY) {
+        this.posX = posX;
+        this.posY = posY;
     }
 
+    // Constructeur par défaut
+    public Game() {
+        this.posX = 1;
+        this.posY = 0;
+    }
+
+    // Démmarage de la partie
     public void start() throws InterruptedException {
         // Initialisation du scanner
         Scanner scanner = new Scanner(System.in);
 
         // Affichage du titre du jeu
+        this.displayGameTitle();
+
+        // Initialisation du joueur
+        this.initPlayer(scanner);
+
+        // Choix de la première arme
+        this.choseFirstWeapon(scanner);
+
+        // Démarrage du jeu
+        this.gameLogic(scanner);
+
+        // Fermeture du scanner
+        scanner.close();
+    }
+
+    // Affichage du titre du jeu
+    public void displayGameTitle() {
         for (int i = 0; i < 6; i++) {
             if (i == 3) {
                 System.out.println("=====================================");
@@ -35,15 +71,10 @@ public class Game {
                 System.out.println();
             }
         }
-
-        // Démarrage du jeu
-        this.gameLogic(scanner);
-
-        // Fermeture du scanner
-        scanner.close();
     }
 
-    public void gameLogic(Scanner scanner) throws InterruptedException {
+    // Initialisation du joueur
+    public void initPlayer(Scanner scanner) throws InterruptedException {
         // Récupération du nom du joueur
         System.out.println("=====================================");
         System.out.println("Bienvenue dans votre nouveau monde !");
@@ -52,19 +83,22 @@ public class Game {
         String name = scanner.nextLine();
 
         // Initialisation du joueur et de la map
-        Player player = new Player(name, 100, 150, 0);
-        Map laMap = new Map(player, posX, posY);
+        this.player = new Player(name, 100, 150, 0);
+        this.theMap = new Map(player, posX, posY);
 
         Thread.sleep(300);
 
         // Affichage des informations du joueur
         System.out.println("\nEnchanté " + AnsiColors.BLUE + player.getName() +  AnsiColors.RESET + ", vous possédé désormais " + AnsiColors.CYAN + player.getPv() + " PV" + AnsiColors.RESET + " ainsi que " + AnsiColors.GREEN + + player.getMoney() + "$" + AnsiColors.RESET + " !");
-        laMap.getMission();
+        this.theMap.getMission();
 
         Thread.sleep(1500);
+    }
 
+    // Choix de la première arme
+    public void choseFirstWeapon(Scanner scanner) throws InterruptedException {
         // Affichage du catalogue de la boutique
-        WeaponStore store = new WeaponStore();
+        store = new WeaponStore();
         store.displayCatalogue();
 
         Thread.sleep(800);
@@ -96,23 +130,26 @@ public class Game {
         player.selectWeapon(chosenWeapon);
 
         Thread.sleep(2000);
+    }
 
+    // Logique du jeu
+    public void gameLogic(Scanner scanner) throws InterruptedException {
         // Début du jeu
         System.out.println("\n================================");
         System.out.println("          Début du jeu          ");
         System.out.println("================================");
 
         // Récupération de la map
-        Object[][] map = laMap.getMap();
+        Object[][] map = this.theMap.getMap();
 
         // Boucle de jeu
-        while (!laMap.getMapBuffer().equals(laMap.getMapFinish()) && player.getPv() > 0) {
+        while (!this.theMap.getMapBuffer().equals(this.theMap.getMapFinish()) && player.getPv() > 0) {
 
             // Affichage de la map
-            laMap.displayMap();
+            this.theMap.displayMap();
 
             // Affichage des commandes disponibles pour le joueur
-            player.displayAvailableCommand(laMap, posX, posY);
+            player.displayAvailableCommand(this.theMap, posX, posY);
 
             String playerCmd = scanner.nextLine();
             char move = ' ';
@@ -129,13 +166,13 @@ public class Game {
 
             switch (move) {
                 case 'Z':
-                    if (laMap.getMove(posX - 1, posY)) {
+                    if (this.theMap.getMove(posX - 1, posY)) {
                         // Si le joueur était sur un item qu'il n'a pas récupéré on remet l'item sur la map
-                        laMap.replaceItemInMap(posX, posY);
+                        this.theMap.replaceItemInMap(posX, posY);
 
                         posX--;
-                        laMap.setMapBuffer(map[posX][posY]);
-                        laMap.definePlayerPosition(player, posX, posY);
+                        this.theMap.setMapBuffer(map[posX][posY]);
+                        this.theMap.definePlayerPosition(player, posX, posY);
                         System.out.println("\nVous vous êtes déplacé vers le " + AnsiColors.BLUE + "haut" + AnsiColors.RESET);
                     } else {
                         // L'action demandée n'est pas disponible
@@ -144,13 +181,13 @@ public class Game {
                     break;
 
                 case 'Q':
-                    if (laMap.getMove(posX, posY - 1)) {
+                    if (this.theMap.getMove(posX, posY - 1)) {
                         // Si le joueur était sur un item qu'il n'a pas récupéré on remet l'item sur la map
-                        laMap.replaceItemInMap(posX, posY);
+                        this.theMap.replaceItemInMap(posX, posY);
 
                         posY--;
-                        laMap.setMapBuffer(map[posX][posY]);
-                        laMap.definePlayerPosition(player, posX, posY);
+                        this.theMap.setMapBuffer(map[posX][posY]);
+                        this.theMap.definePlayerPosition(player, posX, posY);
                         System.out.println("\nVous vous êtes déplacé vers la " + AnsiColors.BLUE + "gauche" + AnsiColors.RESET);
                     } else {
                         System.out.println("\n" + player.getName() + ", l'action demandée n'est pas disponible");
@@ -158,13 +195,13 @@ public class Game {
                     break;
 
                 case 'S':
-                    if (laMap.getMove(posX + 1, posY)) {
+                    if (this.theMap.getMove(posX + 1, posY)) {
                         // Si le joueur était sur un item qu'il n'a pas récupéré on remet l'item sur la map
-                        laMap.replaceItemInMap(posX, posY);
+                        this.theMap.replaceItemInMap(posX, posY);
 
                         posX++;
-                        laMap.setMapBuffer(map[posX][posY]);
-                        laMap.definePlayerPosition(player, posX, posY);
+                        this.theMap.setMapBuffer(map[posX][posY]);
+                        this.theMap.definePlayerPosition(player, posX, posY);
                         System.out.println("\nVous vous êtes déplacé vers le " + AnsiColors.BLUE + "bas" + AnsiColors.RESET);
                     } else {
                         // L'action demandée n'est pas disponible
@@ -173,13 +210,13 @@ public class Game {
                     break;
 
                 case 'D':
-                    if (laMap.getMove(posX, posY + 1)) {
+                    if (this.theMap.getMove(posX, posY + 1)) {
                         // Si le joueur était sur un item qu'il n'a pas récupéré on remet l'item sur la map
-                        laMap.replaceItemInMap(posX, posY);
+                        this.theMap.replaceItemInMap(posX, posY);
 
                         posY++;
-                        laMap.setMapBuffer(map[posX][posY]);
-                        laMap.definePlayerPosition(player, posX, posY);
+                        this.theMap.setMapBuffer(map[posX][posY]);
+                        this.theMap.definePlayerPosition(player, posX, posY);
                         System.out.println("\nVous vous êtes déplacé vers la " + AnsiColors.BLUE + "droite" + AnsiColors.RESET);
                     } else {
                         // L'action demandée n'est pas disponible
@@ -187,8 +224,8 @@ public class Game {
                     }
                     break;
                 case 'R':
-                    if (laMap.getMapBuffer().equals(laMap.getMapMoney())) {
-                        laMap.setMapBuffer("");
+                    if (this.theMap.getMapBuffer().equals(this.theMap.getMapMoney())) {
+                        this.theMap.setMapBuffer("");
 
                         // Le joueur gagne un montant aléatoire entre 1 et 30$
                         int min = 1;
@@ -208,38 +245,41 @@ public class Game {
                     }
                     break;
                 case 'V':
-                    // Affichage du catalogue de la boutique
-                    store.displayCatalogue();
+                    if (this.theMap.getMapBuffer() instanceof WeaponStore currentStore) {
+                        // Affichage du catalogue de la boutique
+                        currentStore.displayCatalogue();
 
-                    String playerAction;
+                        String playerAction;
 
-                    do {
-                        // Affichage des commandes disponibles pour le joueur
-                        System.out.println("\nQue souhaitez-vous faire ?");
-                        System.out.println("[A] : Acheter une nouvelle arme");
-                        System.out.println("[S] : Sortir de la boutique");
-                        playerAction = scanner.nextLine();
+                        do {
+                            // Affichage des commandes disponibles pour le joueur
+                            System.out.println("\nQue souhaitez-vous faire ?");
+                            System.out.println("[A] : Acheter une nouvelle arme");
+                            System.out.println("[S] : Sortir de la boutique");
+                            playerAction = scanner.nextLine();
 
-                        if (playerAction.equals("A")) {
-                            System.out.print("Veuillez entrer l'ID de l'arme que vous souhaitez acheter : ");
-                            String idWeapon = scanner.nextLine();
+                            if (playerAction.equals("A")) {
+                                System.out.print("Veuillez entrer l'ID de l'arme que vous souhaitez acheter : ");
+                                String idWeapon = scanner.nextLine();
 
-                            Weapon playchoosenWeapon = store.getWeaponOfStore(idWeapon);
-                            if (playchoosenWeapon != null) {
-                                player.buyWeapon(store, playchoosenWeapon);
-                            } else {
-                                System.out.println("L'ID entré ne correspond à aucune arme.");
+                                Weapon playchoosenWeapon = store.getWeaponOfStore(idWeapon);
+                                if (playchoosenWeapon != null) {
+                                    player.buyWeapon(store, playchoosenWeapon);
+                                } else {
+                                    System.out.println("L'ID entré ne correspond à aucune arme.");
+                                }
+
+                            } else if (!playerAction.equals("S")) {
+                                System.out.println(player.getName() + ", l'action demandée n'existe pas");
                             }
-
-                        } else if (!playerAction.equals("S")) {
-                            System.out.println(player.getName() + ", l'action demandée n'existe pas");
-                        }
-                    } while (!playerAction.equals("S"));
-
+                        } while (!playerAction.equals("S"));
+                    } else {
+                        player.commandNotAvailable();
+                    }
                     break;
                 case 'L':
                     // Détermine l'emplacement de l'obstacle à attaquer
-                    int[] obstaclePosition = player.findAdjacentEntityPosition(posX, posY, Obstacle.class, laMap, map);
+                    int[] obstaclePosition = player.findAdjacentEntityPosition(posX, posY, Obstacle.class, this.theMap, map);
 
                     if (obstaclePosition != null) {
                         Obstacle obstacle = (Obstacle) map[obstaclePosition[0]][obstaclePosition[1]];
@@ -251,12 +291,12 @@ public class Game {
                             System.out.println(AnsiColors.BLUE + "\nL'obstacle est détruit !" + AnsiColors.RESET);
 
                             // Ajout de l'XP au joueur
-                            player.addXp(20, true);
+                            player.addXp(30, true);
 
                             Thread.sleep(1200);
 
                             // Remplace l'obstacle par un espace vide
-                            laMap.resetLocation(obstaclePosition[0], obstaclePosition[1]);
+                            this.theMap.resetLocation(obstaclePosition[0], obstaclePosition[1]);
                         }
                     } else {
                         System.out.println("Il n'y a pas d'obstacle à attaquer !");
@@ -264,7 +304,7 @@ public class Game {
                     break;
                 case 'K':
                     // Détermine l'emplacement de l'obstacle à attaquer
-                    int[] monsterPosition = player.findAdjacentEntityPosition(posX, posY, Monster.class, laMap, map);
+                    int[] monsterPosition = player.findAdjacentEntityPosition(posX, posY, Monster.class, this.theMap, map);
 
                     if (monsterPosition != null) {
                         Monster monster = (Monster) map[monsterPosition[0]][monsterPosition[1]];
@@ -280,13 +320,22 @@ public class Game {
                             // Ajout de l'XP au joueur
                             player.addXp(120, true);
 
-                            // Ajout des PV au joueur
-                            player.addPv(20, true);
+                            if (player.getPv() > 0) {
+                                // Ajout des PV au joueur
+                                double winPv = 20;
+
+                                // Pour chaque niveau du joueur il gagne 5 PV en plus
+                                for ( int i = 0; i < player.getLevel(); i++ ) {
+                                    winPv += 5;
+                                }
+
+                                player.addPv(winPv, true);
+                            }
 
                             Thread.sleep(1200);
 
                             // Remplace l'obstacle par un espace vide
-                            laMap.resetLocation(monsterPosition[0], monsterPosition[1]);
+                            this.theMap.resetLocation(monsterPosition[0], monsterPosition[1]);
                         }
                     } else {
                         System.out.println("\nIl n'y a pas de monstre à attaquer !");
@@ -297,7 +346,7 @@ public class Game {
                     break;
 
                 case '*':
-                    laMap.displayMapLegend(scanner);
+                    this.theMap.displayMapLegend(scanner);
                     break;
 
                 default:
@@ -310,7 +359,7 @@ public class Game {
         if (player.getPv() <= 0) {
             System.out.println("\n" + AnsiColors.RED + "Vous êtes mort ! Vous n'avez pas réussi votre mission !" + AnsiColors.RESET);
         }
-        if (laMap.getMapBuffer().equals(laMap.getMapFinish())) {
+        if (this.theMap.getMapBuffer().equals(this.theMap.getMapFinish())) {
             System.out.println("\n" + AnsiColors.CYAN + "Félicitation vous avez terminé le jeu !" + AnsiColors.RESET);
         }
     }
