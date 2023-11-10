@@ -83,14 +83,42 @@ public class Game {
         System.out.print("Comment vous appelez vous ? ");
         String name = scanner.nextLine();
 
+        String role = "";
+
+        System.out.println("\nChoississez votre rôle : ");
+        System.out.println("[1] : Chavlier");
+        System.out.println("[2] : Archer");
+        System.out.println("[3] : Mage");
+
+        do {
+            System.out.print("\nVotre choix : ");
+            String roleId = scanner.nextLine();
+
+            switch (roleId) {
+                case "1" :
+                    role = "Chevalier";
+                    break;
+                case "2" :
+                    role = "Archer";
+                    break;
+                case "3" :
+                    role = "Mage";
+                    break;
+                default:
+                    System.out.println("Le rôle choisi n'existe pas !");
+                    break;
+            }
+        } while (role.isEmpty());
+
+
         // Initialisation du joueur et de la map
-        this.player = new Player(name, 100, 100, 0);
+        this.player = new Player(name, role, 100, 100, 0);
         this.theMap = new Map(player, posX, posY);
 
         Thread.sleep(300);
 
         // Affichage des informations du joueur
-        System.out.println("\nEnchanté " + AnsiColors.BLUE + player.getName() +  AnsiColors.RESET + ", vous possédé désormais " + AnsiColors.CYAN + player.getPv() + " PV" + AnsiColors.RESET + " ainsi que " + AnsiColors.GREEN + + player.getMoney() + "$" + AnsiColors.RESET + " !");
+        System.out.println("\nEnchanté " + AnsiColors.BLUE + player.getRole() + " " + player.getName() +  AnsiColors.RESET + ", vous possédé désormais " + AnsiColors.CYAN + player.getPv() + " PV" + AnsiColors.RESET + " ainsi que " + AnsiColors.GREEN + + player.getMoney() + "$" + AnsiColors.RESET + " !");
         this.theMap.getMission();
 
         Thread.sleep(1500);

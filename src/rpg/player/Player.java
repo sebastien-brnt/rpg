@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 public class Player implements ActionsPlayer {
     private String name;
+    private String role;
     private double pv;
     private double money;
     private double xp;
@@ -22,22 +23,31 @@ public class Player implements ActionsPlayer {
 
     public static String representation = "[" + AnsiColors.BLUE + "X" + AnsiColors.RESET + "]";
 
-    public Player(String name, double pv, double money, double xp) {
+    public Player(String name, String role, double pv, double money, double xp) {
         if (name.isEmpty()) {
             this.name = "Joueur";
         } else {
             this.name = name;
         }
 
+        if (role.isEmpty()) {
+            this.role = "Guerrier";
+        } else {
+            this.role = role;
+        }
+
         this.pv = pv;
         this.money = money;
         this.xp = xp;
+        this.level = 0;
     }
 
     public String getName() {
         return this.name;
     }
-
+    public String getRole() {
+        return this.role;
+    }
     public double getPv() {
         return this.pv;
     }
@@ -170,13 +180,14 @@ public class Player implements ActionsPlayer {
         System.out.println("\n================================");
         System.out.println("       Vos informations :");
         System.out.println("================================");
-        System.out.println("Nom : " + AnsiColors.BLUE + this.name + AnsiColors.RESET);
-        System.out.println("PV : " + AnsiColors.CYAN + this.pv + " PV" + AnsiColors.RESET);
-        System.out.println("Argent : " + AnsiColors.GREEN + this.money + "$" + AnsiColors.RESET);
+        System.out.println("Nom : " + AnsiColors.BLUE + this.getName() + AnsiColors.RESET);
+        System.out.println("Role : " + AnsiColors.BLUE + this.getRole() + AnsiColors.RESET);
+        System.out.println("PV : " + AnsiColors.CYAN + this.getPv() + " PV" + AnsiColors.RESET);
+        System.out.println("Argent : " + AnsiColors.GREEN + this.getMoney() + "$" + AnsiColors.RESET);
         System.out.println("Niveau : " + AnsiColors.YELLOW + this.getLevel() + AnsiColors.RESET);
-        System.out.println("XP : " + AnsiColors.YELLOW + this.xp + AnsiColors.RESET);
-        System.out.println("\nArme sélectionnée : " + this.selectedWeapon);
-        System.out.println("\nListe des armes : " + this.weaponList);
+        System.out.println("XP : " + AnsiColors.YELLOW + this.getXp() + AnsiColors.RESET);
+        System.out.println("\nArme sélectionnée : " + this.getSelectedWeapon());
+        System.out.println("\nListe des armes : " + this.getWeaponList());
 
         String playerAction;
 
