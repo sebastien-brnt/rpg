@@ -13,22 +13,22 @@ import java.util.Scanner;
 
 public class Map {
     // Taille de la map
-    private final int MAP_SIZE = 10;
+    private static final int MAP_SIZE = 10;
 
     // Éléments de map
-    private final String mapPlayer = "[" + AnsiColors.BLUE + "X" + AnsiColors.RESET + "]";
-    private final String mapMoney = "[" + AnsiColors.GREEN + "$" + AnsiColors.RESET + "]";
-    private final String mapObstacle = "[" + AnsiColors.YELLOW + "O" + AnsiColors.RESET + "]";
-    private final String mapMonster = "[" + AnsiColors.RED + "M" + AnsiColors.RESET + "]";
-    private final String mapFinish = "[" + AnsiColors.CYAN + "#" + AnsiColors.RESET + "]";
-    private final String mapStore = "[" + AnsiColors.PURPLE + "B" + AnsiColors.RESET + "]";
-    private final String mapWall = "[" + AnsiColors.YELLOW + "=" + AnsiColors.RESET + "]";
+    private static final String mapPlayer = "[" + AnsiColors.BLUE + "X" + AnsiColors.RESET + "]";
+    private static final String mapMoney = "[" + AnsiColors.GREEN + "$" + AnsiColors.RESET + "]";
+    private static final String mapObstacle = "[" + AnsiColors.YELLOW + "O" + AnsiColors.RESET + "]";
+    private static final String mapMonster = "[" + AnsiColors.RED + "M" + AnsiColors.RESET + "]";
+    private static final String mapFinish = "[" + AnsiColors.CYAN + "#" + AnsiColors.RESET + "]";
+    private static final String mapStore = "[" + AnsiColors.PURPLE + "B" + AnsiColors.RESET + "]";
+    private static final String mapWall = "[" + AnsiColors.YELLOW + "=" + AnsiColors.RESET + "]";
 
     // Buffer de la map
     private Object mapBuffer = "";
 
     //Store
-    private WeaponStore weaponStore = new WeaponStore();
+    private static final WeaponStore weaponStore = new WeaponStore();
 
     private static final Random random = new Random();
 
