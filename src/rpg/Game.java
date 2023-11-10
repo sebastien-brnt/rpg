@@ -7,7 +7,7 @@ import rpg.map.Map;
 import rpg.player.Archer;
 import rpg.player.Mage;
 import rpg.player.Player;
-import rpg.player.Chevalier;
+import rpg.player.Knight;
 import rpg.store.WeaponStore;
 import rpg.utility.AnsiColors;
 import rpg.weapons.Weapon;
@@ -99,7 +99,7 @@ public class Game {
 
             switch (roleId) {
                 case "1" :
-                    this.player = new Chevalier(name);
+                    this.player = new Knight(name);
                     role = "Chevalier";
                     break;
                 case "2" :

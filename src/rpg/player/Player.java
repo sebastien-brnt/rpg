@@ -181,7 +181,8 @@ public abstract class Player implements ActionsPlayer {
         System.out.println("       Vos informations :");
         System.out.println("================================");
 
-        System.out.println(ascii_art() + "\n");
+        System.out.println("Votre représentation : ");
+        System.out.println(ascii_art());
 
         System.out.println("Nom : " + AnsiColors.BLUE + this.getName() + AnsiColors.RESET);
         System.out.println("Role : " + AnsiColors.BLUE + this.getRole() + AnsiColors.RESET);
