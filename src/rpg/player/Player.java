@@ -206,6 +206,32 @@ public class Player implements ActionsPlayer {
         System.out.println("\n" + this.getName() + ", l'action demandée n'est pas ou n'existe pas");
     }
 
+    // Vérifie la présence d'une entité autour du joueur et retourne ses coordonnées
+    public int[] findAdjacentEntityPosition(int posX, int posY, Class<?> entityType, Map laMap, Object[][] map) {
+        int mapSize = laMap.getMapSize();
+
+        // Vérifie à droite
+        if (!(posX + 1 > mapSize - 1) && entityType.isInstance(map[posX + 1][posY])) {
+            return new int[] { posX + 1, posY };
+        }
+        // Vérifie à gauche
+        else if ((posX - 1) >= 0 && entityType.isInstance(map[posX - 1][posY])) {
+            return new int[] { posX - 1, posY };
+        }
+        // Vérifie en bas
+        else if (!(posY + 1 > mapSize - 1) && entityType.isInstance(map[posX][posY + 1])) {
+            return new int[] { posX, posY + 1 };
+        }
+        // Vérifie en haut
+        else if ((posY - 1) >= 0 && entityType.isInstance(map[posX][posY - 1])) {
+            return new int[] { posX, posY - 1 };
+        }
+
+        // Aucune entité trouvée
+        return null;
+    }
+
+
     @Override
     public String toString() {
         return representation;
