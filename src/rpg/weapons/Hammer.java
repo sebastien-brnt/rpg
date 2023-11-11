@@ -1,11 +1,8 @@
 package rpg.weapons;
 
-import rpg.destructible.Destructible;
-import rpg.destructible.Monster;
-import rpg.destructible.Obstacle;
-import rpg.utility.AnsiColors;
+import rpg.ConsoleRepresentable;
 
-public class Hammer extends Weapon {
+public class Hammer extends Weapon implements ConsoleRepresentable {
 
     private  static final String name = "Hammer";
     private  static final double damage = 35;

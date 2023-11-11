@@ -1,5 +1,7 @@
 package rpg.player;
 
+import rpg.ConsoleRepresentable;
+import rpg.MapRepresentable;
 import rpg.destructible.Destructible;
 import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
@@ -11,7 +13,7 @@ import rpg.weapons.Weapon;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public abstract class Player implements ActionsPlayer {
+public abstract class Player implements ActionsPlayer, ConsoleRepresentable, MapRepresentable {
     private String name;
     private String role;
     private double pv;
@@ -21,7 +23,7 @@ public abstract class Player implements ActionsPlayer {
     private Weapon selectedWeapon;
     private ArrayList<Weapon> weaponList = new ArrayList<>();
 
-    public static String representation = "[" + AnsiColors.BLUE + "X" + AnsiColors.RESET + "]";
+    private static final String representation = "[" + AnsiColors.BLUE + "X" + AnsiColors.RESET + "]";
 
     public Player(String name, String role, double pv, double money) {
         if (name.isEmpty()) {
@@ -293,11 +295,15 @@ public abstract class Player implements ActionsPlayer {
         return null;
     }
 
-
-    @Override
-    public String toString() {
+    public String getRepresentation() {
         return representation;
     }
 
+    @Override
+    public String toString() {
+        return getRepresentation();
+    }
+
+    @Override
     public abstract String ascii_art();
 }

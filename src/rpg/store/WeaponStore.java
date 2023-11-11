@@ -1,5 +1,6 @@
 package rpg.store;
 
+import rpg.MapRepresentable;
 import rpg.utility.AnsiColors;
 import rpg.weapons.Axe;
 import rpg.weapons.Bow;
@@ -8,10 +9,10 @@ import rpg.weapons.Weapon;
 
 import java.util.ArrayList;
 
-public class WeaponStore {
+public class WeaponStore implements MapRepresentable {
     private ArrayList<Weapon> weaponList = new ArrayList<>();
 
-    private String representation = "[" + AnsiColors.PURPLE + "B" + AnsiColors.RESET + "]";
+    private static final String representation = "[" + AnsiColors.PURPLE + "B" + AnsiColors.RESET + "]";
 
     public WeaponStore() {
         Weapon hammer = new Hammer("1");
@@ -65,8 +66,12 @@ public class WeaponStore {
         }
     }
 
+    public String getRepresentation() {
+        return representation;
+    }
+
     @Override
     public String toString() {
-        return representation;
+        return getRepresentation();
     }
 }

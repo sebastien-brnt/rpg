@@ -1,6 +1,8 @@
 package rpg.player;
 
-public class Mage extends Player {
+import rpg.ConsoleRepresentable;
+
+public class Mage extends Player implements ConsoleRepresentable {
 
     public Mage(String name) {
         super(name, "Mage" , 90, 110);

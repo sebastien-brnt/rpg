@@ -1,11 +1,12 @@
 package rpg.weapons;
 
+import rpg.Hitting;
+import rpg.ConsoleRepresentable;
 import rpg.destructible.Destructible;
-import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
 import rpg.utility.AnsiColors;
 
-public abstract class Weapon {
+public abstract class Weapon implements ConsoleRepresentable, Hitting {
     private String id;
     private String name;
     private double damage;
@@ -33,14 +34,15 @@ public abstract class Weapon {
         return name;
     }
 
+    @Override
     public double getDamage() {
         return damage;
     }
     public double getDamageMonster() {
-        return damage * monster_damage_ratio;
+        return getDamage() * monster_damage_ratio;
     }
     public double getDamageObstacle() {
-        return damage * obstacle_damage_ratio;
+        return getDamage() * obstacle_damage_ratio;
     }
 
     public double getPrice() {
@@ -84,5 +86,6 @@ public abstract class Weapon {
                 "Prix : " + this.getPrice() +"$" + "\n";
     }
 
+    @Override
     public abstract String ascii_art();
 }

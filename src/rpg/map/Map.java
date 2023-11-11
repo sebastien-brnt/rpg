@@ -205,5 +205,6 @@ public class Map {
 
     public void getMission() {
         System.out.println("Votre mission est la suivante : Vous devez arriver au coin inférieur droit de la map représenté par " + this.getMapFinish() + " !");
+        System.out.println("Faites attention au monstres " + mapMonster + ", vous ne devez pas mourrir !");
     }
 }

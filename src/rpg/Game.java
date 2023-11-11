@@ -127,7 +127,7 @@ public class Game {
         System.out.println("\nEnchanté " + AnsiColors.BLUE + player.getRole() + " " + player.getName() +  AnsiColors.RESET + ", vous possédé désormais " + AnsiColors.CYAN + player.getPv() + " PV" + AnsiColors.RESET + " ainsi que " + AnsiColors.GREEN + + player.getMoney() + "$" + AnsiColors.RESET + " !");
         this.theMap.getMission();
 
-        Thread.sleep(1500);
+        Thread.sleep(3000);
     }
 
     // Choix de la première arme

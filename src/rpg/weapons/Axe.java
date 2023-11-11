@@ -1,11 +1,8 @@
 package rpg.weapons;
 
-import rpg.destructible.Destructible;
-import rpg.destructible.Monster;
-import rpg.destructible.Obstacle;
-import rpg.utility.AnsiColors;
+import rpg.ConsoleRepresentable;
 
-public class Axe extends Weapon {
+public class Axe extends Weapon implements ConsoleRepresentable {
 
     private  static final String name = "Axe";
     private  static final double damage = 55;

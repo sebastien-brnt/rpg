@@ -1,6 +1,8 @@
 package rpg.player;
 
-public class Knight extends Player {
+import rpg.ConsoleRepresentable;
+
+public class Knight extends Player implements ConsoleRepresentable {
 
     public Knight(String name) {
         super(name, "Chevalier" , 100, 100);
