@@ -1,6 +1,6 @@
 package rpg.store;
 
-import rpg.MapRepresentable;
+import rpg.commonInterface.MapRepresentable;
 import rpg.utility.AnsiColors;
 import rpg.weapons.Axe;
 import rpg.weapons.Bow;

@@ -1,6 +1,6 @@
 package rpg.destructible;
 
-import rpg.MapRepresentable;
+import rpg.commonInterface.MapRepresentable;
 import rpg.player.Player;
 import rpg.utility.AnsiColors;
 

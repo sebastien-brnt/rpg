@@ -1,4 +1,4 @@
-package rpg;
+package rpg.commonInterface;
 
 public interface MapRepresentable {
     /**

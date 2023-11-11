@@ -1,6 +1,6 @@
 package rpg.destructible;
 
-import rpg.Hitting;
+import rpg.commonInterface.Hitting;
 
 public class Destructible implements Hitting {
 

@@ -1,6 +1,6 @@
 package rpg.weapons;
 
-import rpg.ConsoleRepresentable;
+import rpg.commonInterface.ConsoleRepresentable;
 
 public class Hammer extends Weapon implements ConsoleRepresentable {
 

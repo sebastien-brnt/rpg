@@ -1,7 +1,7 @@
 package rpg.weapons;
 
-import rpg.Hitting;
-import rpg.ConsoleRepresentable;
+import rpg.commonInterface.Hitting;
+import rpg.commonInterface.ConsoleRepresentable;
 import rpg.destructible.Destructible;
 import rpg.destructible.Obstacle;
 import rpg.utility.AnsiColors;

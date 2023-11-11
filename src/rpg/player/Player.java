@@ -1,7 +1,7 @@
 package rpg.player;
 
-import rpg.ConsoleRepresentable;
-import rpg.MapRepresentable;
+import rpg.commonInterface.ConsoleRepresentable;
+import rpg.commonInterface.MapRepresentable;
 import rpg.destructible.Destructible;
 import rpg.destructible.Monster;
 import rpg.destructible.Obstacle;
@@ -90,7 +90,7 @@ public abstract class Player implements ActionsPlayer, ConsoleRepresentable, Map
 
             while ((this.getXp() - (this.getLevel() * 140)) > this.getNextLevel() - this.getLevel() * 100) {
                 levelCount++;
-                this.addlevel(1);
+                this.addLevel(1);
             }
 
             if (levelCount > 0) {
@@ -104,6 +104,9 @@ public abstract class Player implements ActionsPlayer, ConsoleRepresentable, Map
         this.addXp(value, false);
     }
 
+    public void removeXp(double value) {
+        this.pv -= value;
+    }
 
     public int getLevel() {
         return this.level;
@@ -113,7 +116,7 @@ public abstract class Player implements ActionsPlayer, ConsoleRepresentable, Map
         return ((this.level + 1) * 140);
     }
 
-    public void addlevel(int value) {
+    public void addLevel(int value) {
         this.level += value;
     }
 
@@ -141,12 +144,9 @@ public abstract class Player implements ActionsPlayer, ConsoleRepresentable, Map
         this.addPv(value, false);
     }
 
-    public void removeXp(double value) {
-        this.pv -= value;
-    }
-
+    @Override
     public void attackDestructible(Destructible target) {
-        this.selectedWeapon.attack(target);
+        this.getSelectedWeapon().attack(target);
     }
 
     public ArrayList<Weapon> getWeaponList() {
@@ -159,7 +159,6 @@ public abstract class Player implements ActionsPlayer, ConsoleRepresentable, Map
         System.out.println("Vous avez changé d'arme, vous avez désormais : " + AnsiColors.BLUE + weapon.getName() + AnsiColors.RESET + " comme arme sélectionnée");
     }
 
-    @Override
     public boolean buyWeapon(WeaponStore store, Weapon weapon) {
         if (weapon != null) {
             if (this.money >= weapon.getPrice()) {

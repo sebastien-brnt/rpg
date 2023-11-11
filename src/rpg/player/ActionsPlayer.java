@@ -1,17 +1,15 @@
 package rpg.player;
 
+import rpg.destructible.Destructible;
 import rpg.store.WeaponStore;
 import rpg.weapons.Weapon;
 
 public interface ActionsPlayer {
 
     /**
-     * Acheter une arme
+     * Attaque une entité Destructible
      *
-     * @param store Boutique dans laquelle le joueur achète l'arme
-     * @param weapon Arme que le joueur souhaite acheter
-     *
-     * @return boolean
+     * @param target Cible de l'attaque (Destructible)
      **/
-    public boolean buyWeapon(WeaponStore store, Weapon weapon);
+    public void attackDestructible(Destructible target);
 }

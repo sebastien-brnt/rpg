@@ -1,11 +1,28 @@
 package rpg.player;
 
-import rpg.ConsoleRepresentable;
+import rpg.commonInterface.ConsoleRepresentable;
+import rpg.destructible.Destructible;
 
-public class Knight extends Player implements ConsoleRepresentable {
+public class Knight extends Player implements ActionsPlayer, ConsoleRepresentable {
 
     public Knight(String name) {
         super(name, "Chevalier" , 100, 100);
+    }
+
+    @Override
+    public void attackDestructible(Destructible target) {
+        // Nombre aléatoire entre 0 ou 1
+        int randomResult = (int) (Math.random() * 4);
+
+        // Attaque de la cible
+        this.getSelectedWeapon().attack(target);
+
+        // Une chance sur 4 d'attaquer une seconde fois
+        if (randomResult == 3) {
+            if (target.getPv() > 0) {
+                this.getSelectedWeapon().attack(target);
+            }
+        }
     }
 
     @Override

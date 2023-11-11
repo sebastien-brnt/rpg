@@ -1,6 +1,6 @@
 package rpg.destructible;
 
-import rpg.MapRepresentable;
+import rpg.commonInterface.MapRepresentable;
 import rpg.utility.AnsiColors;
 
 public class Obstacle extends Destructible implements MapRepresentable {

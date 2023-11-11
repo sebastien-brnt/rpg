@@ -89,9 +89,9 @@ public class Game {
         String role = "";
 
         System.out.println("\nChoississez votre rôle : ");
-        System.out.println("[1] : Chavlier");
-        System.out.println("[2] : Archer");
-        System.out.println("[3] : Mage");
+        System.out.println("[1] : " + AnsiColors.BLUE + "Chavlier" + AnsiColors.RESET + " (Vous avez 1 chance sur 4 d'infliger " + AnsiColors.PURPLE + "2 fois votre attaque" + AnsiColors.RESET + ")");
+        System.out.println("[2] : " + AnsiColors.BLUE + "Archer" + AnsiColors.RESET + " (Vous gagnez " + AnsiColors.GREEN + "2,5$" + AnsiColors.RESET + " et " + AnsiColors.YELLOW + "10 XP" + AnsiColors.RESET + " par attaque)");
+        System.out.println("[3] : " + AnsiColors.BLUE + "Mage" + AnsiColors.RESET + " (Vous avez 1 chance 2 de gagner " + AnsiColors.CYAN +  "5 PV" + AnsiColors.RESET + " lors de chaque attaque)");
 
         do {
             System.out.print("\nVotre choix : ");
