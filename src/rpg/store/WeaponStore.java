@@ -11,42 +11,31 @@ import java.util.ArrayList;
 
 public class WeaponStore implements MapRepresentable {
     private ArrayList<Weapon> weaponList = new ArrayList<>();
-
     private static final String representation = "[" + AnsiColors.PURPLE + "B" + AnsiColors.RESET + "]";
 
     public WeaponStore() {
-        Weapon hammer = new Hammer("1");
-        Weapon axe = new Axe("2");
-        Weapon bow = new Bow("3");
-
-        this.weaponList.add(hammer);
-        this.weaponList.add(axe);
-        this.weaponList.add(bow);
-    }
-
-    public ArrayList<Weapon> getWeaponList() {
-        return this.weaponList;
+        weaponList.add(new Hammer("1"));
+        weaponList.add(new Axe("2"));
+        weaponList.add(new Bow("3"));
     }
 
     public Weapon getWeaponOfStore(String id) {
-        for(Weapon weapon : this.weaponList) {
-            if(weapon.getId().equals(id)) {
+        for (Weapon weapon : weaponList) {
+            if (weapon.getId().equals(id)) {
                 return weapon;
             }
         }
         return null;
     }
 
-    public void RemoveWeapon(Weapon weapon) {
+    public void removeWeapon(Weapon weapon) {
         ArrayList<Weapon> weaponsToRemove = new ArrayList<>();
-
-        for (Weapon w : this.weaponList) {
+        for (Weapon w : weaponList) {
             if (w.getId().equals(weapon.getId())) {
                 weaponsToRemove.add(w);
             }
         }
-
-        this.weaponList.removeAll(weaponsToRemove);
+        weaponList.removeAll(weaponsToRemove);
     }
 
     public void displayCatalogue() {
@@ -54,7 +43,7 @@ public class WeaponStore implements MapRepresentable {
         System.out.println("Catalogue de la boutique :");
         System.out.println("================================");
 
-        for(Weapon weapon : this.weaponList) {
+        for (Weapon weapon : getWeaponList()) {
             System.out.println("\n" + weapon.ascii_art());
             System.out.println("ID : " + weapon.getId());
             System.out.println("Nom : " + weapon.getName());
@@ -64,6 +53,10 @@ public class WeaponStore implements MapRepresentable {
             System.out.println("Durabilité : " + weapon.getDurability());
             System.out.println("\n================================");
         }
+    }
+
+    public ArrayList<Weapon> getWeaponList() {
+        return weaponList;
     }
 
     public String getRepresentation() {

@@ -88,7 +88,7 @@ public abstract class Player implements ActionsPlayer, ConsoleRepresentable, Map
 
             int levelCount = 0;
 
-            while ((this.getXp() - (this.getLevel() * 140)) > this.getNextLevel() - this.getLevel() * 100) {
+            while ((this.getXp() - (this.getLevel() * 140)) > this.getNextLevel() - this.getLevel() * 140) {
                 levelCount++;
                 this.addLevel(1);
             }
@@ -164,7 +164,7 @@ public abstract class Player implements ActionsPlayer, ConsoleRepresentable, Map
             if (this.money >= weapon.getPrice()) {
                 this.money -= weapon.getPrice();
                 this.weaponList.add(weapon);
-                store.RemoveWeapon(weapon);
+                store.removeWeapon(weapon);
                 System.out.println(this.name + ", il vous reste " + AnsiColors.GREEN + this.money + "$" + AnsiColors.RESET + " après l'achat de : " + AnsiColors.BLUE + weapon.getName() + AnsiColors.RESET + " pour " + AnsiColors.GREEN + weapon.getPrice() + "$" + AnsiColors.RESET);
                 return true;
             } else {
@@ -299,10 +299,10 @@ public abstract class Player implements ActionsPlayer, ConsoleRepresentable, Map
     }
 
     @Override
+    public abstract String ascii_art();
+
+    @Override
     public String toString() {
         return getRepresentation();
     }
-
-    @Override
-    public abstract String ascii_art();
 }

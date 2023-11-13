@@ -12,7 +12,6 @@ public abstract class Weapon implements ConsoleRepresentable, Hitting {
     private double damage;
     private double price;
     private double durability;
-
     private double monster_damage_ratio;
     private double obstacle_damage_ratio;
 
@@ -38,9 +37,11 @@ public abstract class Weapon implements ConsoleRepresentable, Hitting {
     public double getDamage() {
         return damage;
     }
+
     public double getDamageMonster() {
         return getDamage() * monster_damage_ratio;
     }
+
     public double getDamageObstacle() {
         return getDamage() * obstacle_damage_ratio;
     }
