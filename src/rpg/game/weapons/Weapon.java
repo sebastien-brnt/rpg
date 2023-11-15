@@ -1,12 +1,6 @@
-package rpg.weapons;
+package rpg.game.weapons;
 
-import rpg.commonInterface.Hitting;
-import rpg.commonInterface.ConsoleRepresentable;
-import rpg.destructible.Destructible;
-import rpg.destructible.Obstacle;
-import rpg.utility.AnsiColors;
-
-public abstract class Weapon implements ConsoleRepresentable, Hitting {
+public abstract class Weapon {
     private String id;
     private String name;
     private double damage;
@@ -33,7 +27,6 @@ public abstract class Weapon implements ConsoleRepresentable, Hitting {
         return name;
     }
 
-    @Override
     public double getDamage() {
         return damage;
     }
@@ -62,6 +55,7 @@ public abstract class Weapon implements ConsoleRepresentable, Hitting {
         return this;
     }
 
+    /*
     public void attack(Destructible destructible) {
         double finalDamage;
         if (destructible instanceof Obstacle) {
@@ -74,6 +68,7 @@ public abstract class Weapon implements ConsoleRepresentable, Hitting {
 
         System.out.println("\nVous venez d'infliger " + AnsiColors.CYAN + finalDamage + " PV" + AnsiColors.RESET + " à " + AnsiColors.BLUE + destructible.getName() + AnsiColors.RESET + ", il lui reste " + AnsiColors.CYAN + destructible.getPv() + " PV" + AnsiColors.RESET);
     }
+     */
 
     @Override
     public String toString() {
@@ -87,6 +82,5 @@ public abstract class Weapon implements ConsoleRepresentable, Hitting {
                 "Prix : " + this.getPrice() +"$" + "\n";
     }
 
-    @Override
     public abstract String ascii_art();
 }

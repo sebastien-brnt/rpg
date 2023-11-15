@@ -20,12 +20,12 @@ public class GamePanel extends JPanel {
         this.add(mapPanel, BorderLayout.NORTH);
 
         //TODO: Add PlayerInfoPanel to GamePanel
+        this.add(new PlayerInfoPanel(game.getPlayer()), BorderLayout.CENTER);
+
     }
 
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(800, 500);
     }
-
-
 }

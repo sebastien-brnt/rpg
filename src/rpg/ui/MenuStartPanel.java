@@ -48,8 +48,8 @@ public class MenuStartPanel extends JPanel {
 
     private void initComponents() {
         // define components
-        this.title = new JLabel("WELCOME TO MY RPG");
-        this.pseudoLabel = new JLabel("Choose your name : ");
+        this.title = new JLabel("Bienvenue dans votre monde");
+        this.pseudoLabel = new JLabel("Choisissez votre nom : ");
         this.pseudoField = new JTextField();
 
         this.radioMage = new JRadioButton("MAGE");

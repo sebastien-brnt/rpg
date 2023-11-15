@@ -1,8 +1,6 @@
-package rpg.weapons;
+package rpg.game.weapons;
 
-import rpg.commonInterface.ConsoleRepresentable;
-
-public class Axe extends Weapon implements ConsoleRepresentable {
+public class Axe extends Weapon {
 
     private  static final String name = "Axe";
     private  static final double damage = 55;

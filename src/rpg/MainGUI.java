@@ -21,7 +21,7 @@ public class MainGUI {
         // exit the application when the user close the frame
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // set the window title
-        window.setTitle("My Game");
+        window.setTitle("RPG");
         // show the window
         window.setVisible(true);
 

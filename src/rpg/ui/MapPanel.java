@@ -36,6 +36,7 @@ public class MapPanel extends JPanel {
                 switch (this.mapGrid[row][col]) {
                     case 1 : color = Color.BLACK; break;
                     case 2 : color = Color.CYAN; break;
+                    case 3 : color = Color.GREEN; break;
                     default : color = Color.WHITE;
                 }
                 g.setColor(color);

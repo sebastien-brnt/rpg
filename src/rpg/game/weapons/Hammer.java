@@ -1,8 +1,6 @@
-package rpg.weapons;
+package rpg.game.weapons;
 
-import rpg.commonInterface.ConsoleRepresentable;
-
-public class Hammer extends Weapon implements ConsoleRepresentable {
+public class Hammer extends Weapon {
 
     private  static final String name = "Hammer";
     private  static final double damage = 35;

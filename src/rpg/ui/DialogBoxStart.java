@@ -14,7 +14,7 @@ public class DialogBoxStart {
 
     public DialogBoxStart(GameInputs gameInputs) {
         JFrame f = new JFrame();
-        d = new JDialog(f, "Welcome to my RPG", true);
+        d = new JDialog(f, "RPG by Sébastien B.", true);
         d.setSize(500, 500);
         d.setLocationRelativeTo(null);
         d.setLayout(new GridBagLayout());

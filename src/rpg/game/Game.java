@@ -7,7 +7,7 @@ public class Game {
     private Player player;
 
     public Game(GameInputs gameInputs) {
-        this.player = new Player(gameInputs.getPlayerName(), gameInputs.getPlayerCast());
+        this.player = new Player(gameInputs.getPlayerName(), gameInputs.getPlayerCast(), 100, 150);
         this.map = new Map();
     }
 
