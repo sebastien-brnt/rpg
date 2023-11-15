@@ -1,5 +1,10 @@
 package rpg.game;
 
+import rpg.game.store.WeaponStore;
+import rpg.game.weapons.Weapon;
+
+import java.util.ArrayList;
+
 public class Player {
 
     private String name;
@@ -8,6 +13,8 @@ public class Player {
     private double money;
     private double xp;
     private int level;
+    private Weapon selectedWeapon;
+    private ArrayList<Weapon> weaponList = new ArrayList<>();
 
     private PlayerCast cast;
 
@@ -81,6 +88,46 @@ public class Player {
     }
     public double getMoney() {
         return this.money;
+    }
+
+    public void removeMoney(double value) {
+        this.money -= value;
+    }
+
+    public Weapon getSelectedWeapon() {
+        return this.selectedWeapon;
+    }
+
+    public void selectWeapon(Weapon weapon) {
+        this.selectedWeapon = weapon;
+    }
+
+    public ArrayList<Weapon> getWeaponList() {
+        return weaponList;
+    }
+
+    public void changeWeapon(Weapon weapon) {
+        this.selectedWeapon = weapon;
+
+        System.out.println("Vous avez changé d'arme, vous avez désormais : " + weapon.getName() + " comme arme sélectionnée");
+    }
+
+    public boolean buyWeapon(WeaponStore store, Weapon weapon) {
+        if (weapon != null) {
+            if (this.money >= weapon.getPrice()) {
+                this.money -= weapon.getPrice();
+                this.weaponList.add(weapon);
+                store.removeWeapon(weapon);
+                System.out.println(this.name + ", il vous reste " +  this.money + "$" + " après l'achat de : "  + weapon.getName() +  " pour " + weapon.getPrice() + "$");
+                return true;
+            } else {
+                System.out.println(this.name + ", Tu n'a pas assez d'argent pour acheter cela (argent : "  + this.money + "$" + ", prix : " + weapon.getPrice() + "$"  + ")");
+                return false;
+            }
+        } else {
+            System.out.println("Désolé " + this.name + ", cette arme n'est pas disponible dans la boutique...");
+            return false;
+        }
     }
 
 }

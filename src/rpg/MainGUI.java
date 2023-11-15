@@ -3,6 +3,7 @@ package rpg;
 import rpg.game.Game;
 import rpg.game.GameInputs;
 import rpg.ui.DialogBoxStart;
+import rpg.ui.DialogBoxStore;
 import rpg.ui.GamePanel;
 
 import javax.swing.*;
@@ -30,6 +31,9 @@ public class MainGUI {
         new DialogBoxStart(gameInputs);
         System.out.println(gameInputs.getPlayerName());
         System.out.println(gameInputs.getPlayerCast());
+
+        // display store where to define your first weapon
+        new DialogBoxStore(gameInputs);
 
         // create game
         Game game = new Game(gameInputs);
