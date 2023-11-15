@@ -2,6 +2,7 @@ package rpg.ui;
 
 
 import rpg.game.GameInputs;
+import rpg.game.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,7 @@ public class DialogBoxStore {
 
     private static JDialog d;
 
-    public DialogBoxStore(GameInputs gameInputs) {
+    public DialogBoxStore(GameInputs gameInputs, Player player) {
         JFrame f = new JFrame();
         d = new JDialog(f, "Boutique d'armes", true);
         d.setSize(500, 500);
@@ -20,14 +21,14 @@ public class DialogBoxStore {
         d.setLayout(new GridBagLayout());
 
         // Define MenuStartPanel where you can define your character (name, cast, etc.)
-        MenuStartPanel menuStart = new MenuStartPanel(gameInputs);
+        MenuStorePanel menuStore = new MenuStorePanel(gameInputs, player);
 
-        d.add(menuStart, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
+        d.add(menuStore, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.NORTH, GridBagConstraints.BOTH,
                 new Insets(50, 0, 30, 0), 0, 0));
 
-        JLabel startLabel = new JLabel("<PRESS ESCAPE TO RETURN AT GAME>");
-        d.add(startLabel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
+        JLabel buyLabel = new JLabel("<PRESS ENTER TO BUY WEAPON>");
+        d.add(buyLabel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(0, 0, 0, 100), 0, 0));
 

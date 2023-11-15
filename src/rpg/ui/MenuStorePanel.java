@@ -2,7 +2,6 @@ package rpg.ui;
 
 import rpg.game.GameInputs;
 import rpg.game.Player;
-import rpg.game.PlayerCast;
 import rpg.game.store.WeaponStore;
 import rpg.game.weapons.Weapon;
 
@@ -12,25 +11,37 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class MenuStore extends JPanel {
+public class MenuStorePanel extends JPanel {
 
     private GameInputs gameInputs;
 
     private JLabel title;
 
     private JLabel weaponLabel;
+    private JLabel moneyLabel;
     private JTextField weaponField;
+
+    private WeaponStore store;
+
+    private Player player;
 
     private JButton okButton;
 
-    public MenuStore(GameInputs gameInputs) {
+    public MenuStorePanel(GameInputs gameInputs, Player player) {
         this.gameInputs = gameInputs;
+        this.store = new WeaponStore();
+        this.player = player;
         initComponents();
+    }
+
+    public void setPlayerWeapon(Weapon weaponId) {
+        this.player.buyWeapon(store, weaponId);
     }
 
     private void initComponents() {
         // define components
         this.title = new JLabel("Bienvenue dans la boutique");
+        this.moneyLabel = new JLabel("Vous avez " + this.player.getMoney() + "$");
         this.weaponLabel = new JLabel("Saisissez l'ID de l'Arme : ");
         this.weaponField = new JTextField();
 
@@ -63,6 +74,12 @@ public class MenuStore extends JPanel {
         gridbag.setConstraints(this.title, gbc);
         this.add(this.title);
 
+        gbc.gridwidth = 1;  // 3 columns wide
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gridbag.setConstraints(this.moneyLabel, gbc);
+        this.add(this.moneyLabel);
+
         // weapon of the player
         this.add(this.weaponLabel,
                 new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
@@ -73,7 +90,20 @@ public class MenuStore extends JPanel {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     JTextField textField = (JTextField) e.getSource();
-                    setPlayerWeapon(textField.getText());
+
+                    String firstWeapon = textField.getText();
+
+
+                    // Récupération de l'arme dans le store
+                    Weapon chosenWeapon = store.getWeaponOfStore(firstWeapon);
+
+                    if (chosenWeapon != null) {
+                        // Achat de l'arme
+                        setPlayerWeapon(chosenWeapon);
+                    } else {
+                        System.out.println("Arme non disponible dans la boutique. Veuillez choisir une arme du catalogue.\n");
+                    }
+
                 }
             }
         });

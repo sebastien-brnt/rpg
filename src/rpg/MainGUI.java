@@ -32,11 +32,12 @@ public class MainGUI {
         System.out.println(gameInputs.getPlayerName());
         System.out.println(gameInputs.getPlayerCast());
 
-        // display store where to define your first weapon
-        new DialogBoxStore(gameInputs);
-
         // create game
         Game game = new Game(gameInputs);
+
+        // display store where to define your first weapon
+        new DialogBoxStore(gameInputs, game.getPlayer());
+
         // Create the main panel in which graphical components will be defined
         GamePanel gamePanel = new GamePanel(game);
 
