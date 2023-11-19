@@ -36,6 +36,7 @@ public class MenuStorePanel extends JPanel {
 
     public void setPlayerWeapon(Weapon weaponId) {
         this.player.buyWeapon(store, weaponId);
+        this.moneyLabel.setText("Vous avez " + this.player.getMoney() + "$");
     }
 
     private void initComponents() {
