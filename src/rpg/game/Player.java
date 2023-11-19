@@ -118,14 +118,14 @@ public class Player {
                 this.money -= weapon.getPrice();
                 this.weaponList.add(weapon);
                 store.removeWeapon(weapon);
-                System.out.println(this.name + ", il vous reste " +  this.money + "$" + " après l'achat de : "  + weapon.getName() +  " pour " + weapon.getPrice() + "$");
+                System.out.println("Achat de : "  + weapon.getName() +  " pour " + weapon.getPrice() + "$");
                 return true;
             } else {
-                System.out.println(this.name + ", Tu n'a pas assez d'argent pour acheter cela (argent : "  + this.money + "$" + ", prix : " + weapon.getPrice() + "$"  + ")");
+                System.out.println("Pas assez d'argent pour acheter : "  + weapon.getName() + " (argent : "  + this.money + "$" + ", prix : " + weapon.getPrice() + "$"  + ")");
                 return false;
             }
         } else {
-            System.out.println("Désolé " + this.name + ", cette arme n'est pas disponible dans la boutique...");
+            System.out.println("Arme n'est pas disponible dans la boutique");
             return false;
         }
     }

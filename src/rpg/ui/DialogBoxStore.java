@@ -36,12 +36,14 @@ public class DialogBoxStore {
         int condition = JPanel.WHEN_IN_FOCUSED_WINDOW;
         InputMap inputMap = ((JPanel) d.getContentPane()).getInputMap(condition);
         ActionMap actionMap = ((JPanel) d.getContentPane()).getActionMap();
-        String escape = "escape";
-        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), escape);
-        actionMap.put(escape, new AbstractAction() {
+        String enter = "enter";
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), enter);
+        actionMap.put(enter, new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                d.dispose();
+                if (menuStore.isWeaponValid()) {
+                    d.dispose(); // Fermer seulement si l'arme est valide
+                }
             }
         });
 
