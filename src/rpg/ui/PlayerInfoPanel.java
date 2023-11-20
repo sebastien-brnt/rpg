@@ -8,20 +8,45 @@ import java.awt.*;
 public class PlayerInfoPanel extends JPanel {
 
     private Player player;
+    private JLabel nameLabel;
+    private JLabel castLabel;
+    private JLabel pvLabel;
+    private JLabel moneyLabel;
+    private JLabel levelLabel;
+    private JLabel xpLabel;
+    private JLabel actionLabel;
 
     public PlayerInfoPanel(Player player) {
         this.player = player;
+        // Ajuster les marges et l'espacement
+        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // 20 pixels de marge sur tous les côtés
+        setLayout(new GridLayout(7, 1, 5, 5)); // Espacement vertical réduit entre les lignes
+
+        nameLabel = new JLabel("Votre nom : " + player.getName());
+        castLabel = new JLabel("Rôle : " + player.getCast());
+        pvLabel = new JLabel("Vie : " + player.getPv() + " PV");
+        moneyLabel = new JLabel("Money : " + player.getMoney() + "$");
+        levelLabel = new JLabel("Niveau : " + player.getLevel());
+        xpLabel = new JLabel("XP : " + player.getXp());
+        actionLabel = new JLabel("Action : ");
+
+        add(nameLabel);
+        add(castLabel);
+        add(pvLabel);
+        add(moneyLabel);
+        add(levelLabel);
+        add(xpLabel);
+        add(actionLabel);
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        g.setColor(Color.BLACK);
-        g.drawString("Votre nom : " + this.player.getName(), 10, 20);
-        g.drawString("Rôle : " + this.player.getCast(), 10, 40);
-        g.drawString("Vie : " + this.player.getPv() + " PV", 10, 60);
-        g.drawString("Money : " + this.player.getMoney() + "$", 10, 80);
-        g.drawString("Niveau : " + this.player.getLevel(), 10, 100);
-        g.drawString("XP : " + this.player.getXp(), 10, 120);
+    // Mettre à jour les informations du joueur
+    public void updatePlayerInfo() {
+        nameLabel.setText("Votre nom : " + player.getName());
+        castLabel.setText("Rôle : " + player.getCast());
+        pvLabel.setText("Vie : " + player.getPv() + " PV");
+        moneyLabel.setText("Money : " + player.getMoney() + "$");
+        levelLabel.setText("Niveau : " + player.getLevel());
+        xpLabel.setText("XP : " + player.getXp());
+        actionLabel.setText("Action : ");
     }
 }

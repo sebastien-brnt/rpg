@@ -38,6 +38,10 @@ public class MainGUI {
         // display store where to define your first weapon
         new DialogBoxStore(gameInputs, game.getPlayer());
 
+        // Display the game rules
+        JOptionPane.showMessageDialog(window, game.getPlayer().getName() + ", " + game.getTarget());
+
+
         // Create the main panel in which graphical components will be defined
         GamePanel gamePanel = new GamePanel(game);
 

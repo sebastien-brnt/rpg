@@ -79,7 +79,9 @@ public class MenuStorePanel extends JPanel {
         gbc.gridx++;
         this.add(new JLabel("Prix"), gbc);
         gbc.gridx++;
-        this.add(new JLabel("Damage"), gbc);
+        this.add(new JLabel("Dégât Monstre"), gbc);
+        gbc.gridx++;
+        this.add(new JLabel("Dégât Obstacle"), gbc);
         gbc.gridx++;
         this.add(new JLabel("Durabilité"), gbc);
         gbc.gridy++;
@@ -89,9 +91,11 @@ public class MenuStorePanel extends JPanel {
             gbc.gridx = 0; // Commencez chaque ligne à la première colonne
             this.add(new JLabel(weapon.getName()), gbc);
             gbc.gridx++;
-            this.add(new JLabel(String.valueOf(weapon.getPrice())), gbc);
+            this.add(new JLabel(String.valueOf(weapon.getPrice()) + "$"), gbc);
             gbc.gridx++;
-            this.add(new JLabel(String.valueOf(weapon.getDamage())), gbc);
+            this.add(new JLabel(String.valueOf(weapon.getDamageMonster()) + " PV"), gbc);
+            gbc.gridx++;
+            this.add(new JLabel(String.valueOf(weapon.getDamageObstacle()) + " PV"), gbc);
             gbc.gridx++;
             this.add(new JLabel(String.valueOf(weapon.getDurability())), gbc);
 
