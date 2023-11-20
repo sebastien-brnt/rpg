@@ -29,37 +29,62 @@ public class Game {
 
     public void right(KeyEvent e) {
         if (e.getKeyChar() == 'd' || e.getKeyChar() == 'D') {
-            this.map.updateMap(this.map.getPlayerX(), this.map.getPlayerY(), this.map.getBuffer());
-            this.map.setBuffer(this.map.getPlayerX(), this.map.getPlayerY() + 1);
-            this.map.setPlayer(this.map.getPlayerX(), this.map.getPlayerY() + 1);
-            System.out.println("droite");
+            int playerX = this.map.getPlayerX();
+            int playerY = this.map.getPlayerY();
+            System.out.println(this.getMap().getMap()[playerX][playerY + 1]);
+            if (this.getMap().getMap()[playerX][playerY + 1] != 1) {
+                this.map.updateMap(playerX, playerY, this.map.getBuffer());
+                this.map.setBuffer(playerX, playerY + 1);
+                this.map.setPlayer(playerX, playerY + 1);
+                System.out.println("droite");
+            } else {
+                System.out.println("Action impossible");
+            }
         }
     }
 
     public void left(KeyEvent e) {
         if (e.getKeyChar() == 'q' || e.getKeyChar() == 'Q') {
-            this.map.updateMap(this.map.getPlayerX(), this.map.getPlayerY(), this.map.getBuffer());
-            this.map.setBuffer(this.map.getPlayerX(), this.map.getPlayerY() - 1);
-            this.map.setPlayer(this.map.getPlayerX(), this.map.getPlayerY() - 1);
-            System.out.println("gauche");
+            int playerX = this.map.getPlayerX();
+            int playerY = this.map.getPlayerY();
+            if (this.getMap().getMap()[playerX][playerY - 1] != 1) {
+                this.map.updateMap(playerX, playerY, this.map.getBuffer());
+                this.map.setBuffer(playerX, playerY - 1);
+                this.map.setPlayer(playerX, playerY - 1);
+                System.out.println("gauche");
+            } else {
+                System.out.println("Action impossible");
+            }
         }
     }
 
     public void top(KeyEvent e) {
         if (e.getKeyChar() == 'z' || e.getKeyChar() == 'Z') {
-            this.map.updateMap(this.map.getPlayerX(), this.map.getPlayerY(), this.map.getBuffer());
-            this.map.setBuffer(this.map.getPlayerX() - 1, this.map.getPlayerY());
-            this.map.setPlayer(this.map.getPlayerX() - 1, this.map.getPlayerY());
-            System.out.println("haut");
+            int playerX = this.map.getPlayerX();
+            int playerY = this.map.getPlayerY();
+            if (this.getMap().getMap()[playerX - 1][playerY] != 1) {
+                this.map.updateMap(playerX, playerY, this.map.getBuffer());
+                this.map.setBuffer(playerX - 1, playerY);
+                this.map.setPlayer(playerX - 1, playerY);
+                System.out.println("haut");
+            } else {
+                System.out.println("Action impossible");
+            }
         }
     }
 
     public void bottom(KeyEvent e) {
         if (e.getKeyChar() == 's' || e.getKeyChar() == 'S') {
-            this.map.updateMap(this.map.getPlayerX(), this.map.getPlayerY(), this.map.getBuffer());
-            this.map.setBuffer(this.map.getPlayerX() + 1, this.map.getPlayerY());
-            this.map.setPlayer(this.map.getPlayerX() + 1, this.map.getPlayerY());
-            System.out.println("bas");
+            int playerX = this.map.getPlayerX();
+            int playerY = this.map.getPlayerY();
+            if (this.getMap().getMap()[playerX + 1][playerY] != 1) {
+                this.map.updateMap(playerX, playerY, this.map.getBuffer());
+                this.map.setBuffer(playerX + 1, playerY);
+                this.map.setPlayer(playerX + 1, playerY);
+                System.out.println("bas");
+            } else {
+                System.out.println("Action impossible");
+            }
         }
     }
 }

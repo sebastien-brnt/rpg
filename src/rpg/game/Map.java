@@ -2,6 +2,7 @@ package rpg.game;
 
 public class Map {
     // Map
+    static final int SIZE = 10;
     static final int[][] MAP_TEMPLATE_DEFAULT = {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             {0, 0, 1, 0, 0, 0, 0, 0, 0, 1},
@@ -49,6 +50,9 @@ public class Map {
 
     public int getBuffer() {
         return buffer;
+    }
+    public int getMapSize() {
+        return SIZE;
     }
 
     public void setBuffer(int x, int y) {
