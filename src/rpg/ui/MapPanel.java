@@ -10,8 +10,8 @@ public class MapPanel extends JPanel {
 
     private int[][] mapGrid;
 
-    private Image playerImage;
-    private Image finishImage;
+    private Image playerImage, finishImage, storeImage;
+
 
     public MapPanel(Map map) {
         this.mapGrid = map.getMap();
@@ -19,10 +19,12 @@ public class MapPanel extends JPanel {
         // Récupération des images
         ImageIcon imgPlayer = new ImageIcon("src/rpg/images/link.png");
         ImageIcon imgFinish = new ImageIcon("src/rpg/images/finish-flag.png");
+        ImageIcon imgStore = new ImageIcon("src/rpg/images/shop.png");
 
         // Définissions des variables d'images
         this.playerImage = imgPlayer.getImage();
         this.finishImage = imgFinish.getImage();
+        this.storeImage = imgStore.getImage();
     }
 
     public Image getPlayerImage() {
@@ -31,6 +33,10 @@ public class MapPanel extends JPanel {
 
     public Image getFinishImage() {
         return this.finishImage;
+    }
+
+    public Image getStoreImage() {
+        return this.storeImage;
     }
 
     @Override
@@ -55,6 +61,7 @@ public class MapPanel extends JPanel {
                     case 1 : color = Color.BLACK; break;
                     case 2 : color = Color.CYAN; break;
                     case 3 : color = Color.GREEN; break;
+                    case 4 : color = Color.PINK; break;
                     default : color = Color.WHITE;
                 }
                 g.setColor(color);
@@ -65,10 +72,17 @@ public class MapPanel extends JPanel {
                 if (this.mapGrid[row][col] == 3) {
                     g.drawImage(this.getFinishImage(), CoordX + cellSize * col, CoordY + cellSize * row, null);
                 }
+                if (this.mapGrid[row][col] == 4) {
+                    g.drawImage(this.getStoreImage(), CoordX + cellSize * col, CoordY + cellSize * row, null);
+                }
                 g.setColor(Color.BLACK); // contours
                 g.drawRect(CoordX + cellSize * col, CoordY + cellSize * row, cellSize, cellSize);
             }
         }
+    }
+
+    public void repaintMap() {
+        repaint();
     }
 
     @Override

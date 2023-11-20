@@ -24,6 +24,10 @@ public class GamePanel extends JPanel {
 
     }
 
+    public MapPanel getMapPanel() {
+        return mapPanel;
+    }
+
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(800, 500);

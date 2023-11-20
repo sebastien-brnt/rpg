@@ -7,6 +7,8 @@ import rpg.ui.DialogBoxStore;
 import rpg.ui.GamePanel;
 
 import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MainGUI {
 
@@ -41,11 +43,21 @@ public class MainGUI {
         // Display the game rules
         JOptionPane.showMessageDialog(window, game.getPlayer().getName() + ", " + game.getTarget());
 
-
         // Create the main panel in which graphical components will be defined
         GamePanel gamePanel = new GamePanel(game);
 
         window.add(gamePanel);
+
+        window.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                game.right(e);
+                game.left(e);
+                game.top(e);
+                game.bottom(e);
+                gamePanel.getMapPanel().repaintMap();
+            }
+        });
+
         window.pack();
         //window.validate();
 
