@@ -31,8 +31,7 @@ public class Game {
         if (e.getKeyChar() == 'd' || e.getKeyChar() == 'D') {
             int playerX = this.map.getPlayerX();
             int playerY = this.map.getPlayerY();
-            System.out.println(this.getMap().getMap()[playerX][playerY + 1]);
-            if (this.getMap().getMap()[playerX][playerY + 1] != 1) {
+            if (this.map.inTheMap(playerX, playerY + 1) && this.map.getMap()[playerX][playerY + 1] != 1) {
                 this.map.updateMap(playerX, playerY, this.map.getBuffer());
                 this.map.setBuffer(playerX, playerY + 1);
                 this.map.setPlayer(playerX, playerY + 1);
@@ -47,7 +46,7 @@ public class Game {
         if (e.getKeyChar() == 'q' || e.getKeyChar() == 'Q') {
             int playerX = this.map.getPlayerX();
             int playerY = this.map.getPlayerY();
-            if (this.getMap().getMap()[playerX][playerY - 1] != 1) {
+            if (this.map.inTheMap(playerX, playerY - 1) && this.getMap().getMap()[playerX][playerY - 1] != 1) {
                 this.map.updateMap(playerX, playerY, this.map.getBuffer());
                 this.map.setBuffer(playerX, playerY - 1);
                 this.map.setPlayer(playerX, playerY - 1);
@@ -62,7 +61,7 @@ public class Game {
         if (e.getKeyChar() == 'z' || e.getKeyChar() == 'Z') {
             int playerX = this.map.getPlayerX();
             int playerY = this.map.getPlayerY();
-            if (this.getMap().getMap()[playerX - 1][playerY] != 1) {
+            if (this.map.inTheMap(playerX - 1, playerY) && this.getMap().getMap()[playerX - 1][playerY] != 1) {
                 this.map.updateMap(playerX, playerY, this.map.getBuffer());
                 this.map.setBuffer(playerX - 1, playerY);
                 this.map.setPlayer(playerX - 1, playerY);
@@ -77,7 +76,7 @@ public class Game {
         if (e.getKeyChar() == 's' || e.getKeyChar() == 'S') {
             int playerX = this.map.getPlayerX();
             int playerY = this.map.getPlayerY();
-            if (this.getMap().getMap()[playerX + 1][playerY] != 1) {
+            if (this.map.inTheMap(playerX + 1, playerY) && this.getMap().getMap()[playerX + 1][playerY] != 1) {
                 this.map.updateMap(playerX, playerY, this.map.getBuffer());
                 this.map.setBuffer(playerX + 1, playerY);
                 this.map.setPlayer(playerX + 1, playerY);
