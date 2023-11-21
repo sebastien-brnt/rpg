@@ -12,6 +12,8 @@ import java.awt.event.KeyEvent;
 
 public class MainGUI {
 
+    private static boolean storeOpened = false;
+
     public static void main(String[] args) {
         // Define the GUI main window
         JFrame window = new JFrame();
@@ -24,7 +26,7 @@ public class MainGUI {
         // exit the application when the user close the frame
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // set the window title
-        window.setTitle("RPG");
+        window.setTitle("RPG by Sébastien B.");
         // show the window
         window.setVisible(true);
 
@@ -38,7 +40,7 @@ public class MainGUI {
         Game game = new Game(gameInputs);
 
         // display store where to define your first weapon
-        new DialogBoxStore(gameInputs, game.getPlayer());
+        new DialogBoxStore(window, gameInputs, game.getPlayer(), false);
 
         // Display the game rules
         JOptionPane.showMessageDialog(window, game.getPlayer().getName() + ", " + game.getTarget());
@@ -48,7 +50,7 @@ public class MainGUI {
 
         window.add(gamePanel);
 
-        // Écouteur d'évènement
+        // Logique de jeu
         KeyAdapter keyAdapter = new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (!game.gameIsFinish()) {
@@ -66,6 +68,7 @@ public class MainGUI {
         // Timer pour vérifier l'état du jeu
         new Timer(100, e -> {
             if (game.getMap().getBuffer() == 3) {
+                System.out.println("fin du jeu");
                 game.getMap().updateMap(game.getMap().getPlayerX(), game.getMap().getPlayerY(), 3);
                 game.setGameFinish(true);
                 window.removeKeyListener(keyAdapter);
@@ -79,14 +82,16 @@ public class MainGUI {
                     // Fermer l'application
                     System.exit(0);
                 }
-            } else if (game.getMap().getBuffer() == 4) {
-                new DialogBoxStore(gameInputs, game.getPlayer());
+            } else if (game.getMap().getBuffer() == 4 && !storeOpened) {
+                storeOpened = true;
+                new DialogBoxStore(window, gameInputs, game.getPlayer(), true);
+                System.out.println("boutique");
+            } else if (game.getMap().getBuffer() != 4) {
+                storeOpened = false;
             }
         }).start();
 
-
         window.pack();
         //window.validate();
-
     }
 }

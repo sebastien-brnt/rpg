@@ -26,7 +26,7 @@ public class DialogBoxStart {
                 GridBagConstraints.NORTH, GridBagConstraints.BOTH,
                 new Insets(50, 0, 30, 0), 0, 0));
 
-        JLabel startLabel = new JLabel("<PRESS ENTER TO START THE GAME>");
+        JLabel startLabel = new JLabel("<APPUYEZ SUR ENTRER POUR PASSER À L'ÉTAPE SUIVANTE>");
         d.add(startLabel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(0, 0, 0, 100), 0, 0));

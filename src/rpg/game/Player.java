@@ -124,10 +124,7 @@ public class Player {
                 System.out.println("Pas assez d'argent pour acheter : "  + weapon.getName() + " (argent : "  + this.money + "$" + ", prix : " + weapon.getPrice() + "$"  + ")");
                 return false;
             }
-        } else {
-            System.out.println("Arme n'est pas disponible dans la boutique");
-            return false;
         }
+        return false;
     }
-
 }

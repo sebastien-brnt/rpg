@@ -29,9 +29,9 @@ public class MenuStorePanel extends JPanel {
         initComponents();
     }
 
-    public void setPlayerWeapon(Weapon weapon) {
-        this.player.buyWeapon(store, weapon);
+    public boolean setPlayerWeapon(Weapon weapon) {
         this.moneyLabel.setText("Vous avez " + this.player.getMoney() + "$");
+        return this.player.buyWeapon(store, weapon);
     }
 
     private ArrayList<Weapon> getWeaponData() {
@@ -152,10 +152,15 @@ public class MenuStorePanel extends JPanel {
 
         Weapon chosenWeapon = store.getWeaponOfStore(weaponId);
         if (chosenWeapon != null) {
-            setPlayerWeapon(chosenWeapon);
-            weaponField.setText("");  // Réinitialiser le champ de texte après l'achat
-            JOptionPane.showMessageDialog(this, "Vous avez acheté : " + chosenWeapon.getName() + " pour " + chosenWeapon.getPrice() + "$ ! Bon jeu " + player.getName() + " !");
-            weaponIsValid = true;
+            boolean buyWeapon =setPlayerWeapon(chosenWeapon);
+            if (buyWeapon) {
+                weaponField.setText("");  // Réinitialiser le champ de texte après l'achat
+                JOptionPane.showMessageDialog(this, "Vous avez acheté : " + chosenWeapon.getName() + " pour " + chosenWeapon.getPrice() + "$ ! Bon jeu " + player.getName() + " !");
+                weaponIsValid = true;
+            } else {
+                JOptionPane.showMessageDialog(this, this.player.getName() + ", vous n'avez pas assez d'argent pour acheter : "  + chosenWeapon.getName() + " (argent : "  + this.player.getMoney() + "$" + ", prix : " + chosenWeapon.getPrice() + "$"  + ")");
+                weaponIsValid = false;
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Arme non disponible dans la boutique. Veuillez choisir une arme du catalogue.");
             weaponIsValid = false;
