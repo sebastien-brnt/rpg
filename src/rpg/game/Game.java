@@ -1,5 +1,7 @@
 package rpg.game;
 
+import rpg.ui.DialogBoxStore;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
@@ -8,6 +10,8 @@ public class Game {
     private Map map;
 
     private Player player;
+
+    private boolean gameIsFinish = false;
 
     public Game(GameInputs gameInputs) {
         this.player = new Player(gameInputs.getPlayerName(), gameInputs.getPlayerCast(), 100, 150);
@@ -85,5 +89,13 @@ public class Game {
                 System.out.println("Action impossible");
             }
         }
+    }
+
+    public boolean gameIsFinish() {
+        return gameIsFinish;
+    }
+
+    public void setGameFinish(boolean value) {
+        this.gameIsFinish = value;
     }
 }

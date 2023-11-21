@@ -48,15 +48,41 @@ public class MainGUI {
 
         window.add(gamePanel);
 
-        window.addKeyListener(new KeyAdapter() {
+        // Écouteur d'évènement
+        KeyAdapter keyAdapter = new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
-                game.right(e);
-                game.left(e);
-                game.top(e);
-                game.bottom(e);
-                gamePanel.getMapPanel().repaintMap();
+                if (!game.gameIsFinish()) {
+                    game.right(e);
+                    game.left(e);
+                    game.top(e);
+                    game.bottom(e);
+                    gamePanel.getMapPanel().repaintMap();
+                }
             }
-        });
+        };
+
+        window.addKeyListener(keyAdapter);
+
+        // Timer pour vérifier l'état du jeu
+        new Timer(100, e -> {
+            if (game.getMap().getBuffer() == 3) {
+                game.setGameFinish(true);
+                window.removeKeyListener(keyAdapter);
+                int option = JOptionPane.showConfirmDialog(window, "Félicitation " + game.getPlayer().getName() + ", tu as fini le jeu !\nVoulez-vous recommencer ?", "Jeu Terminé", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    // Recommencer le jeu
+                    window.dispose();
+                    main(new String[]{});
+                    game.getMap().setBuffer(0);
+                } else {
+                    // Fermer l'application
+                    System.exit(0);
+                }
+            } else if (game.getMap().getBuffer() == 4) {
+                new DialogBoxStore(gameInputs, game.getPlayer());
+            }
+        }).start();
+
 
         window.pack();
         //window.validate();

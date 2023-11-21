@@ -59,6 +59,10 @@ public class Map {
         buffer = map[x][y];
     }
 
+    public void setBuffer(int value) {
+        buffer = value;
+    }
+
     public boolean inTheMap(int x, int y) {
         return x >= 0 && x < getMapSize() && y >= 0 && y < getMapSize();
     }
