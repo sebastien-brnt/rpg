@@ -3,9 +3,11 @@ package rpg.game.player;
 import rpg.game.store.WeaponStore;
 import rpg.game.weapons.Weapon;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
-public class Player {
+public abstract class Player {
 
     private String name;
 
@@ -15,6 +17,8 @@ public class Player {
     private int level;
     private Weapon selectedWeapon;
     private ArrayList<Weapon> weaponList = new ArrayList<>();
+
+    private Image playerImage;
 
     private PlayerCast cast;
 
@@ -127,4 +131,6 @@ public class Player {
         }
         return false;
     }
+
+    public abstract Image getPlayerImage();
 }

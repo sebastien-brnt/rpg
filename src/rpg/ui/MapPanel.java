@@ -1,6 +1,8 @@
 package rpg.ui;
 
 import rpg.game.Map;
+import rpg.game.player.Player;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,15 +11,19 @@ public class MapPanel extends JPanel {
     static final int cellSize = 24;
 
     private int[][] mapGrid;
+    private Player player;
 
-    private Image playerImage, finishImage, storeImage, obstacleImage, monsterImage, moneyImage;
+    private Image finishImage, storeImage, obstacleImage, monsterImage, moneyImage;
 
 
-    public MapPanel(Map map) {
+    public MapPanel(Map map, Player player) {
+        // Récupération de la map
         this.mapGrid = map.getMap();
 
+        // Récupération du joueur
+        this.player = player;
+
         // Récupération des images
-        ImageIcon imgPlayer = new ImageIcon("src/rpg/images/link.png");
         ImageIcon imgFinish = new ImageIcon("src/rpg/images/finish-flag.png");
         ImageIcon imgStore = new ImageIcon("src/rpg/images/shop.png");
         ImageIcon imgObstacle = new ImageIcon("src/rpg/images/obstacle.png");
@@ -25,7 +31,6 @@ public class MapPanel extends JPanel {
         ImageIcon imgMoney = new ImageIcon("src/rpg/images/money.png");
 
         // Définissions des variables d'images
-        this.playerImage = imgPlayer.getImage();
         this.finishImage = imgFinish.getImage();
         this.storeImage = imgStore.getImage();
         this.obstacleImage = imgObstacle.getImage();
@@ -33,9 +38,6 @@ public class MapPanel extends JPanel {
         this.moneyImage = imgMoney.getImage();
     }
 
-    public Image getPlayerImage() {
-        return this.playerImage;
-    }
     public Image getFinishImage() {
         return this.finishImage;
     }
@@ -72,7 +74,6 @@ public class MapPanel extends JPanel {
                 Color color;
                 switch (this.mapGrid[row][col]) {
                     case 1 : color = Color.BLACK; break;
-                    case 2 : color = Color.CYAN; break;
                     case 3 : color = Color.GREEN; break;
                     case 4 : color = Color.PINK; break;
                     default : color = Color.WHITE;
@@ -80,7 +81,7 @@ public class MapPanel extends JPanel {
                 g.setColor(color);
                 g.fillRect(CoordX + cellSize * col, CoordY + cellSize * row, cellSize, cellSize);
                 if (this.mapGrid[row][col] == 2) {
-                    g.drawImage(this.getPlayerImage(), CoordX + cellSize * col, CoordY + cellSize * row, null);
+                    g.drawImage(this.player.getPlayerImage(), CoordX + cellSize * col, CoordY + cellSize * row, null);
                 }
                 if (this.mapGrid[row][col] == 3) {
                     g.drawImage(this.getFinishImage(), CoordX + cellSize * col, CoordY + cellSize * row, null);

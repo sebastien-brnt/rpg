@@ -20,8 +20,6 @@ public class Game {
             this.player = new Archer(gameInputs.getPlayerName());
         } else if (gameInputs.getPlayerCast() == PlayerCast.KNIGHT) {
             this.player = new Knight(gameInputs.getPlayerName());
-        } else {
-            new Player(gameInputs.getPlayerName(), PlayerCast.ARCHER, 100, 150);
         }
 
         // Création de la map

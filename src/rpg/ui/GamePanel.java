@@ -18,7 +18,7 @@ public class GamePanel extends JPanel {
         this.setBackground(Color.BLACK);
 
         // Add MapPanel to GamePanel
-        this.mapPanel = new MapPanel(game.getMap());
+        this.mapPanel = new MapPanel(game.getMap(), game.getPlayer());
         this.add(mapPanel, BorderLayout.NORTH);
 
         //TODO: Add PlayerInfoPanel to GamePanel
