@@ -91,4 +91,11 @@ public class Map {
             return 0; // 45% de chance de laisser la case vide
         }
     }
+
+    public boolean getPresenceAround(int x, int y, Class<?> type) {
+        return (inTheMap(x + 1, y) && type.isInstance(this.map[x + 1][y])) ||
+                (inTheMap(x - 1, y) && type.isInstance(this.map[x - 1][y])) ||
+                (inTheMap(x, y + 1) && type.isInstance(this.map[x][y + 1])) ||
+                (inTheMap(x, y - 1) && type.isInstance(this.map[x][y - 1]));
+    }
 }

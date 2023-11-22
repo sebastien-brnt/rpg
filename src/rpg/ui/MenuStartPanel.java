@@ -53,8 +53,17 @@ public class MenuStartPanel extends JPanel {
         radioChevalier = new JRadioButton("CHEVALIER");
         radioArcher = new JRadioButton("ARCHER");
 
+        // Création du groupe de boutons
+        ButtonGroup group = new ButtonGroup();
+        group.add(radioMage);
+        group.add(radioChevalier);
+        group.add(radioArcher);
+
+        // Sélection de archer par défaut
+        radioArcher.setSelected(true);
+
         // Configuration du layout
-        setBorder(new EmptyBorder(20, 20, 20, 20)); // 20px de marge tout autour
+        setBorder(new EmptyBorder(20, 20, 20, 20));
         GridBagLayout gridbag = new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
         setLayout(gridbag);
@@ -62,15 +71,19 @@ public class MenuStartPanel extends JPanel {
 
         // Ajout du titre
         title.setFont(new Font("Segoe UI", Font.BOLD, 30));
+        gbc.insets = new Insets(0, 0, 30, 0);
         gbc.gridwidth = 3;
         gbc.gridx = 0;
         gbc.gridy = 0;
         add(title, gbc);
 
         // Configuration pour répartir les boutons radio uniformément
-        gbc.weightx = 1.0; // Distribue l'espace uniformément entre les éléments
+        gbc.insets = new Insets(0, 0, 30, 0);
+        gbc.weightx = 1.0;
         gbc.gridwidth = 1;
         gbc.gridx = 0;
+
+        // Ajout des boutons radio
         gbc.gridy = 1;
         add(radioMage, gbc);
 
@@ -81,7 +94,8 @@ public class MenuStartPanel extends JPanel {
         add(radioChevalier, gbc);
 
         // Ajout du champ de saisie pour le nom du joueur
-        gbc.weightx = 0.0; // Réinitialisation pour les autres composants
+        gbc.insets = new Insets(20, 0, 0, 0);
+        gbc.weightx = 0.0;
         gbc.gridwidth = 3;
         gbc.gridx = 0;
         gbc.gridy = 2;
