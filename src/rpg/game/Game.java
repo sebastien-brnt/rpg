@@ -91,6 +91,23 @@ public class Game {
         }
     }
 
+    public void getMoney(KeyEvent e) {
+        if (e.getKeyChar() == 'r' || e.getKeyChar() == 'R') {
+            if (map.getBuffer() == 7) {
+                // Nombre aléatoire entre 1 et 30
+                int winMoney = (int)(Math.random() * 29) + 1;
+
+                // Ajout de l'argent au joueur
+                this.player.addMoney(winMoney);
+
+                // Mise à jour du buffer
+                map.setBuffer(0);
+
+                System.out.println(winMoney + "$ ramassé");
+            }
+        }
+    }
+
     public boolean gameIsFinish() {
         return gameIsFinish;
     }

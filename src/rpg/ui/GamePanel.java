@@ -10,6 +10,8 @@ public class GamePanel extends JPanel {
 
     private MapPanel mapPanel;
 
+    private PlayerInfoPanel playerInfoPanel;
+
 
     public GamePanel(Game game) {
         this.setLayout(new BorderLayout());
@@ -20,12 +22,17 @@ public class GamePanel extends JPanel {
         this.add(mapPanel, BorderLayout.NORTH);
 
         //TODO: Add PlayerInfoPanel to GamePanel
-        this.add(new PlayerInfoPanel(game.getPlayer()), BorderLayout.CENTER);
+        this.playerInfoPanel = new PlayerInfoPanel(game.getPlayer());
+        this.add(playerInfoPanel, BorderLayout.CENTER);
 
     }
 
     public MapPanel getMapPanel() {
         return mapPanel;
+    }
+
+    public PlayerInfoPanel getPlayerInfoPanel() {
+        return playerInfoPanel;
     }
 
     @Override

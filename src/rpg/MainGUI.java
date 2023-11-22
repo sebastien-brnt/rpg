@@ -58,7 +58,9 @@ public class MainGUI {
                     game.left(e);
                     game.top(e);
                     game.bottom(e);
+                    game.getMoney(e);
                     gamePanel.getMapPanel().repaintMap();
+                    gamePanel.getPlayerInfoPanel().updatePlayerInfo();
                 }
             }
         };
