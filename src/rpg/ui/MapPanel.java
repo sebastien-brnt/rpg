@@ -75,7 +75,6 @@ public class MapPanel extends JPanel {
                     case 2 : color = Color.CYAN; break;
                     case 3 : color = Color.GREEN; break;
                     case 4 : color = Color.PINK; break;
-                    case 6 : color = Color.RED; break;
                     default : color = Color.WHITE;
                 }
                 g.setColor(color);

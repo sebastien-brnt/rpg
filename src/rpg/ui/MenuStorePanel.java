@@ -91,13 +91,21 @@ public class MenuStorePanel extends JPanel {
             gbc.gridx = 0; // Commencez chaque ligne à la première colonne
             this.add(new JLabel(weapon.getName()), gbc);
             gbc.gridx++;
-            this.add(new JLabel(String.valueOf(weapon.getPrice()) + "$"), gbc);
+            JLabel price = new JLabel(String.valueOf(weapon.getPrice()) + "$");
+            price.setForeground(new Color(0, 153, 0));
+            this.add(price, gbc);
             gbc.gridx++;
-            this.add(new JLabel(String.valueOf(weapon.getDamageMonster()) + " PV"), gbc);
+            JLabel damageMonster = new JLabel(String.valueOf(weapon.getDamageMonster()) + " PV");
+            damageMonster.setForeground(new Color(71, 159, 253));
+            this.add(damageMonster, gbc);
             gbc.gridx++;
-            this.add(new JLabel(String.valueOf(weapon.getDamageObstacle()) + " PV"), gbc);
+            JLabel damageObstacle = new JLabel(String.valueOf(weapon.getDamageObstacle()) + " PV");
+            damageObstacle.setForeground(new Color(71, 159, 253));
+            this.add(damageObstacle, gbc);
             gbc.gridx++;
-            this.add(new JLabel(String.valueOf(weapon.getDurability())), gbc);
+            JLabel durability = new JLabel(String.valueOf(weapon.getDurability()));
+            durability.setForeground(new Color(133, 51, 0));
+            this.add(durability, gbc);
 
             // Ajouter un espace vertical après chaque arme
             gbc.gridx = 0;

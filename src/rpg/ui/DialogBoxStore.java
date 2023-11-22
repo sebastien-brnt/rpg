@@ -55,9 +55,7 @@ public class DialogBoxStore {
             actionMap.put("escape", new AbstractAction() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (allowExit) {
-                        d.dispose();
-                    }
+                    d.dispose();
                 }
             });
         }

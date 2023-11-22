@@ -14,7 +14,6 @@ public class PlayerInfoPanel extends JPanel {
     private JLabel moneyLabel;
     private JLabel levelLabel;
     private JLabel xpLabel;
-    private JLabel actionLabel;
 
     public PlayerInfoPanel(Player player) {
         this.player = player;
@@ -23,12 +22,17 @@ public class PlayerInfoPanel extends JPanel {
         setLayout(new GridLayout(7, 1, 5, 5)); // Espacement vertical réduit entre les lignes
 
         nameLabel = new JLabel("Votre nom : " + player.getName());
+        nameLabel.setForeground(new Color(53, 48, 206));
         castLabel = new JLabel("Rôle : " + player.getCast());
+        castLabel.setForeground(new Color(53, 48, 206));
         pvLabel = new JLabel("Vie : " + player.getPv() + " PV");
+        pvLabel.setForeground(new Color(71, 159, 253));
         moneyLabel = new JLabel("Money : " + player.getMoney() + "$");
+        moneyLabel.setForeground(new Color(0, 153, 0));
         levelLabel = new JLabel("Niveau : " + player.getLevel());
+        levelLabel.setForeground(new Color(220, 163, 6));
         xpLabel = new JLabel("XP : " + player.getXp());
-        actionLabel = new JLabel("Action : ");
+        xpLabel.setForeground(new Color(220, 163, 6));
 
         add(nameLabel);
         add(castLabel);
@@ -36,7 +40,6 @@ public class PlayerInfoPanel extends JPanel {
         add(moneyLabel);
         add(levelLabel);
         add(xpLabel);
-        add(actionLabel);
     }
 
     // Mettre à jour les informations du joueur
@@ -47,6 +50,5 @@ public class PlayerInfoPanel extends JPanel {
         moneyLabel.setText("Money : " + player.getMoney() + "$");
         levelLabel.setText("Niveau : " + player.getLevel());
         xpLabel.setText("XP : " + player.getXp());
-        actionLabel.setText("Action : ");
     }
 }
