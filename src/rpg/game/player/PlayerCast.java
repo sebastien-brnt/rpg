@@ -1,8 +1,8 @@
-package rpg.game;
+package rpg.game.player;
 
 public enum PlayerCast {
 
     MAGE,
     ARCHER,
-    CHEVALIER
+    KNIGHT
 }

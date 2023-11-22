@@ -1,8 +1,7 @@
 package rpg.game;
 
-import rpg.ui.DialogBoxStore;
+import rpg.game.player.*;
 
-import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 public class Game {
@@ -14,8 +13,21 @@ public class Game {
     private boolean gameIsFinish = false;
 
     public Game(GameInputs gameInputs) {
-        this.player = new Player(gameInputs.getPlayerName(), gameInputs.getPlayerCast(), 100, 150);
+        // Création du joueur en fonction du cast
+        if (gameInputs.getPlayerCast() == PlayerCast.MAGE) {
+            this.player = new Mage(gameInputs.getPlayerName());
+        } else if (gameInputs.getPlayerCast() == PlayerCast.ARCHER) {
+            this.player = new Archer(gameInputs.getPlayerName());
+        } else if (gameInputs.getPlayerCast() == PlayerCast.KNIGHT) {
+            this.player = new Knight(gameInputs.getPlayerName());
+        } else {
+            new Player(gameInputs.getPlayerName(), PlayerCast.ARCHER, 100, 150);
+        }
+
+        // Création de la map
         this.map = new Map();
+
+        // Initialisation du joueur sur la map
         this.map.setPlayer(1, 0);
     }
 

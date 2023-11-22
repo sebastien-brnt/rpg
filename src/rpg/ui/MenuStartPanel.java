@@ -1,7 +1,7 @@
 package rpg.ui;
 
 import rpg.game.GameInputs;
-import rpg.game.PlayerCast;
+import rpg.game.player.PlayerCast;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,7 +17,7 @@ public class MenuStartPanel extends JPanel {
     private JLabel title;
     private JLabel pseudoLabel;
     private JTextField pseudoField;
-    private JRadioButton radioMage, radioChevalier, radioArcher;
+    private JRadioButton radioMage, radioKnight, radioArcher;
 
     // Constructeur
     public MenuStartPanel(GameInputs gameInputs) {
@@ -37,8 +37,8 @@ public class MenuStartPanel extends JPanel {
             playerClass = PlayerCast.MAGE;
         } else if (this.radioArcher.isSelected()) {
             playerClass = PlayerCast.ARCHER;
-        } else if (this.radioChevalier.isSelected()){
-            playerClass = PlayerCast.CHEVALIER;
+        } else if (this.radioKnight.isSelected()){
+            playerClass = PlayerCast.KNIGHT;
         }
         this.gameInputs.setPlayerCast(playerClass);
     }
@@ -50,13 +50,13 @@ public class MenuStartPanel extends JPanel {
         pseudoLabel = new JLabel("Choisissez votre nom : ");
         pseudoField = new JTextField();
         radioMage = new JRadioButton("MAGE");
-        radioChevalier = new JRadioButton("CHEVALIER");
+        radioKnight = new JRadioButton("CHEVALIER");
         radioArcher = new JRadioButton("ARCHER");
 
         // Création du groupe de boutons
         ButtonGroup group = new ButtonGroup();
         group.add(radioMage);
-        group.add(radioChevalier);
+        group.add(radioKnight);
         group.add(radioArcher);
 
         // Sélection de archer par défaut
@@ -91,7 +91,7 @@ public class MenuStartPanel extends JPanel {
         add(radioArcher, gbc);
 
         gbc.gridx = 2;
-        add(radioChevalier, gbc);
+        add(radioKnight, gbc);
 
         // Ajout du champ de saisie pour le nom du joueur
         gbc.insets = new Insets(20, 0, 0, 0);

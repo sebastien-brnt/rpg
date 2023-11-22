@@ -1,4 +1,4 @@
-package rpg.game;
+package rpg.game.player;
 
 import rpg.game.store.WeaponStore;
 import rpg.game.weapons.Weapon;

@@ -1,7 +1,7 @@
 package rpg.ui;
 
 import rpg.game.GameInputs;
-import rpg.game.Player;
+import rpg.game.player.Player;
 import rpg.game.store.WeaponStore;
 import rpg.game.weapons.Weapon;
 

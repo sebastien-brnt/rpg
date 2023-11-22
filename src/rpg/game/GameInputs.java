@@ -1,5 +1,7 @@
 package rpg.game;
 
+import rpg.game.player.PlayerCast;
+
 public class GameInputs {
     private String playerName;
     private PlayerCast playerCast;

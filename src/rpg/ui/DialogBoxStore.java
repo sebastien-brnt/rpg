@@ -1,7 +1,7 @@
 package rpg.ui;
 
 import rpg.game.GameInputs;
-import rpg.game.Player;
+import rpg.game.player.Player;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
