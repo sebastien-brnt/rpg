@@ -24,6 +24,7 @@ public class Map {
 
     public Map() {
         this.map = MAP_TEMPLATE_DEFAULT;
+        this.populateMap();
     }
 
     public int[][] getMap() {
@@ -65,5 +66,29 @@ public class Map {
 
     public boolean inTheMap(int x, int y) {
         return x >= 0 && x < getMapSize() && y >= 0 && y < getMapSize();
+    }
+
+    public void populateMap() {
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if (map[i][j] == 0) {
+                    map[i][j] = getRandomElement();
+                }
+            }
+        }
+    }
+
+    private int getRandomElement() {
+        int randomNum = (int)(Math.random() * 20);
+
+        if (randomNum < 6) { // 30% de chance d'obtenir un Obstacle
+            return 5;
+        } else if (randomNum < 10) { // 20% de chance d'obtenir un Monstre
+            return 6;
+        } else if (randomNum < 12) { // 10% de chance d'obtenir de l'argent
+            return 7;
+        } else {
+            return 0; // 45% de chance de laisser la case vide
+        }
     }
 }
