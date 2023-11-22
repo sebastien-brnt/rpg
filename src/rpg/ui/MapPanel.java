@@ -10,7 +10,7 @@ public class MapPanel extends JPanel {
 
     private int[][] mapGrid;
 
-    private Image playerImage, finishImage, storeImage, obstacleImage, monsterImage;
+    private Image playerImage, finishImage, storeImage, obstacleImage, monsterImage, moneyImage;
 
 
     public MapPanel(Map map) {
@@ -22,6 +22,7 @@ public class MapPanel extends JPanel {
         ImageIcon imgStore = new ImageIcon("src/rpg/images/shop.png");
         ImageIcon imgObstacle = new ImageIcon("src/rpg/images/obstacle.png");
         ImageIcon imgMonster = new ImageIcon("src/rpg/images/monster.png");
+        ImageIcon imgMoney = new ImageIcon("src/rpg/images/money.png");
 
         // Définissions des variables d'images
         this.playerImage = imgPlayer.getImage();
@@ -29,6 +30,7 @@ public class MapPanel extends JPanel {
         this.storeImage = imgStore.getImage();
         this.obstacleImage = imgObstacle.getImage();
         this.monsterImage = imgMonster.getImage();
+        this.moneyImage = imgMoney.getImage();
     }
 
     public Image getPlayerImage() {
@@ -45,6 +47,9 @@ public class MapPanel extends JPanel {
     }
     public Image getMonsterImage() {
         return this.monsterImage;
+    }
+    public Image getMoneyImage() {
+        return this.moneyImage;
     }
 
     @Override
@@ -70,7 +75,6 @@ public class MapPanel extends JPanel {
                     case 2 : color = Color.CYAN; break;
                     case 3 : color = Color.GREEN; break;
                     case 4 : color = Color.PINK; break;
-                    case 5 : color = Color.YELLOW; break;
                     case 6 : color = Color.RED; break;
                     default : color = Color.WHITE;
                 }
@@ -90,6 +94,9 @@ public class MapPanel extends JPanel {
                 }
                 if (this.mapGrid[row][col] == 6) {
                     g.drawImage(this.getMonsterImage(), CoordX + cellSize * col, CoordY + cellSize * row, null);
+                }
+                if (this.mapGrid[row][col] == 7) {
+                    g.drawImage(this.getMoneyImage(), CoordX + cellSize * col, CoordY + cellSize * row, null);
                 }
                 g.setColor(Color.BLACK); // contours
                 g.drawRect(CoordX + cellSize * col, CoordY + cellSize * row, cellSize, cellSize);
