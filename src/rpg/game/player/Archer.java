@@ -12,7 +12,7 @@ public class Archer extends Player {
     }
 
     public Image getPlayerImage() {
-        this.playerImage = new ImageIcon("src/rpg/images/link.png").getImage();
+        this.playerImage = new ImageIcon("src/rpg/images/archer.png").getImage();
         return this.playerImage;
     }
 }
