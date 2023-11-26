@@ -1,5 +1,6 @@
 package rpg.game;
 
+import rpg.game.destructible.Destructible;
 import rpg.game.player.*;
 import rpg.game.store.WeaponStore;
 
@@ -46,7 +47,7 @@ public class Game {
         if (e.getKeyChar() == 'd' || e.getKeyChar() == 'D') {
             int playerX = this.map.getPlayerX();
             int playerY = this.map.getPlayerY();
-            if (this.map.inTheMap(playerX, playerY + 1) && (((this.map.getMap()[playerX][playerY + 1] instanceof Integer) && (Integer) this.map.getMap()[playerX][playerY + 1] != 1) || this.map.getMap()[playerX][playerY + 1] instanceof WeaponStore)) {
+            if (this.map.inTheMap(playerX, playerY + 1) && (((this.map.getMap()[playerX][playerY + 1] instanceof Integer) && (Integer) this.map.getMap()[playerX][playerY + 1] != 1) || this.map.getMap()[playerX][playerY + 1] instanceof WeaponStore)  || this.map.getMap()[playerX][playerY + 1] instanceof Destructible) {
                 this.map.updateMap(playerX, playerY, this.map.getBuffer());
                 this.map.setBuffer(playerX, playerY + 1);
                 this.map.setPlayer(playerX, playerY + 1);
@@ -61,7 +62,7 @@ public class Game {
         if (e.getKeyChar() == 'q' || e.getKeyChar() == 'Q') {
             int playerX = this.map.getPlayerX();
             int playerY = this.map.getPlayerY();
-            if (this.map.inTheMap(playerX, playerY - 1) && ((this.map.getMap()[playerX][playerY - 1] instanceof Integer &&  (Integer) this.map.getMap()[playerX][playerY - 1] != 1) || this.map.getMap()[playerX][playerY - 1] instanceof WeaponStore)) {
+            if (this.map.inTheMap(playerX, playerY - 1) && ((this.map.getMap()[playerX][playerY - 1] instanceof Integer &&  (Integer) this.map.getMap()[playerX][playerY - 1] != 1) || this.map.getMap()[playerX][playerY - 1] instanceof WeaponStore) || this.map.getMap()[playerX][playerY - 1] instanceof Destructible) {
                 this.map.updateMap(playerX, playerY, this.map.getBuffer());
                 this.map.setBuffer(playerX, playerY - 1);
                 this.map.setPlayer(playerX, playerY - 1);
@@ -76,7 +77,7 @@ public class Game {
         if (e.getKeyChar() == 'z' || e.getKeyChar() == 'Z') {
             int playerX = this.map.getPlayerX();
             int playerY = this.map.getPlayerY();
-            if (this.map.inTheMap(playerX - 1, playerY) && ((this.map.getMap()[playerX - 1][playerY] instanceof Integer &&  (Integer) this.map.getMap()[playerX - 1][playerY] != 1) || this.map.getMap()[playerX - 1][playerY] instanceof WeaponStore)) {
+            if (this.map.inTheMap(playerX - 1, playerY) && ((this.map.getMap()[playerX - 1][playerY] instanceof Integer &&  (Integer) this.map.getMap()[playerX - 1][playerY] != 1) || this.map.getMap()[playerX - 1][playerY] instanceof WeaponStore || this.map.getMap()[playerX - 1][playerY] instanceof Destructible)) {
                 this.map.updateMap(playerX, playerY, this.map.getBuffer());
                 this.map.setBuffer(playerX - 1, playerY);
                 this.map.setPlayer(playerX - 1, playerY);
@@ -91,7 +92,7 @@ public class Game {
         if (e.getKeyChar() == 's' || e.getKeyChar() == 'S') {
             int playerX = this.map.getPlayerX();
             int playerY = this.map.getPlayerY();
-            if (this.map.inTheMap(playerX + 1, playerY) && ((this.map.getMap()[playerX + 1][playerY] instanceof Integer &&  (Integer) this.map.getMap()[playerX + 1][playerY] != 1) || this.map.getMap()[playerX + 1][playerY] instanceof WeaponStore)) {
+            if (this.map.inTheMap(playerX + 1, playerY) && ((this.map.getMap()[playerX + 1][playerY] instanceof Integer &&  (Integer) this.map.getMap()[playerX + 1][playerY] != 1) || this.map.getMap()[playerX + 1][playerY] instanceof WeaponStore || this.map.getMap()[playerX + 1][playerY] instanceof Destructible)) {
                 this.map.updateMap(playerX, playerY, this.map.getBuffer());
                 this.map.setBuffer(playerX + 1, playerY);
                 this.map.setPlayer(playerX + 1, playerY);

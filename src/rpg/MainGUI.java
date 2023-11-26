@@ -77,12 +77,13 @@ public class MainGUI {
                 game.getMap().updateMap(game.getMap().getPlayerX(), game.getMap().getPlayerY(), 3);
                 game.setGameFinish(true);
                 window.removeKeyListener(keyAdapter);
-                int option = JOptionPane.showConfirmDialog(window, "Félicitation " + game.getPlayer().getName() + ", tu as fini le jeu !\nVoulez-vous recommencer ?", "Jeu Terminé", JOptionPane.YES_NO_OPTION);
+                int option = JOptionPane.showConfirmDialog(window, "Félicitation " + game.getPlayer().getName() + ", tu as fini le jeu !", "Jeu Terminé", JOptionPane.YES_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
+                    System.exit(0);
                     // Recommencer le jeu
-                    window.dispose();
-                    main(new String[]{});
-                    game.getMap().setBuffer(0);
+                    //window.dispose();
+                    //main(new String[]{});
+                    //game.getMap().setBuffer(0);
                 } else {
                     // Fermer l'application
                     System.exit(0);
