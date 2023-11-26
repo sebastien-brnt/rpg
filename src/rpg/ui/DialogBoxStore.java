@@ -2,6 +2,8 @@ package rpg.ui;
 
 import rpg.game.GameInputs;
 import rpg.game.player.Player;
+import rpg.game.store.WeaponStore;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +15,7 @@ public class DialogBoxStore {
 
     private boolean allowExit;
 
-    public DialogBoxStore(JFrame parentFrame, GameInputs gameInputs, Player player, boolean allowExit) {
+    public DialogBoxStore(JFrame parentFrame, GameInputs gameInputs, Player player, WeaponStore store, boolean allowExit) {
         d = new JDialog(parentFrame, "Boutique d'armes", true);
         d.setSize(500, 500);
         d.setLocationRelativeTo(null);
@@ -21,7 +23,7 @@ public class DialogBoxStore {
         this.allowExit = allowExit;
 
         // Define MenuStorePanel
-        MenuStorePanel menuStore = new MenuStorePanel(gameInputs, player);
+        MenuStorePanel menuStore = new MenuStorePanel(gameInputs, player, store);
 
         d.add(menuStore, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.NORTH, GridBagConstraints.BOTH,

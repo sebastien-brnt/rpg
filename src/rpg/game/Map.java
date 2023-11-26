@@ -1,37 +1,47 @@
 package rpg.game;
 
+import rpg.game.store.WeaponStore;
+
 public class Map {
     // Map
     static final int SIZE = 10;
-    static final int[][] MAP_TEMPLATE_DEFAULT = {
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            {0, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-            {1, 0, 1, 1, 0, 0, 0, 0, 0, 1},
-            {1, 0, 0, 1, 0, 0, 1, 1, 0, 1},
-            {1, 1, 0, 1, 0, 0, 1, 0, 0, 1},
-            {1, 0, 0, 1, 0, 1, 1, 0, 0, 1},
-            {1, 0, 0, 1, 0, 1, 0, 0, 0, 1},
-            {1, 0, 0, 0, 0, 1, 0, 1, 1, 1},
-            {1, 0, 1, 0, 4, 1, 0, 0, 0, 0},
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 3}
+
+    static final int mapWall = 1;
+
+    static final int mapFinish = 3;
+
+    static final WeaponStore weaponStore = new WeaponStore();
+
+    private Object[][] MAP_TEMPLATE_DEFAULT = {
+            {mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall},
+            {mapWall, 0, mapWall, 0, 0, 0, 0, 0, 0, mapWall},
+            {mapWall, 0, mapWall, mapWall, 0, 0, 0, 0, 0, mapWall},
+            {mapWall, 0, 0, mapWall, 0, 0, mapWall, mapWall, 0, mapWall},
+            {mapWall, mapWall, 0, mapWall, 0, 0, mapWall, 0, 0, mapWall},
+            {mapWall, 0, 0, mapWall, 0, mapWall, mapWall, 0, 0, mapWall},
+            {mapWall, 0, 0, mapWall, 0, mapWall, 0, 0, 0, mapWall},
+            {mapWall, 0, 0, 0, 0, mapWall, 0, mapWall, mapWall, mapWall},
+            {mapWall, 0, mapWall, 0, weaponStore, mapWall, 0, 0, 0, 0},
+            {mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapFinish}
     };
 
-    private int[][] map;
+
+    private Object[][] map;
 
     private int playerX, playerY;
 
-    private int buffer = 0;
+    private Object buffer = 0;
 
     public Map() {
         this.map = MAP_TEMPLATE_DEFAULT;
         this.populateMap();
     }
 
-    public int[][] getMap() {
+    public Object[][] getMap() {
         return this.map;
     }
 
-    public void updateMap(int x, int y, int value) {
+    public void updateMap(int x, int y, Object value) {
         this.map[x][y] = value;
     }
 
@@ -49,7 +59,7 @@ public class Map {
         return playerY;
     }
 
-    public int getBuffer() {
+    public Object getBuffer() {
         return buffer;
     }
     public int getMapSize() {
@@ -71,7 +81,7 @@ public class Map {
     public void populateMap() {
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                if (map[i][j] == 0) {
+                if (this.map[i][j] instanceof Integer && (Integer) this.map[i][j] == 0) {
                     map[i][j] = getRandomElement();
                 }
             }

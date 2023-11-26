@@ -2,6 +2,7 @@ package rpg;
 
 import rpg.game.Game;
 import rpg.game.GameInputs;
+import rpg.game.store.WeaponStore;
 import rpg.ui.DialogBoxStart;
 import rpg.ui.DialogBoxStore;
 import rpg.ui.GamePanel;
@@ -13,6 +14,8 @@ import java.awt.event.KeyEvent;
 public class MainGUI {
 
     private static boolean storeOpened = false;
+
+    private static WeaponStore store = new WeaponStore();
 
     public static void main(String[] args) {
         // Define the GUI main window
@@ -40,7 +43,7 @@ public class MainGUI {
         Game game = new Game(gameInputs);
 
         // display store where to define your first weapon
-        new DialogBoxStore(window, gameInputs, game.getPlayer(), false);
+        new DialogBoxStore(window, gameInputs, game.getPlayer(), store, false);
 
         // Display the game rules
         JOptionPane.showMessageDialog(window, game.getPlayer().getName() + ", " + game.getTarget());
@@ -69,7 +72,7 @@ public class MainGUI {
 
         // Timer pour vérifier l'état du jeu
         new Timer(100, e -> {
-            if (game.getMap().getBuffer() == 3) {
+            if (game.getMap().getBuffer() instanceof Integer && (Integer) game.getMap().getBuffer() == 3) {
                 System.out.println("fin du jeu");
                 game.getMap().updateMap(game.getMap().getPlayerX(), game.getMap().getPlayerY(), 3);
                 game.setGameFinish(true);
@@ -84,11 +87,11 @@ public class MainGUI {
                     // Fermer l'application
                     System.exit(0);
                 }
-            } else if (game.getMap().getBuffer() == 4 && !storeOpened) {
+            } else if (game.getMap().getBuffer() instanceof WeaponStore && !storeOpened) {
                 storeOpened = true;
-                new DialogBoxStore(window, gameInputs, game.getPlayer(), true);
+                new DialogBoxStore(window, gameInputs, game.getPlayer(), (WeaponStore) game.getMap().getBuffer(), true);
                 System.out.println("boutique");
-            } else if (game.getMap().getBuffer() != 4) {
+            } else if (!(game.getMap().getBuffer() instanceof WeaponStore)) {
                 storeOpened = false;
             }
         }).start();

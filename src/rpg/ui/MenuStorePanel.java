@@ -22,9 +22,9 @@ public class MenuStorePanel extends JPanel {
     private JTable weaponTable;
     private boolean weaponIsValid = false;
 
-    public MenuStorePanel(GameInputs gameInputs, Player player) {
+    public MenuStorePanel(GameInputs gameInputs, Player player, WeaponStore store) {
         this.gameInputs = gameInputs;
-        this.store = new WeaponStore();
+        this.store = store;
         this.player = player;
         initComponents();
     }
