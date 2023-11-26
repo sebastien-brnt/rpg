@@ -1,6 +1,8 @@
 package rpg.ui;
 
 import rpg.game.Map;
+import rpg.game.destructible.Monster;
+import rpg.game.destructible.Obstacle;
 import rpg.game.player.Player;
 import rpg.game.store.WeaponStore;
 
@@ -99,10 +101,10 @@ public class MapPanel extends JPanel {
                 if (this.mapGrid[row][col] instanceof WeaponStore) {
                     g.drawImage(this.getStoreImage(), CoordX + cellSize * col, CoordY + cellSize * row, null);
                 }
-                if (this.mapGrid[row][col] instanceof Integer && (Integer) this.mapGrid[row][col] == 5) {
+                if (this.mapGrid[row][col] instanceof Obstacle) {
                     g.drawImage(this.getObstacleImage(), CoordX + cellSize * col, CoordY + cellSize * row, null);
                 }
-                if (this.mapGrid[row][col] instanceof Integer && (Integer) this.mapGrid[row][col] == 6) {
+                if (this.mapGrid[row][col] instanceof Monster) {
                     g.drawImage(this.getMonsterImage(), CoordX + cellSize * col, CoordY + cellSize * row, null);
                 }
                 if (this.mapGrid[row][col] instanceof Integer && (Integer) this.mapGrid[row][col] == 7) {

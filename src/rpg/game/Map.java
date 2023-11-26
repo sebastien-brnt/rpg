@@ -1,5 +1,7 @@
 package rpg.game;
 
+import rpg.game.destructible.Monster;
+import rpg.game.destructible.Obstacle;
 import rpg.game.store.WeaponStore;
 
 public class Map {
@@ -88,13 +90,13 @@ public class Map {
         }
     }
 
-    private int getRandomElement() {
+    private Object getRandomElement() {
         int randomNum = (int)(Math.random() * 20);
 
         if (randomNum < 6) { // 30% de chance d'obtenir un Obstacle
-            return 5;
+            return new Obstacle("Rocher");
         } else if (randomNum < 10) { // 20% de chance d'obtenir un Monstre
-            return 6;
+            return new Monster("Monstre", 150);
         } else if (randomNum < 12) { // 10% de chance d'obtenir de l'argent
             return 7;
         } else {

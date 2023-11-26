@@ -41,6 +41,13 @@ public abstract class Player {
     public double getPv() {
         return this.pv;
     }
+    public void removePv(double value) {
+        if (this.pv - value < 0) {
+            this.pv = 0;
+        } else {
+            this.pv -= value;
+        }
+    }
     public double getXp() {
         return this.xp;
     }
