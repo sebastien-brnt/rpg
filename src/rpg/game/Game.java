@@ -118,7 +118,7 @@ public class Game {
             }
         }
     }
-
+    
     public boolean gameIsFinish() {
         return gameIsFinish;
     }
