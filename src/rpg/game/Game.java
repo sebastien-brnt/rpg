@@ -3,7 +3,10 @@ package rpg.game;
 import rpg.game.destructible.Destructible;
 import rpg.game.player.*;
 import rpg.game.store.WeaponStore;
+import rpg.ui.DialogBoxChangeWeapon;
+import rpg.ui.DialogBoxStore;
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
 
 public class Game {
@@ -70,6 +73,12 @@ public class Game {
             } else {
                 System.out.println("Action impossible");
             }
+        }
+    }
+
+    public void openInventory(KeyEvent e, JFrame window, GameInputs gameInputs) {
+        if (e.getKeyChar() == 'i' || e.getKeyChar() == 'I') {
+            new DialogBoxChangeWeapon(window, gameInputs, player);
         }
     }
 

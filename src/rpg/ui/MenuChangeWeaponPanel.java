@@ -12,36 +12,30 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-public class MenuStorePanel extends JPanel {
+public class MenuChangeWeaponPanel extends JPanel {
 
     private GameInputs gameInputs;
-    private JLabel moneyLabel;
     private JTextField weaponField;
-    private WeaponStore store;
     private Player player;
-    private JTable weaponTable;
     private boolean weaponIsValid = false;
 
-    public MenuStorePanel(GameInputs gameInputs, Player player, WeaponStore store) {
+    public MenuChangeWeaponPanel(GameInputs gameInputs, Player player) {
         this.gameInputs = gameInputs;
-        this.store = store;
         this.player = player;
         initComponents();
     }
 
     public boolean setPlayerWeapon(Weapon weapon) {
-        this.moneyLabel.setText("Vous avez " + this.player.getMoney() + "$");
-        return this.player.buyWeapon(store, weapon);
+        return true;
     }
 
     private ArrayList<Weapon> getWeaponData() {
-        return store.getWeaponList();
+        return player.getWeaponList();
     }
 
     private void initComponents() {
         // Définition des composants
-        JLabel title = new JLabel("Bienvenue dans la boutique");
-        this.moneyLabel = new JLabel("Vous avez " + this.player.getMoney() + "$");
+        JLabel title = new JLabel("Votre inventaire");
         JLabel weaponLabel = new JLabel("Saisissez l'ID de l'Arme : ");
         this.weaponField = new JTextField();
 
@@ -124,16 +118,6 @@ public class MenuStorePanel extends JPanel {
         gbc.gridx = 0; // Commencez chaque ligne à la première colonne
         this.add(Box.createVerticalStrut(10), gbc); // Espace vertical
 
-        // Label de l'argent du joueur
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.gridy++;
-        this.add(this.moneyLabel, gbc);
-
-        // Espace après l'argent du joueur
-        gbc.gridx = 0; // Commencez chaque ligne à la première colonne
-        this.add(Box.createVerticalStrut(10), gbc); // Espace vertical
-
-
         // Label et champ de texte pour l'arme
         gbc.gridwidth = 1;
         gbc.gridy++;
@@ -162,19 +146,20 @@ public class MenuStorePanel extends JPanel {
             return;
         }
 
-        Weapon chosenWeapon = store.getWeaponOfStore(weaponId);
-        if (chosenWeapon != null) {
-            boolean buyWeapon =setPlayerWeapon(chosenWeapon);
-            if (buyWeapon) {
-                weaponField.setText("");  // Réinitialiser le champ de texte après l'achat
-                JOptionPane.showMessageDialog(this, "Vous avez acheté : " + chosenWeapon.getName() + " pour " + chosenWeapon.getPrice() + "$ ! Bon jeu " + player.getName() + " !");
-                weaponIsValid = true;
-            } else {
-                JOptionPane.showMessageDialog(this, this.player.getName() + ", vous n'avez pas assez d'argent pour acheter : "  + chosenWeapon.getName() + " (argent : "  + this.player.getMoney() + "$" + ", prix : " + chosenWeapon.getPrice() + "$"  + ")");
-                weaponIsValid = false;
+        Weapon chosenWeapon = null;
+
+        for(Weapon weapon : player.getWeaponList()) {
+            if(weapon.getId().equals(weaponId)) {
+                chosenWeapon = weapon;
             }
+        }
+
+        if (chosenWeapon != null) {
+            player.changeWeapon(chosenWeapon);
+            JOptionPane.showMessageDialog(this, "L'arme sélectionné est désormais " + chosenWeapon.getName());
+            weaponIsValid = true;
         } else {
-            JOptionPane.showMessageDialog(this, "Arme non disponible dans la boutique. Veuillez choisir une arme du catalogue.");
+            JOptionPane.showMessageDialog(this, "Arme non disponible dans votre inventaire. Veuillez choisir une arme que vous avez.");
             weaponIsValid = false;
         }
     }

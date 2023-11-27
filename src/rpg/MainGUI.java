@@ -62,6 +62,7 @@ public class MainGUI {
                     game.top(e);
                     game.bottom(e);
                     game.getMoney(e);
+                    game.openInventory(e, window, gameInputs);
                     gamePanel.getMapPanel().repaintMap();
                     gamePanel.getPlayerInfoPanel().updatePlayerInfo();
                 }
