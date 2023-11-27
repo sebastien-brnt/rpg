@@ -1,6 +1,7 @@
 package rpg.game.player;
 
 import rpg.game.Map;
+import rpg.game.destructible.Destructible;
 import rpg.game.store.WeaponStore;
 import rpg.game.weapons.Weapon;
 
@@ -117,6 +118,11 @@ public abstract class Player {
     public ArrayList<Weapon> getWeaponList() {
         return weaponList;
     }
+
+    public void attackDestructible(Destructible target) {
+        this.getSelectedWeapon().attack(target);
+    }
+
 
     public void changeWeapon(Weapon weapon) {
         this.selectedWeapon = weapon;

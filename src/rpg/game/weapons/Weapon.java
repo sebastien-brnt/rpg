@@ -1,5 +1,8 @@
 package rpg.game.weapons;
 
+import rpg.game.destructible.Destructible;
+import rpg.game.destructible.Obstacle;
+
 public abstract class Weapon {
     private String id;
     private String name;
@@ -55,7 +58,7 @@ public abstract class Weapon {
         return this;
     }
 
-    /*
+
     public void attack(Destructible destructible) {
         double finalDamage;
         if (destructible instanceof Obstacle) {
@@ -66,9 +69,8 @@ public abstract class Weapon {
             destructible.hit_me(getDamageMonster());
         }
 
-        System.out.println("\nVous venez d'infliger " + AnsiColors.CYAN + finalDamage + " PV" + AnsiColors.RESET + " à " + AnsiColors.BLUE + destructible.getName() + AnsiColors.RESET + ", il lui reste " + AnsiColors.CYAN + destructible.getPv() + " PV" + AnsiColors.RESET);
+        System.out.println(finalDamage + " PV infligé à " + destructible.getName() + ", PV restant : " + destructible.getPv() + " PV");
     }
-     */
 
     @Override
     public String toString() {

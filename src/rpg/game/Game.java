@@ -1,6 +1,7 @@
 package rpg.game;
 
 import rpg.game.destructible.Destructible;
+import rpg.game.destructible.Obstacle;
 import rpg.game.player.*;
 import rpg.game.store.WeaponStore;
 import rpg.ui.DialogBoxChangeWeapon;
@@ -126,6 +127,15 @@ public class Game {
 
                 System.out.println(winMoney + "$ ramassé");
             }
+        }
+    }
+
+    public void attackObstacle() {
+        int playerX = this.map.getPlayerX();
+        int playerY = this.map.getPlayerY();
+
+        if (!map.getPresenceAround(playerX, playerY, Obstacle.class)) {
+            System.out.println(map.getPresenceAround(playerX, playerY, Obstacle.class));
         }
     }
     
