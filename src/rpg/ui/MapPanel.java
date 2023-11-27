@@ -69,7 +69,7 @@ public class MapPanel extends JPanel {
 
         // Calculer CoordX pour centrer la carte horizontalement
         int CoordX = (panelWidth - mapWidth) / 2;
-        int CoordY = 50;
+        int CoordY = 30;
 
         // Dessin de la carte
         for (int row = 0; row < this.mapGrid.length; row++) {

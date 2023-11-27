@@ -37,12 +37,14 @@ public class DialogBoxStart {
         ActionMap actionMap = ((JPanel) d.getContentPane()).getActionMap();
         String enter = "enter";
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), enter);
-        actionMap.put(enter, new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                d.dispose();
-            }
-        });
+            actionMap.put(enter, new AbstractAction() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (menuStart.isValidPseudo()) {
+                        d.dispose();
+                    }
+                }
+            });
 
         d.pack();
         d.setVisible(true);

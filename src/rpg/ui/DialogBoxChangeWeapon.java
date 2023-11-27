@@ -20,7 +20,7 @@ public class DialogBoxChangeWeapon {
             d.setLayout(new GridBagLayout());
 
             // Define MenuStorePanel
-            MenuChangeWeaponPanel menuWeapons = new MenuChangeWeaponPanel(gameInputs, player);
+            MenuChangeWeaponPanel menuWeapons = new MenuChangeWeaponPanel(player);
 
             d.add(menuWeapons, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
                     GridBagConstraints.NORTH, GridBagConstraints.BOTH,

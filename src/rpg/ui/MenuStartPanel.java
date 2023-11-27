@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 
 public class MenuStartPanel extends JPanel {
 
+    final MenuStartPanel thisPanel = this;
     private GameInputs gameInputs;
 
     // Composants de l'interface utilisateur
@@ -18,6 +19,8 @@ public class MenuStartPanel extends JPanel {
     private JLabel pseudoLabel;
     private JTextField pseudoField;
     private JRadioButton radioMage, radioKnight, radioArcher;
+
+    private boolean isValidPseudo = false;
 
     // Constructeur
     public MenuStartPanel(GameInputs gameInputs) {
@@ -105,13 +108,21 @@ public class MenuStartPanel extends JPanel {
         pseudoField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                 if (pseudoField.getText().isEmpty() && e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    JOptionPane.showMessageDialog(thisPanel, "Vous devez entrer un pseudo pour commencer le jeu");
+                    isValidPseudo = false;
+                } else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     setPlayerName(pseudoField.getText());
                     setPlayerCast();
+                    isValidPseudo = true;
                 }
             }
         });
         add(pseudoField, gbc);
+    }
+
+    public boolean isValidPseudo() {
+        return isValidPseudo;
     }
 
 
@@ -123,4 +134,5 @@ public class MenuStartPanel extends JPanel {
         gridBag.setConstraints(component, gbc);
         add(component);
     }
+
 }

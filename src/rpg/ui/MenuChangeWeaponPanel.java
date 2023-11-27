@@ -2,7 +2,6 @@ package rpg.ui;
 
 import rpg.game.GameInputs;
 import rpg.game.player.Player;
-import rpg.game.store.WeaponStore;
 import rpg.game.weapons.Weapon;
 
 import javax.swing.*;
@@ -14,19 +13,13 @@ import java.util.ArrayList;
 
 public class MenuChangeWeaponPanel extends JPanel {
 
-    private GameInputs gameInputs;
     private JTextField weaponField;
     private Player player;
     private boolean weaponIsValid = false;
 
-    public MenuChangeWeaponPanel(GameInputs gameInputs, Player player) {
-        this.gameInputs = gameInputs;
+    public MenuChangeWeaponPanel(Player player) {
         this.player = player;
         initComponents();
-    }
-
-    public boolean setPlayerWeapon(Weapon weapon) {
-        return true;
     }
 
     private ArrayList<Weapon> getWeaponData() {
@@ -36,6 +29,7 @@ public class MenuChangeWeaponPanel extends JPanel {
     private void initComponents() {
         // Définition des composants
         JLabel title = new JLabel("Votre inventaire");
+        JLabel subtitle = new JLabel("L'arme actuellement sélectionnée est représentée en gras");
         JLabel weaponLabel = new JLabel("Saisissez l'ID de l'Arme : ");
         this.weaponField = new JTextField();
 
@@ -54,9 +48,14 @@ public class MenuChangeWeaponPanel extends JPanel {
         title.setFont(new Font("Segoe UI", Font.BOLD, 30));
         this.add(title, gbc);
 
+        // Sous-titre
+        gbc.gridy++;
+        subtitle.setFont(new Font("Segoe UI", Font.ITALIC, 13));
+        this.add(subtitle, gbc);
+
         // Espace après le titre
         gbc.gridy++;
-        this.add(Box.createVerticalStrut(10), gbc); // Espace vertical
+        this.add(Box.createVerticalStrut(20), gbc); // Espace vertical
 
         // Liste des armes
         ArrayList<Weapon> weapons = getWeaponData();
@@ -70,7 +69,7 @@ public class MenuChangeWeaponPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy++;
         this.add(new JLabel("ID"), gbc);
-        gbc.gridy++;
+        gbc.gridx++;
         this.add(new JLabel("Arme"), gbc);
         gbc.gridx++;
         this.add(new JLabel("Prix"), gbc);
@@ -84,26 +83,42 @@ public class MenuChangeWeaponPanel extends JPanel {
 
         // Liste des armes
         for (Weapon weapon : weapons) {
+            boolean isSelectedWeapon = weapon == player.getSelectedWeapon();
+            Font labelFont = isSelectedWeapon ? new Font("Dialog", Font.BOLD, 12) : new Font("Dialog", Font.PLAIN, 12);
+
             gbc.gridx = 0;
-            this.add(new JLabel(String.valueOf(weapon.getId())), gbc);
+            JLabel idLabel = new JLabel(String.valueOf(weapon.getId()));
+            idLabel.setFont(labelFont);
+            this.add(idLabel, gbc);
+
             gbc.gridx++;
-            this.add(new JLabel(weapon.getName()), gbc);
+            JLabel nameLabel = new JLabel(weapon.getName());
+            nameLabel.setFont(labelFont);
+            this.add(nameLabel, gbc);
+
             gbc.gridx++;
-            JLabel price = new JLabel(String.valueOf(weapon.getPrice()) + "$");
-            price.setForeground(new Color(0, 153, 0));
-            this.add(price, gbc);
+            JLabel priceLabel = new JLabel(String.valueOf(weapon.getPrice()) + "$");
+            priceLabel.setForeground(new Color(0, 153, 0));
+            priceLabel.setFont(labelFont);
+            this.add(priceLabel, gbc);
+
             gbc.gridx++;
-            JLabel damageMonster = new JLabel(String.valueOf(weapon.getDamageMonster()) + " PV");
-            damageMonster.setForeground(new Color(71, 159, 253));
-            this.add(damageMonster, gbc);
+            JLabel damageMonsterLabel = new JLabel(String.valueOf(weapon.getDamageMonster()) + " PV");
+            damageMonsterLabel.setForeground(new Color(71, 159, 253));
+            damageMonsterLabel.setFont(labelFont);
+            this.add(damageMonsterLabel, gbc);
+
             gbc.gridx++;
-            JLabel damageObstacle = new JLabel(String.valueOf(weapon.getDamageObstacle()) + " PV");
-            damageObstacle.setForeground(new Color(71, 159, 253));
-            this.add(damageObstacle, gbc);
+            JLabel damageObstacleLabel = new JLabel(String.valueOf(weapon.getDamageObstacle()) + " PV");
+            damageObstacleLabel.setForeground(new Color(71, 159, 253));
+            damageObstacleLabel.setFont(labelFont);
+            this.add(damageObstacleLabel, gbc);
+
             gbc.gridx++;
-            JLabel durability = new JLabel(String.valueOf(weapon.getDurability()));
-            durability.setForeground(new Color(133, 51, 0));
-            this.add(durability, gbc);
+            JLabel durabilityLabel = new JLabel(String.valueOf(weapon.getDurability()));
+            durabilityLabel.setForeground(new Color(133, 51, 0));
+            durabilityLabel.setFont(labelFont);
+            this.add(durabilityLabel, gbc);
 
             // Ajouter un espace vertical après chaque arme
             gbc.gridx = 0;
@@ -114,9 +129,10 @@ public class MenuChangeWeaponPanel extends JPanel {
             gbc.gridwidth = 1; // Réinitialiser la largeur de la grille pour la prochaine ligne d'armes
         }
 
+
         // Espace après la liste des armes
         gbc.gridx = 0; // Commencez chaque ligne à la première colonne
-        this.add(Box.createVerticalStrut(10), gbc); // Espace vertical
+        this.add(Box.createVerticalStrut(20), gbc); // Espace vertical
 
         // Label et champ de texte pour l'arme
         gbc.gridwidth = 1;

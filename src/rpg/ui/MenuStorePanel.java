@@ -62,7 +62,7 @@ public class MenuStorePanel extends JPanel {
 
         // Espace après le titre
         gbc.gridy++;
-        this.add(Box.createVerticalStrut(10), gbc); // Espace vertical
+        this.add(Box.createVerticalStrut(20), gbc); // Espace vertical
 
         // Liste des armes
         ArrayList<Weapon> weapons = getWeaponData();
@@ -76,7 +76,7 @@ public class MenuStorePanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy++;
         this.add(new JLabel("ID"), gbc);
-        gbc.gridy++;
+        gbc.gridx++;
         this.add(new JLabel("Arme"), gbc);
         gbc.gridx++;
         this.add(new JLabel("Prix"), gbc);
@@ -122,16 +122,18 @@ public class MenuStorePanel extends JPanel {
 
         // Espace après la liste des armes
         gbc.gridx = 0; // Commencez chaque ligne à la première colonne
-        this.add(Box.createVerticalStrut(10), gbc); // Espace vertical
+        this.add(Box.createVerticalStrut(20), gbc); // Espace vertical
 
         // Label de l'argent du joueur
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.gridy++;
+        this.moneyLabel.setForeground(new Color(0, 153, 0));
+
         this.add(this.moneyLabel, gbc);
 
         // Espace après l'argent du joueur
         gbc.gridx = 0; // Commencez chaque ligne à la première colonne
-        this.add(Box.createVerticalStrut(10), gbc); // Espace vertical
+        this.add(Box.createVerticalStrut(25), gbc); // Espace vertical
 
 
         // Label et champ de texte pour l'arme
@@ -164,8 +166,13 @@ public class MenuStorePanel extends JPanel {
 
         Weapon chosenWeapon = store.getWeaponOfStore(weaponId);
         if (chosenWeapon != null) {
-            boolean buyWeapon =setPlayerWeapon(chosenWeapon);
+            boolean buyWeapon = setPlayerWeapon(chosenWeapon);
             if (buyWeapon) {
+                // Si c'est la première arme acheté
+                if (player.getWeaponList().size() == 1) {
+                    player.changeWeapon(chosenWeapon);
+                }
+
                 weaponField.setText("");  // Réinitialiser le champ de texte après l'achat
                 JOptionPane.showMessageDialog(this, "Vous avez acheté : " + chosenWeapon.getName() + " pour " + chosenWeapon.getPrice() + "$ ! Bon jeu " + player.getName() + " !");
                 weaponIsValid = true;
