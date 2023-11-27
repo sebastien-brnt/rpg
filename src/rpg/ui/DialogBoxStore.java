@@ -17,7 +17,7 @@ public class DialogBoxStore {
 
     public DialogBoxStore(JFrame parentFrame, GameInputs gameInputs, Player player, WeaponStore store, boolean allowExit) {
         d = new JDialog(parentFrame, "Boutique d'armes", true);
-        d.setSize(500, 500);
+        d.setSize(700, 500);
         d.setLocationRelativeTo(null);
         d.setLayout(new GridBagLayout());
         this.allowExit = allowExit;

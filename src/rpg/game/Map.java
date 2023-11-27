@@ -77,7 +77,7 @@ public class Map {
     }
 
     public boolean inTheMap(int x, int y) {
-        return x >= 0 && x < getMapSize() && y >= 0 && y < getMapSize();
+        return x >= 0 && x < getMapSize() && y >= 0 && y < getMapSize() - 1;
     }
 
     public void populateMap() {

@@ -10,6 +10,7 @@ public class PlayerInfoPanel extends JPanel {
     private JSplitPane splitPane;
 
     // Info panel
+    private JLabel titrePlayerInfos;
     private JPanel infoPanel;
     private Player player;
     private JLabel nameLabel;
@@ -21,6 +22,7 @@ public class PlayerInfoPanel extends JPanel {
 
     // Action Panel
     private JPanel actionsPanel;
+    private JLabel titreAction;
     private JLabel droite;
     private JLabel gauche;
     private JLabel haut;
@@ -40,6 +42,7 @@ public class PlayerInfoPanel extends JPanel {
         initializeLabels();
 
         // Ajout des labels au panneau d'information
+        infoPanel.add(titrePlayerInfos);
         infoPanel.add(nameLabel);
         infoPanel.add(castLabel);
         infoPanel.add(pvLabel);
@@ -53,6 +56,7 @@ public class PlayerInfoPanel extends JPanel {
         actionsPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // 20 pixels de marge sur tous les côtés
 
         // Ajout des labels au actions
+        actionsPanel.add(titreAction);
         actionsPanel.add(haut);
         actionsPanel.add(bas);
         actionsPanel.add(gauche);
@@ -62,13 +66,16 @@ public class PlayerInfoPanel extends JPanel {
 
         // Création du JSplitPane
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, infoPanel, actionsPanel);
-        splitPane.setDividerLocation(400); // Vous pouvez ajuster cette valeur selon vos besoins
+        splitPane.setDividerLocation(400);
 
         add(splitPane, BorderLayout.CENTER);
     }
 
     private void initializeLabels() {
         // Info player
+        titrePlayerInfos = new JLabel("Vos informations :");
+        titrePlayerInfos.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
         nameLabel = new JLabel("Votre nom : " + player.getName());
         nameLabel.setForeground(new Color(53, 48, 206));
         castLabel = new JLabel("Rôle : " + player.getCast());
@@ -83,6 +90,9 @@ public class PlayerInfoPanel extends JPanel {
         xpLabel.setForeground(new Color(220, 163, 6));
 
         // Action player
+        titreAction = new JLabel("Liste des commandes :");
+        titreAction.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
         haut = new JLabel("[Z] : Aller vers le haut");
         gauche = new JLabel("[Q] : Aller sur la gauche");
         bas = new JLabel("[S] : Aller vers le bas");

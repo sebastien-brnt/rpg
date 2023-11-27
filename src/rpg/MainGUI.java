@@ -21,7 +21,7 @@ public class MainGUI {
         // Define the GUI main window
         JFrame window = new JFrame();
         // set window size (width, height)
-        window.setSize(800, 500);
+        window.setSize(800, 600);
         // forbid the resizing of the window by the user
         window.setResizable(false);
         // place the window in the center of the screen
