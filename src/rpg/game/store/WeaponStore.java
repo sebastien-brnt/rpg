@@ -10,6 +10,12 @@ import java.util.ArrayList;
 public class WeaponStore {
     private ArrayList<Weapon> weaponList = new ArrayList<>();
 
+    public WeaponStore(String prefixId) {
+        weaponList.add(new Hammer(prefixId + "1"));
+        weaponList.add(new Axe(prefixId + "2"));
+        weaponList.add(new Bow(prefixId + "3"));
+    }
+
     public WeaponStore() {
         weaponList.add(new Hammer("1"));
         weaponList.add(new Axe("2"));

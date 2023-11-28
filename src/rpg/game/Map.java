@@ -12,7 +12,7 @@ public class Map {
 
     static final int mapFinish = 3;
 
-    static final WeaponStore weaponStore = new WeaponStore();
+    static final WeaponStore weaponStore = new WeaponStore("M");
 
     private Object[][] MAP_TEMPLATE_DEFAULT = {
             {mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall, mapWall},
