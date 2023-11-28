@@ -62,7 +62,9 @@ public class MainGUI {
                     game.top(e);
                     game.bottom(e);
                     game.getMoney(e);
-                    game.openInventory(e, window, gameInputs);
+                    game.attackObstacle(e, window);
+                    game.attackMonster(e, window);
+                    game.openInventory(e, window);
                     gamePanel.getMapPanel().repaintMap();
                     gamePanel.getPlayerInfoPanel().updatePlayerInfo();
                 }
@@ -78,23 +80,17 @@ public class MainGUI {
                 game.getMap().updateMap(game.getMap().getPlayerX(), game.getMap().getPlayerY(), 3);
                 game.setGameFinish(true);
                 window.removeKeyListener(keyAdapter);
-                int option = JOptionPane.showConfirmDialog(window, "Félicitation " + game.getPlayer().getName() + ", tu as fini le jeu !", "Jeu Terminé", JOptionPane.YES_OPTION);
-                if (option == JOptionPane.YES_OPTION) {
-                    System.exit(0);
-                    // Recommencer le jeu
-                    //window.dispose();
-                    //main(new String[]{});
-                    //game.getMap().setBuffer(0);
-                } else {
-                    // Fermer l'application
-                    System.exit(0);
-                }
+                JOptionPane.showMessageDialog(window, "Félicitation " + game.getPlayer().getName() + " ! Tu as réussi ta mission, le jeu est terminé !", "Jeu Terminé", JOptionPane.WARNING_MESSAGE);
+                System.exit(0);
             } else if (game.getMap().getBuffer() instanceof WeaponStore && !storeOpened) {
                 storeOpened = true;
                 new DialogBoxStore(window, gameInputs, game.getPlayer(), (WeaponStore) game.getMap().getBuffer(), true);
                 System.out.println("boutique");
             } else if (!(game.getMap().getBuffer() instanceof WeaponStore)) {
                 storeOpened = false;
+            } else if (game.getPlayer().getPv() <= 0) {
+                JOptionPane.showMessageDialog(window, "Dommage " + game.getPlayer().getName() + ", tu es mort ! Le jeu est terminé !", "Jeu Terminé", JOptionPane.WARNING_MESSAGE);
+                System.exit(0);
             }
         }).start();
 

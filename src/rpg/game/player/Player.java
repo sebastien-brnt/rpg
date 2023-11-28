@@ -123,6 +123,14 @@ public abstract class Player {
         this.getSelectedWeapon().attack(target);
     }
 
+    public void addPv(double value) {
+        // On limite à 100 les PV maximum
+        if (this.pv + value > 100) {
+            this.pv = 100;
+        } else {
+            this.pv += value;
+        }
+    }
 
     public void changeWeapon(Weapon weapon) {
         this.selectedWeapon = weapon;

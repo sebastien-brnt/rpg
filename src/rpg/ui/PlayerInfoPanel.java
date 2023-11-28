@@ -1,6 +1,7 @@
 package rpg.ui;
 
 import rpg.game.player.Player;
+import rpg.game.weapons.Weapon;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +20,10 @@ public class PlayerInfoPanel extends JPanel {
     private JLabel moneyLabel;
     private JLabel levelLabel;
     private JLabel xpLabel;
+    private JLabel weaponsSelected;
+    private JLabel weaponsLabel;
+    private String weaponsList = "";
+
 
     // Action Panel
     private JPanel actionsPanel;
@@ -27,8 +32,10 @@ public class PlayerInfoPanel extends JPanel {
     private JLabel gauche;
     private JLabel haut;
     private JLabel bas;
-    private JLabel inventare;
+    private JLabel inventaire;
     private JLabel ramasserArgent;
+    private JLabel attaquerMonstre;
+    private JLabel attaquerObstacle;
 
     public PlayerInfoPanel(Player player) {
         this.player = player;
@@ -49,6 +56,8 @@ public class PlayerInfoPanel extends JPanel {
         infoPanel.add(moneyLabel);
         infoPanel.add(levelLabel);
         infoPanel.add(xpLabel);
+        infoPanel.add(weaponsSelected);
+        infoPanel.add(weaponsLabel);
 
         // Création du panneau des actions
         actionsPanel = new JPanel();
@@ -62,7 +71,9 @@ public class PlayerInfoPanel extends JPanel {
         actionsPanel.add(gauche);
         actionsPanel.add(droite);
         actionsPanel.add(ramasserArgent);
-        actionsPanel.add(inventare);
+        actionsPanel.add(inventaire);
+        actionsPanel.add(attaquerObstacle);
+        actionsPanel.add(attaquerMonstre);
 
         // Création du JSplitPane
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, infoPanel, actionsPanel);
@@ -80,6 +91,11 @@ public class PlayerInfoPanel extends JPanel {
         nameLabel.setForeground(new Color(53, 48, 206));
         castLabel = new JLabel("Rôle : " + player.getCast());
         castLabel.setForeground(new Color(53, 48, 206));
+        weaponsSelected = new JLabel("Arme selectionnée : " + player.getSelectedWeapon().getName());
+        weaponsSelected.setForeground(new Color(138, 71, 253));
+        updateWeaponList();
+        weaponsLabel = new JLabel("Vos armes : " + this.weaponsList);
+        weaponsLabel.setForeground(new Color(138, 71, 253));
         pvLabel = new JLabel("Vie : " + player.getPv() + " PV");
         pvLabel.setForeground(new Color(71, 159, 253));
         moneyLabel = new JLabel("Money : " + player.getMoney() + "$");
@@ -98,7 +114,22 @@ public class PlayerInfoPanel extends JPanel {
         bas = new JLabel("[S] : Aller vers le bas");
         droite = new JLabel("[D] : Aller sur la droite");
         ramasserArgent = new JLabel("[R] : Ramasser l'argent");
-        inventare = new JLabel("[I] : Changer d'arme");
+        inventaire = new JLabel("[I] : Changer d'arme");
+        attaquerObstacle = new JLabel("[L] : Attaquer un obstacle");
+        attaquerMonstre = new JLabel("[K] : Attaquer un monstre");
+    }
+
+    public void updateWeaponList() {
+        int i = 0;
+        weaponsList = "";
+
+        for (Weapon weapon : player.getWeaponList()) {
+            i++;
+            weaponsList += weapon.getName();
+            if (i < player.getWeaponList().size()) {
+                weaponsList += ", ";
+            }
+        }
     }
 
     // Mettre à jour les informations du joueur
@@ -109,5 +140,8 @@ public class PlayerInfoPanel extends JPanel {
         moneyLabel.setText("Money : " + player.getMoney() + "$");
         levelLabel.setText("Niveau : " + player.getLevel());
         xpLabel.setText("XP : " + player.getXp());
+        weaponsSelected.setText("Arme selectionnée : " + player.getSelectedWeapon().getName());
+        updateWeaponList();
+        weaponsLabel.setText("Vos armes : " + this.weaponsList);
     }
 }

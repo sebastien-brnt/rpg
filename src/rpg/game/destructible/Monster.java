@@ -2,6 +2,9 @@ package rpg.game.destructible;
 
 import rpg.game.player.Player;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Monster extends Destructible {
 
     public static double PV = 125;
@@ -19,5 +22,9 @@ public class Monster extends Destructible {
         }
 
         System.out.println("Le monstre " + this.getName() + " vous à infligé " + this.getDamage() + " PV, il vous reste désormais " + playerLife + " PV");
+    }
+
+    public Image getImage() {
+        return new ImageIcon("src/rpg/images/monster.png").getImage();
     }
 }

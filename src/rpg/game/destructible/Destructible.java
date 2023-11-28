@@ -1,6 +1,8 @@
 package rpg.game.destructible;
 
-public class Destructible {
+import java.awt.*;
+
+public abstract class Destructible {
 
     protected String name;
     protected double pv;
@@ -31,4 +33,6 @@ public class Destructible {
     public String getName() {
         return name;
     }
+
+    public abstract Image getImage();
 }

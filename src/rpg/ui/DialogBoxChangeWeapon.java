@@ -1,8 +1,6 @@
 package rpg.ui;
 
-import rpg.game.GameInputs;
 import rpg.game.player.Player;
-import rpg.game.store.WeaponStore;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,13 +11,13 @@ public class DialogBoxChangeWeapon {
 
         private static JDialog d;
 
-        public DialogBoxChangeWeapon(JFrame parentFrame, GameInputs gameInputs, Player player) {
+        public DialogBoxChangeWeapon(JFrame parentFrame, Player player) {
             d = new JDialog(parentFrame, "Changement d'armes", true);
             d.setSize(700, 500);
             d.setLocationRelativeTo(null);
             d.setLayout(new GridBagLayout());
 
-            // Define MenuStorePanel
+            // Define MenuChangeWeaponPanel
             MenuChangeWeaponPanel menuWeapons = new MenuChangeWeaponPanel(player);
 
             d.add(menuWeapons, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,

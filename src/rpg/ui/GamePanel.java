@@ -21,7 +21,7 @@ public class GamePanel extends JPanel {
         this.mapPanel = new MapPanel(game.getMap(), game.getPlayer());
         this.add(mapPanel, BorderLayout.NORTH);
 
-        //TODO: Add PlayerInfoPanel to GamePanel
+        // Add PlayerInfoPanel to GamePanel
         this.playerInfoPanel = new PlayerInfoPanel(game.getPlayer());
         this.add(playerInfoPanel, BorderLayout.CENTER);
 
