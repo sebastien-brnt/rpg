@@ -1,8 +1,10 @@
 package rpg.game.destructible;
 
+import rpg.game.commonInterfaces.Hitting;
+
 import java.awt.*;
 
-public abstract class Destructible {
+public abstract class Destructible implements Hitting {
 
     protected String name;
     protected double pv;
@@ -22,6 +24,7 @@ public abstract class Destructible {
         }
     }
 
+    @Override
     public double getDamage() {
         return hit;
     }
@@ -30,6 +33,7 @@ public abstract class Destructible {
         return pv;
     }
 
+    @Override
     public String getName() {
         return name;
     }

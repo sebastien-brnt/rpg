@@ -37,6 +37,6 @@ public class GamePanel extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(800, 500);
+        return new Dimension(800, 570);
     }
 }

@@ -5,11 +5,10 @@ import rpg.game.destructible.Destructible;
 import rpg.game.store.WeaponStore;
 import rpg.game.weapons.Weapon;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public abstract class Player {
+public abstract class Player implements IPlayer {
 
     private String name;
 
@@ -119,6 +118,7 @@ public abstract class Player {
         return weaponList;
     }
 
+    @Override
     public void attackDestructible(Destructible target) {
         this.getSelectedWeapon().attack(target);
     }
@@ -179,5 +179,6 @@ public abstract class Player {
         return null;
     }
 
+    @Override
     public abstract Image getPlayerImage();
 }

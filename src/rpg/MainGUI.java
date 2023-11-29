@@ -65,6 +65,7 @@ public class MainGUI {
                     game.attackObstacle(e, window);
                     game.attackMonster(e, window);
                     game.openInventory(e, window);
+                    game.openRules(e, window);
                     gamePanel.getMapPanel().repaintMap();
                     gamePanel.getPlayerInfoPanel().updatePlayerInfo();
                 }

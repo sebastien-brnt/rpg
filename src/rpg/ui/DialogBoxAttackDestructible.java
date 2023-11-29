@@ -60,7 +60,7 @@ public class DialogBoxAttackDestructible {
                 }
 
                 if (destructible.getPv() <= 0) {
-                    JOptionPane.showMessageDialog(d, "Bravo ! Vous avez tuer " + destructible.getName() + " !");
+                    JOptionPane.showMessageDialog(d, "Bravo ! Vous avez tuer un " + destructible.getName() + " !");
 
                     // Ajout de l'XP au joueur
                     player.addXp(120, true);

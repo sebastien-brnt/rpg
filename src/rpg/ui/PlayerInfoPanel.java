@@ -36,20 +36,22 @@ public class PlayerInfoPanel extends JPanel {
     private JLabel ramasserArgent;
     private JLabel attaquerMonstre;
     private JLabel attaquerObstacle;
+    private JLabel reglesJeu;
 
     public PlayerInfoPanel(Player player) {
         this.player = player;
 
         setLayout(new BorderLayout());
         infoPanel = new JPanel();
-        infoPanel.setLayout(new GridLayout(7, 1, 5, 5)); // Espacement vertical réduit entre les lignes
-        infoPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // 20 pixels de marge sur tous les côtés
+        infoPanel.setLayout(new GridLayout(11, 1, 5, 5)); // Espacement vertical réduit entre les lignes
+        infoPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30)); // 20 pixels de marge sur tous les côtés
 
         // Initialisation des labels
         initializeLabels();
 
         // Ajout des labels au panneau d'information
         infoPanel.add(titrePlayerInfos);
+        infoPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         infoPanel.add(nameLabel);
         infoPanel.add(castLabel);
         infoPanel.add(pvLabel);
@@ -61,11 +63,12 @@ public class PlayerInfoPanel extends JPanel {
 
         // Création du panneau des actions
         actionsPanel = new JPanel();
-        actionsPanel.setLayout(new GridLayout(7, 1, 5, 5)); // Espacement vertical réduit entre les lignes
-        actionsPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // 20 pixels de marge sur tous les côtés
+        actionsPanel.setLayout(new GridLayout(11, 1, 5, 5)); // Espacement vertical réduit entre les lignes
+        actionsPanel.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30)); // 20 pixels de marge sur tous les côtés
 
         // Ajout des labels au actions
         actionsPanel.add(titreAction);
+        actionsPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         actionsPanel.add(haut);
         actionsPanel.add(bas);
         actionsPanel.add(gauche);
@@ -74,10 +77,13 @@ public class PlayerInfoPanel extends JPanel {
         actionsPanel.add(inventaire);
         actionsPanel.add(attaquerObstacle);
         actionsPanel.add(attaquerMonstre);
+        actionsPanel.add(reglesJeu);
 
         // Création du JSplitPane
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, infoPanel, actionsPanel);
         splitPane.setDividerLocation(400);
+        // splitPane.setBorder(BorderFactory.createEmptyBorder());
+
 
         add(splitPane, BorderLayout.CENTER);
     }
@@ -117,6 +123,7 @@ public class PlayerInfoPanel extends JPanel {
         inventaire = new JLabel("[I] : Changer d'arme");
         attaquerObstacle = new JLabel("[L] : Attaquer un obstacle");
         attaquerMonstre = new JLabel("[K] : Attaquer un monstre");
+        reglesJeu = new JLabel("[N] : Règles du jeu");
     }
 
     public void updateWeaponList() {

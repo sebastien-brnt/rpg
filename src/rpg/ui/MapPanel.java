@@ -29,7 +29,7 @@ public class MapPanel extends JPanel {
         // Récupération des images
         ImageIcon imgFinish = new ImageIcon("src/rpg/images/finish-flag.png");
         ImageIcon imgStore = new ImageIcon("src/rpg/images/shop.png");
-        ImageIcon imgObstacle = new ImageIcon("src/rpg/images/obstacle.png");
+        ImageIcon imgObstacle = new ImageIcon("src/rpg/images/tree.png");
         ImageIcon imgMonster = new ImageIcon("src/rpg/images/monster.png");
         ImageIcon imgMoney = new ImageIcon("src/rpg/images/money.png");
 

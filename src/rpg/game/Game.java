@@ -7,6 +7,7 @@ import rpg.game.player.*;
 import rpg.game.store.WeaponStore;
 import rpg.ui.DialogBoxAttackDestructible;
 import rpg.ui.DialogBoxChangeWeapon;
+import rpg.ui.DialogBoxRules;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -81,6 +82,12 @@ public class Game {
     public void openInventory(KeyEvent e, JFrame window) {
         if (e.getKeyChar() == 'i' || e.getKeyChar() == 'I') {
             new DialogBoxChangeWeapon(window, player);
+        }
+    }
+
+    public void openRules(KeyEvent e, JFrame window) {
+        if (e.getKeyChar() == 'n' || e.getKeyChar() == 'N') {
+            new DialogBoxRules(window);
         }
     }
 

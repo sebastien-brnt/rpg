@@ -94,7 +94,7 @@ public class Map {
         int randomNum = (int)(Math.random() * 20);
 
         if (randomNum < 6) { // 30% de chance d'obtenir un Obstacle
-            return new Obstacle("Rocher");
+            return new Obstacle("Arbre");
         } else if (randomNum < 10) { // 20% de chance d'obtenir un Monstre
             return new Monster("Monstre", 15);
         } else if (randomNum < 12) { // 10% de chance d'obtenir de l'argent

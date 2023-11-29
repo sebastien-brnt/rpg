@@ -12,6 +12,6 @@ public class Obstacle extends Destructible {
     }
 
     public Image getImage() {
-        return new ImageIcon("src/rpg/images/obstacle.png").getImage();
+        return new ImageIcon("src/rpg/images/tree.png").getImage();
     }
 }

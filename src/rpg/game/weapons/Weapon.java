@@ -1,9 +1,10 @@
 package rpg.game.weapons;
 
+import rpg.game.commonInterfaces.Hitting;
 import rpg.game.destructible.Destructible;
 import rpg.game.destructible.Obstacle;
 
-public abstract class Weapon {
+public abstract class Weapon implements Hitting {
     private String id;
     private String name;
     private double damage;
@@ -26,10 +27,12 @@ public abstract class Weapon {
         return id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public double getDamage() {
         return damage;
     }
