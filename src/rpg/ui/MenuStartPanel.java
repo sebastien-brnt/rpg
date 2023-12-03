@@ -124,15 +124,4 @@ public class MenuStartPanel extends JPanel {
     public boolean isValidPseudo() {
         return isValidPseudo;
     }
-
-
-    // Méthode auxiliaire pour ajouter des composants au GridBagLayout
-    private void addToGridBag(Component component, int x, int y, GridBagLayout gridBag, GridBagConstraints gbc) {
-        gbc.gridx = x;
-        gbc.gridy = y;
-        gbc.insets = new Insets(20, 0, 20, 0);
-        gridBag.setConstraints(component, gbc);
-        add(component);
-    }
-
 }

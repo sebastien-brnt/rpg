@@ -37,9 +37,6 @@ public class MenuCombat extends JPanel {
             this.player = player;
             this.destructible = destructible;
 
-            // Récupération des Images du joueur et du destructible
-            Image playerImage = player.getPlayerImage();
-            Image destructibleImage = destructible.getImage();
             // Redimensionnement de l'image du joueur
             ImageIcon playerIcon = new ImageIcon(player.getPlayerImage());
             Image playerImg = playerIcon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);

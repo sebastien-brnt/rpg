@@ -17,7 +17,7 @@ public class Archer extends Player implements IPlayer {
     public void attackDestructible(Destructible target) {
         // Attaque de la cible
         this.getSelectedWeapon().attack(target);
-        // Gagne 5$ et 10 XP à chaque coup
+        // Gagne 2.5$ et 10 XP à chaque coup
         System.out.println();
         this.addMoney(2.5, true);
         this.addXp(10, true);

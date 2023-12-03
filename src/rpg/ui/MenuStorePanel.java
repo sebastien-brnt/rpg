@@ -51,7 +51,7 @@ public class MenuStorePanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         this.setLayout(gridbag);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = GridBagConstraints.REMAINDER; // Utilisation de GridBagConstraints.REMAINDER pour la largeur
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.gridx = 0;
         gbc.gridy = 0;
 
@@ -113,15 +113,15 @@ public class MenuStorePanel extends JPanel {
 
             // Ajouter un espace vertical après chaque arme
             gbc.gridx = 0;
-            gbc.gridwidth = GridBagConstraints.REMAINDER; // Utiliser REMAINDER pour l'espace
+            gbc.gridwidth = GridBagConstraints.REMAINDER;
             gbc.gridy++;
             this.add(Box.createVerticalStrut(10), gbc);
 
-            gbc.gridwidth = 1; // Réinitialiser la largeur de la grille pour la prochaine ligne d'armes
+            gbc.gridwidth = 1; // Réinitialise la largeur de la grille pour la prochaine ligne d'armes
         }
 
         // Espace après la liste des armes
-        gbc.gridx = 0; // Commencez chaque ligne à la première colonne
+        gbc.gridx = 0;
         this.add(Box.createVerticalStrut(20), gbc); // Espace vertical
 
         // Label de l'argent du joueur
@@ -132,7 +132,7 @@ public class MenuStorePanel extends JPanel {
         this.add(this.moneyLabel, gbc);
 
         // Espace après l'argent du joueur
-        gbc.gridx = 0; // Commencez chaque ligne à la première colonne
+        gbc.gridx = 0;
         this.add(Box.createVerticalStrut(25), gbc); // Espace vertical
 
 
@@ -173,7 +173,7 @@ public class MenuStorePanel extends JPanel {
                     player.changeWeapon(chosenWeapon);
                 }
 
-                weaponField.setText("");  // Réinitialiser le champ de texte après l'achat
+                weaponField.setText("");  // Réinitialise le champ de texte après l'achat
                 JOptionPane.showMessageDialog(this, "Vous avez acheté : " + chosenWeapon.getName() + " pour " + chosenWeapon.getPrice() + "$ ! Bon jeu " + player.getName() + " !");
                 weaponIsValid = true;
             } else {

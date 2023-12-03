@@ -1,6 +1,5 @@
 package rpg.ui;
 
-import rpg.game.GameInputs;
 import rpg.game.player.Player;
 import rpg.game.weapons.Weapon;
 
@@ -120,18 +119,18 @@ public class MenuChangeWeaponPanel extends JPanel {
             durabilityLabel.setFont(labelFont);
             this.add(durabilityLabel, gbc);
 
-            // Ajouter un espace vertical après chaque arme
+            // Ajoute un espace vertical après chaque arme
             gbc.gridx = 0;
-            gbc.gridwidth = GridBagConstraints.REMAINDER; // Utiliser REMAINDER pour l'espace
+            gbc.gridwidth = GridBagConstraints.REMAINDER;
             gbc.gridy++;
             this.add(Box.createVerticalStrut(10), gbc);
 
-            gbc.gridwidth = 1; // Réinitialiser la largeur de la grille pour la prochaine ligne d'armes
+            gbc.gridwidth = 1; // Réinitialise la largeur de la grille pour la prochaine ligne d'armes
         }
 
 
         // Espace après la liste des armes
-        gbc.gridx = 0; // Commencez chaque ligne à la première colonne
+        gbc.gridx = 0;
         this.add(Box.createVerticalStrut(20), gbc); // Espace vertical
 
         // Label et champ de texte pour l'arme

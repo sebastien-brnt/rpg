@@ -7,6 +7,7 @@ public interface Hitting {
      * @return double
      */
     public double getDamage();
+
     /**
      * Retourne le nom de l'entité
      *

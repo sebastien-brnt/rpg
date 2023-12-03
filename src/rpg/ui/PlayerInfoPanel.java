@@ -82,7 +82,6 @@ public class PlayerInfoPanel extends JPanel {
         // Création du JSplitPane
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, infoPanel, actionsPanel);
         splitPane.setDividerLocation(400);
-        // splitPane.setBorder(BorderFactory.createEmptyBorder());
 
 
         add(splitPane, BorderLayout.CENTER);

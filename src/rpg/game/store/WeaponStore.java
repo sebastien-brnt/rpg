@@ -41,23 +41,6 @@ public class WeaponStore {
         weaponList.removeAll(weaponsToRemove);
     }
 
-    public void displayCatalogue() {
-        System.out.println("\n================================");
-        System.out.println("Catalogue de la boutique :");
-        System.out.println("================================");
-
-        for (Weapon weapon : getWeaponList()) {
-            System.out.println("\n" + weapon.ascii_art());
-            System.out.println("ID : " + weapon.getId());
-            System.out.println("Nom : " + weapon.getName());
-            System.out.println("Dégâts aux obstacles : " + weapon.getDamageObstacle());
-            System.out.println("Dégâts aux monstres : " + weapon.getDamageMonster());
-            System.out.println("Prix : " + weapon.getPrice());
-            System.out.println("Durabilité : " + weapon.getDurability());
-            System.out.println("\n================================");
-        }
-    }
-
     public ArrayList<Weapon> getWeaponList() {
         return weaponList;
     }
